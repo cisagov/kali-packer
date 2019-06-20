@@ -1,4 +1,4 @@
-# skeleton-packer #
+# skeleton-packer 💀📦 #
 
 [![Build Status](https://travis-ci.com/cisagov/skeleton-packer.svg?branch=develop)](https://travis-ci.com/cisagov/skeleton-packer)
 
