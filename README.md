@@ -3,14 +3,26 @@
 [![Build Status](https://travis-ci.com/cisagov/skeleton-packer.svg?branch=develop)](https://travis-ci.com/cisagov/skeleton-packer)
 
 This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) GitHub project started.
+new [cisagov](https://github.com/cisagov) GitHub
+[packer](https://packer.io) project started.
 This skeleton project contains [licensing information](LICENSE.md), as
 well as [pre-commit hooks](https://pre-commit.com) and a [Travis
 CI](https://travis-ci.com) configuration appropriate for the major
 languages that we use.
 
-In many cases you will instead want to use one of the more specific
-skeleton projects derived from this one.
+## Building the Image ##
+
+The AMI is built like so:
+
+```bash
+ansible-galaxy install --force --role-file src/requirements.yml
+```
+
+*NOTE*: TODO add environment variables
+
+```bash
+packer build src/packer.json
+```
 
 ## Contributing ##
 
