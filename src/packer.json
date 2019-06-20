@@ -1,0 +1,65 @@
+{
+  "builders": [
+    {
+      "access_key": "{{user `aws_access_key`}}",
+      "ami_block_device_mappings": [
+        {
+          "delete_on_termination": true,
+          "device_name": "xvda",
+          "volume_size": 10,
+          "volume_type": "gp2"
+        }
+      ],
+      "ami_name": "openvpn-{{user `image_version`}}-hvm-{{timestamp}}-x86_64-ebs",
+      "ami_regions": "{{user `deploy_regions`}}",
+      "instance_type": "t3.micro",
+      "launch_block_device_mappings": [
+        {
+          "delete_on_termination": true,
+          "device_name": "xvda",
+          "volume_size": 10,
+          "volume_type": "gp2"
+        }
+      ],
+      "region": "{{user `build_region`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "source_ami_filter": {
+        "filters": {
+          "name": "debian-stretch-hvm-x86_64-gp2-*",
+          "root-device-type": "ebs",
+          "virtualization-type": "hvm"
+        },
+        "most_recent": true,
+        "owners": [
+          "379101102735"
+        ]
+      },
+      "ssh_username": "admin",
+      "tags": {
+        "Application": "OpenVPN",
+        "Base_AMI_Name": "{{ .SourceAMIName }}",
+        "OS_Version": "Debian Stretch",
+        "Release": "{{user `image_version`}}",
+        "Team": "CISA - Development"
+      },
+      "type": "amazon-ebs"
+    }
+  ],
+  "provisioners": [
+    {
+      "groups": [
+        "aws",
+        "example"
+      ],
+      "playbook_file": "src/playbook.yml",
+      "type": "ansible"
+    }
+  ],
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
+    "build_region": "{{env `BUILD_REGION`}}",
+    "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
+    "image_version": "{{env `IMAGE_VERSION`}}"
+  }
+}
