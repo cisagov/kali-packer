@@ -1,0 +1,27 @@
+---
+- hosts: all
+  name: Setup base image
+  become: yes
+  become_method: sudo
+  roles:
+    - upgrade
+    - python
+    - banner
+    - persist_journald
+    - htop
+
+- hosts: aws
+  name: AWS-specific roles
+  become: yes
+  become_method: sudo
+  roles:
+    # The instance types used for almost all the instances expose EBS
+    # volumes as NVMe block devices, so that's why we need nvme here.
+    - nvme
+
+- hosts: example
+  name: Project-specific roles
+  become: yes
+  become_method: sudo
+  roles:
+    - example

@@ -1,0 +1,14 @@
+- src: https://github.com/cisagov/ansible-role-banner
+  name: banner
+- src: https://github.com/cisagov/skeleton-ansible-role
+  name: example
+- src: https://github.com/cisagov/ansible-role-htop
+  name: htop
+- src: https://github.com/cisagov/ansible-role-nvme
+  name: nvme
+- src: https://github.com/cisagov/ansible-role-persist-journald
+  name: persist_journald
+- src: https://github.com/cisagov/ansible-role-python
+  name: python
+- src: https://github.com/cisagov/ansible-role-upgrade
+  name: upgrade
