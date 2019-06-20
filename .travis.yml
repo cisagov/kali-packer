@@ -8,7 +8,7 @@ env:
   global:
     - AWS_ACCESS_KEY=
     - AWS_SECRET_KEY=
-    - BUILD_REGION=us-east-2
+    - BUILD_REGION="us-east-2"
     - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
     #- IMAGE_VERSION=
 
