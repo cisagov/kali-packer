@@ -18,7 +18,12 @@ The AMI is built like so:
 ansible-galaxy install --force --role-file src/requirements.yml
 ```
 
-*NOTE*: TODO add environment variables
+### Required Environment Variables ###
+
+- `AWS_ACCESS_KEY`: the access key ID of the building IAM. e.g., `AKIAXXXXXXXXXXXXXXXX`
+- `AWS_SECRET_KEY`: the secret key of the building IAM e.g., `xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
+- `BUILD_REGION`: the region to build the build the image in.  e.g., `us-east-2`
+- `DEPLOY_REGIONS`: list of additional regions to deploy this image. e.g., `us-east-1,us-west-1,us-west-2`
 
 ```bash
 packer build src/packer.json
