@@ -10,7 +10,7 @@ env:
     - AWS_SECRET_KEY=
     - BUILD_REGION=us-east-2
     - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
-    - IMAGE_VERSION=
+    #- IMAGE_VERSION=
 
 
 # Cache pip packages and pre-commit plugins to speed up builds
@@ -21,5 +21,7 @@ cache:
 
 install:
   - pip install --upgrade -r requirements-test.txt
+  - IMAGE_VERSION=$(./bump_version.sh show)
+
 script:
   - pre-commit run --all-files
