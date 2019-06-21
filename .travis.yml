@@ -41,3 +41,16 @@ install:
 
 script:
   - pre-commit run --all-files
+
+deploy:
+  # create a production image
+  - provider: script
+    script: packer build src/packer.json
+    on:
+      tags: true
+  # # create a testing image
+  # - provider: script
+  #   script: IMAGE_VERSION=${IMAGE_VERSION}-pre &&
+  #     packer build src/packer.json
+  #   on:
+  #     tags: false
