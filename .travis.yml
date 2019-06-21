@@ -51,10 +51,10 @@ before_install:
   - sudo unzip -o -d /usr/local/bin /tmp/packer.zip
 
 install:
+  - export IMAGE_VERSION=$(./bump_version.sh show)
   - pip install --upgrade --requirement requirements-test.txt
   # install roles
   - ansible-galaxy install --force --role-file src/requirements.yml
-  - IMAGE_VERSION=$(./bump_version.sh show)
 
 script:
   - pre-commit run --all-files
@@ -68,7 +68,7 @@ deploy:
       tags: true
   # # create a testing image
   # - provider: script
-  #   script: IMAGE_VERSION=${IMAGE_VERSION}-pre &&
+  #   script: export IMAGE_VERSION=${IMAGE_VERSION}-pre &&
   #     packer build src/packer.json
   #   on:
   #     tags: false
