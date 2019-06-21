@@ -6,8 +6,32 @@ python: 3.7
 services: docker
 env:
   global:
-    - AWS_ACCESS_KEY=
-    - AWS_SECRET_KEY=
+    # AWS_ACCESS_KEY
+    - secure: >-
+        AFHH7BSeaYUcfI2aN3bzbX+jKhAKa8IGMLtWlsmXTw35izAZQ9MOlgPZCFetAGIznxA
+        oJKv1xmqU4OZGPgTQVWlF3GSLxYV/Dw1Jp/wmCnxWkNyB4GUHExdgWwvFvdAJm7UNKi
+        yicGVqOU2UBPAY02h51M2PMdRqFNwOGdxZSeJTsLu4poDa65dD+HAKKQopI1zjt7pkD
+        wJ2TtTt9b7NN/yT+lzrU5dbq9x/QcC6ReRCR2VRU+RYUEvYaaUA04kIb4+2Ul+ywmtj
+        TYxhNUIqki2v9zb1UL74J7y7NmnFo9s4SETp7pMxF8K96ls97esF0pxOk2HhFdPdbEU
+        Bsk0bYmZWN6qokcJu6HABuqWU0a+Pu1MdymGxGLmjGvI2Ul3JFcvGuRMNf+PCihOPFd
+        6LauMZWMHwtzDAVfF3mZjS2GVhpFn+R5RiQx1DiUMYHxK2/WE6374L/ESo1rw7muHn2
+        UHjvHfg9h2Z4CGuTpHlbiw1DiYNjePUPC3EcLRbMSYK++BG+FnHN8cuMSnJ2CiT7RAn
+        IcguG9wrlOOzfLIqDBfjzqzOts1UXHw5qg83gV4YX1GJj5ikneaJe6iThJ9S4Bu6SZT
+        MpkOMRzcmKpQTBzNPujFOfv/pMI290AdrU5o59RZteIoYORWdiCr7paWD2oxSHcU0M/
+        rUki+7Zjgvz/w=
+    # AWS_SECRET_KEY
+    - secure: >-
+        q2vjKa8dvtsuTdbsWPDTIYbJ8bx+TwwsbNP3ptF3Ou/6nTPdp0nFS7EEzGOEjkPOFMc
+        /8EYisxoyeokle2xxLQs/pnxl2EiBOky7O/E93ZY6nwSTB4Y6ZrmOSiFRtOIAakCrLa
+        uPsvpeleo15vlNsQCnY9XJ/55Etn05L+2OFDJXi43tqqPd8m6N92S/JJ6YSCwviCr8b
+        qDdvRLbSRwyQ9gfwym/R4evo4EY0gqww15UmfPw/iTo1IKqbsgfnm+Dk9aOfSFzOZbs
+        BzMHgiFL8NTJglL5mBRRsovilG2Fi1RtwHQGAdBB72iGCiyHCQRrf88cRDBBFxkif9m
+        MiHu9mjvrbMVAQsAYLkNWb790v5so3grwcDz9qVlrJO1sAJlPNnp78aRtmOwBirIk4j
+        TSweBTnUQ0GEyz7IfY3JmdW1Qnh+xLRzoD1fCLTz0DYg1f7fNUzYabJQ4Ut1VOHW4ai
+        I0E1DskroEzROPMfYsBjJ7Zk9QRSZlf8Bm9FdJFEZP/Guef7Kwe1SLMCa6NCUSZb7tx
+        7IHVtSz/dqEVdY8nB8B3cTYysE9ItlBJ/175IXXPBw+9MVIyY1+94fgciKrwYNkY0C2
+        ly56mh2xDmf0Iv+uZlqv3/cxn4yoG6hOrI9+NcdErWJmEfyxW7NgDB8V6efxv5c2yNx
+        QP5BQfUY3vklc=
     - BUILD_REGION="us-east-2"
     - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
     # - IMAGE_VERSION=
