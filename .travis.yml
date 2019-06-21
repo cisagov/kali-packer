@@ -64,7 +64,7 @@ deploy:
   # create a production image
   - provider: script
     # use travis_wait since packer can go a long while without producing output
-    script: travis_wait packer build src/packer.json
+    script: travis_wait 20 packer build src/packer.json
     on:
       tags: true
   # # create a testing image
