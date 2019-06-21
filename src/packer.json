@@ -68,6 +68,6 @@
     "build_region": "{{env `BUILD_REGION`}}",
     "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
     "image_version": "{{env `IMAGE_VERSION`}}",
-    "travis_job_web_url": "{{env `TRAIVS_JOB_WEB_URL`}}"
+    "travis_job_web_url": "{{env `TRAVIS_JOB_WEB_URL`}}"
   }
 }
