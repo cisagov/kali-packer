@@ -20,13 +20,6 @@ cache:
   directories:
     - $HOME/.cache/pre-commit
 
-addons:
-  apt:
-    sources:
-      - sourceline: 'ppa:ansible/ansible'
-    packages:
-      - ansible
-
 before_install:
   # install packer.io
   - curl --output /tmp/packer.zip --location
