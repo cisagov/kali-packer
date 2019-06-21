@@ -29,12 +29,12 @@ addons:
 
 before_install:
   # install packer.io
-  - curl -o /tmp/packer.zip -L
+  - curl --output /tmp/packer.zip --location
       "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
   - sudo unzip -o -d /usr/local/bin /tmp/packer.zip
 
 install:
-  - pip install --upgrade -r requirements-test.txt
+  - pip install --upgrade --requirement requirements-test.txt
   # install roles
   - ansible-galaxy install --force --role-file src/requirements.yml
   - IMAGE_VERSION=$(./bump_version.sh show)
