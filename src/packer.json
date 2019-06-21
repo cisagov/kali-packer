@@ -41,7 +41,8 @@
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "OS_Version": "Debian Stretch",
         "Release": "{{user `image_version`}}",
-        "Team": "CISA - Development"
+        "Team": "CISA - Development",
+        "Travis_Job_Web_URL": "{{user `travis_job_web_url`}}"
       },
       "type": "amazon-ebs"
     }
@@ -65,6 +66,7 @@
     "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
     "build_region": "{{env `BUILD_REGION`}}",
     "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
-    "image_version": "{{env `IMAGE_VERSION`}}"
+    "image_version": "{{env `IMAGE_VERSION`}}",
+    "travis_job_web_url": "{{env `TRAIVS_JOB_WEB_URL`}}"
   }
 }
