@@ -41,6 +41,7 @@ install:
 
 script:
   - pre-commit run --all-files
+  - packer validate src/packer.json
 
 deploy:
   # create a production image
