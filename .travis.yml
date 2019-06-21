@@ -8,9 +8,10 @@ env:
   global:
     - AWS_ACCESS_KEY=
     - AWS_SECRET_KEY=
-    - BUILD_REGION=us-east-2
-    - DEPLOY_REGIONS=us-east-1,us-west-1,us-west-2
-    #- IMAGE_VERSION=
+    - BUILD_REGION="us-east-2"
+    - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
+    # - IMAGE_VERSION=
+    - PACKER_VERSION="1.4.1"
 
 
 # Cache pip packages and pre-commit plugins to speed up builds
@@ -21,6 +22,16 @@ cache:
 
 install:
   - pip install --upgrade -r requirements-test.txt
+  # install packer.io
+  - curl -o /tmp/packer.zip -L
+      "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
+  - unzip -d /usr/local/bin /tmp/packer.zip
+  # install ansible
+  - apt install software-properties-common
+  - apt-add-repository --yes --update ppa:ansible/ansible
+  - apt install ansible
+  # install roles
+  - ansible-galaxy install --force --role-file src/requirements.yml
   - IMAGE_VERSION=$(./bump_version.sh show)
 
 script:
