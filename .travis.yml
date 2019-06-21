@@ -63,7 +63,8 @@ script:
 deploy:
   # create a production image
   - provider: script
-    script: packer build src/packer.json
+    # build in debug mode since travis_wait is not available to tickle stdout
+    script: packer build -timestamp-ui -debug src/packer.json
     on:
       tags: true
   # # create a testing image
