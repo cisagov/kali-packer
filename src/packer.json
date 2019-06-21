@@ -18,6 +18,7 @@
         {
           "delete_on_termination": true,
           "device_name": "xvda",
+          "encrypted": true,
           "volume_size": 10,
           "volume_type": "gp2"
         }
