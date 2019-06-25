@@ -41,6 +41,7 @@
         "Application": "OpenVPN",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "OS_Version": "Debian Stretch",
+        "Pre_Release": "{{user `pre_release`}}",
         "Release": "{{user `image_version`}}",
         "Team": "CISA - Development",
         "Travis_Job_Web_URL": "{{user `travis_job_web_url`}}"
@@ -68,6 +69,7 @@
     "build_region": "{{env `BUILD_REGION`}}",
     "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
     "image_version": "{{env `IMAGE_VERSION`}}",
+    "pre_release": "{{env `PRE_RELEASE`}}",
     "travis_job_web_url": "{{env `TRAVIS_JOB_WEB_URL`}}"
   }
 }

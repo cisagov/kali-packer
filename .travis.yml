@@ -52,6 +52,7 @@ before_install:
 
 install:
   - export IMAGE_VERSION=$(./bump_version.sh show)
+  - eval $(./update_env.py)
   - pip install --upgrade --requirement requirements-test.txt
   # install roles
   - ansible-galaxy install --force --role-file src/requirements.yml
