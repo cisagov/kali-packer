@@ -59,6 +59,7 @@ install:
 script:
   - pre-commit run --all-files
   - packer validate src/packer.json
+  - pytest
 
 deploy:
   # create a production image
