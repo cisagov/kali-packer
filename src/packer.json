@@ -38,7 +38,7 @@
       },
       "ssh_username": "admin",
       "tags": {
-        "Application": "OpenVPN",
+        "Application": "Example",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "OS_Version": "Debian Stretch",
         "Pre_Release": "{{user `pre_release`}}",
