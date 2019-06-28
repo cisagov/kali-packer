@@ -6,6 +6,7 @@ python: 3.7
 services: docker
 env:
   global:
+    - AWS_DEFAULT_REGION="us-east-1"
     # AWS_ACCESS_KEY
     - secure: >-
         AFHH7BSeaYUcfI2aN3bzbX+jKhAKa8IGMLtWlsmXTw35izAZQ9MOlgPZCFetAGIznxA
