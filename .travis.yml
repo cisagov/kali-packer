@@ -6,36 +6,33 @@ python: 3.7
 services: docker
 env:
   global:
-    # AWS_ACCESS_KEY
-    - secure: >-
-        ZW7Dv9HG4uliuGAK5SkmNR99L8X5+qqkV3oOevWj2an5Man0EFPeWtQdndyiO42/SR0
-        i4fbJU/QkDNE1INbsFD+r33i1wXb+cxmKMG9OUKy0+n5aERr1F4V91/Rq5WMgQziNXa
-        AqoB1dWQCHq7YKIB3cH03nsGRx9xXVOaXc6ePAdCi8vvwlWe9ao6WUPFU6i9K9SJ15A
-        Y8YePxL8x/fQ0JRNijSF3her7dLupWAW0icKBbl7h9mCfmB8nL/R5OsqqZOKR3J5sq9
-        /qSvq0aOxVqANOePtrSJaSR4mLFYTmnFRkUd0RTmGB05zHXIcSVItv5NTP5DAvcMlKf
-        nymhyjUPYHLhASxXgtwKWzy2coYm89Gh+A7NWXkkoK+WnI+HyBBSD3MvVPSxgZNgbsY
-        nAEuBzF2U42bet++ZoTAd8SietiZY3G+QE7TI2UYnVZ5VHZB4B1NRiBzOQGBP0HeQ3u
-        eN/4P76RX+HxQV6QIobscAJQVmscgeB4/ATOAARr3kkmwHEysvymNBM8JdFGSqnedsM
-        kUucwsaRhS/0Ga2gWo0HVBV9/dZeZeIVW2Of/rRMNoYlaugX7KRLWRF3570OY9LPW2b
-        OwjpUSzQQUI72FDi6nUwBTEvyCjDjut3wx/jlHtTDsYmpCvpbuLn/cjdEzI+EElJf2q
-        JN6PsZnbb7b0=
+    # AWS_ACCESS_KEY_ID
+    - secure: "jgVYFUvaYPanAFYWvfdWXo/HzcIqUiDZ8O8K0SNgvCqtEwd+NDmPf97\
+    KyVg7xfGVinBVLN2gi0iGvp/SrspKy+2ad3x21JBkdbscWQifLqKm3b4NBp6OWCZQs\
+    zPLfLs6smFpyvccd11UfoZ046rinBG9APCJpVFYjwaDqyCu8344y1761g+pHJjP/7u\
+    NwX26izLRtaOAXJJ+QydOJ5GpS2jUnDc1p9R04rJmS0UO7SrTeR9lFrkSRg80o80Dt\
+    tvuGSyBeUh7K4beLFOP19nL//uprkK611aFpb8zI+FAp0RslL+YBb8+xwb7fInFUoI\
+    JFAXFc2ZUrQ8QJ2W8LXCKERRA6DxDwgsTGHzzxyqNF+rrQO2gkZPgUs/+HhU6qYzrh\
+    O+UgspQjhexXFGl+7UFTkLgEmVaUqKb28xXb6nC/3Phuelwsu8yBOs9tRH8IjYZC6z\
+    kr5Lz8vpv2u7VHU5tn7jYUI5RWrSP/234qaKkmD9gXjw0jequdOmDQT0VcuWDinN5w\
+    tFoP4K83hW76AH2kx4ijjlVVh41vXl4WoqdTEZCrh0gTYZmflwK360CCUoTYj4IsVB\
+    T6VYn3Yj1lAEkvZfuqwABGkB3GslsyEFJB3q9+yQUUH150wF4rLnw+r8J3QbKJximf\
+    GlvjgMzHI9NcCX7JRnPxhkn2QoBuKJCcQY="
     - AWS_DEFAULT_REGION="us-east-2"
-    # AWS_SECRET_KEY
-    - secure: >-
-        d8celY9gGUEbiMP3f5J62niiBb1t3+hbCiUjihxAeXgQFpk5LY3UOzzYAqaGX9kYf+z
-        IRf9O8pGUQAAWObTgvHTfj4ws1kp599nreKLtR2g52Cs0CB+JnYgfQV/KOqemlwT8Ut
-        Lg4VDxEXXZTM9ja38HZDbHJDT0VY+D+xEgEmzPCbwoGEhAlu7CZhdpN8JHqQ154yJdS
-        BWwupTfN1HBumsEsupHqNcxtb51RnRAG9/tKY4tZRoGqKD3JwIbDi88vmdNxL+BKzfr
-        QgTXK9WzNT1SQCHnZViSyEnaZx0WpIjzIpFqbfDC4YiU3y6f1SnFT0mc7f91EuvdtCK
-        QuH82uEEyyNzZBtnx9apgnpRYAjV0WacEDwI/qS+SaFBWgi/Oawd8isC2/++U5lqTAA
-        +mYaJ3izNK5gmwY9FKQxLhVh6hZkMizbP8KAdccXbuRFywWfoVAo3MHcrHdNbX8BS0i
-        cJlyFWOUdokrujZlNHcfNa/lqD0vrNEKGoUCy+b8YCjfm2lHcOBZ9Y2yDZoP3WcsxHB
-        n9vKUTuIlaZhvV35P35pCIaDoXdt5mLjRb7ZCxtvH8jn2qFMf3uemZtRsOvhiI6rPNx
-        3luI/CBTCXMiSafSqWZ/j/yJu8ILnMtR2m44naa9JaK8XR7eqODYfQSf3FbigqhABiZ
-        vR04NgmKFbvrc=
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "T2DoaM0ft65k73Dg9HLOoBH0kCBpR9Uf1I41hIV1DuPD77Bagm3/gnc\
+    TeMrZiEGiOqwgZqNPv++vRV0ErImqw6zdAazBODdVJNii6p7D4WhvU8xWepH7J0t7t\
+    nyseK+cpAVtWjonvh7HAC4kEOPFTJqeiUjfE5RxEWIg1kLdJhvje017OEZCJ1aGxbI\
+    HlPXxGluL/XW8KDbSwxRho1hDs6FPdnS6q/O7gxLaH/RVCc1oeJXFi78pOZikSDGuZ\
+    arGZCZyR40eZNTmvwAHPQGb+m0Y1VuiBsVKliwBxa4Q/2N0uX1HBd6smLjF/E+G5o1\
+    y79S0V1EOlX5RKNk6SqYf6OMejNjlxLi6X79WXx6U/OQq1eJKzWnhfbmKRgHtbEsoL\
+    MY3yQdYSQj19ZoBI9q6+E/ErPaIWhRkB2n26Fb4YfuTGjGyTVwX5DmXVk/LorI3NNa\
+    OlTf2Y+PJmxOTO0kQ0Y0koZHJjVW4AnR+zTXvaZ5/wLWUwdBXaJhc95Dkp+tlv0g4R\
+    jbpfg/7L4Bl57W1K/dg+yB3qrmTDoxck40ZjeqsUxv7b6DPI4j950PPiA3Lk1FofPO\
+    CtBTm/+u12bXEqKzKP+nw1gGL7SmzwLRoRnV06WO6RVW4p7QcKS318DHrYbrwdfHtg\
+    ihzpjw+GWxDjcWrwoV2Acj5cTdZrVJ6dsw="
     - BUILD_REGION="us-east-2"
     - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
-    # - IMAGE_VERSION=
     - PACKER_VERSION="1.4.1"
 
 
