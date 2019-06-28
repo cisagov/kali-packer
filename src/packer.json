@@ -1,7 +1,6 @@
 {
   "builders": [
     {
-      "access_key": "{{user `aws_access_key`}}",
       "ami_block_device_mappings": [
         {
           "delete_on_termination": true,
@@ -24,7 +23,6 @@
         }
       ],
       "region": "{{user `build_region`}}",
-      "secret_key": "{{user `aws_secret_key`}}",
       "source_ami_filter": {
         "filters": {
           "name": "debian-stretch-hvm-x86_64-gp2-*",
@@ -59,13 +57,8 @@
       "type": "ansible"
     }
   ],
-  "sensitive-variables": [
-    "aws_access_key",
-    "aws_secret_key"
-  ],
+  "sensitive-variables": [],
   "variables": {
-    "aws_access_key": "{{env `AWS_ACCESS_KEY`}}",
-    "aws_secret_key": "{{env `AWS_SECRET_KEY`}}",
     "build_region": "{{env `BUILD_REGION`}}",
     "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
     "image_version": "{{env `IMAGE_VERSION`}}",
