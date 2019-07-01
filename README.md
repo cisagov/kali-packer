@@ -67,7 +67,7 @@ export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
 export PACKER_PRE_RELEASE="True"
 pip install --requirement requirements-dev.txt
 ansible-galaxy install --force --role-file src/requirements.yml
-packer --timestamp-ui build src/packer.json
+packer build --timestamp-ui src/packer.json
 ```
 
 ## Contributing ##
