@@ -33,7 +33,7 @@ env:
     ihzpjw+GWxDjcWrwoV2Acj5cTdZrVJ6dsw="
     - BUILD_REGION="us-east-2"
     - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
-    - PACKER_VERSION="1.4.1"
+    - PACKER_VERSION="1.4.2"
 
 
 # Cache pip packages and pre-commit plugins to speed up builds
