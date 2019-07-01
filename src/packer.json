@@ -59,10 +59,10 @@
   ],
   "sensitive-variables": [],
   "variables": {
-    "build_region": "{{env `BUILD_REGION`}}",
-    "deploy_regions": "{{env `DEPLOY_REGIONS`}}",
-    "image_version": "{{env `IMAGE_VERSION`}}",
-    "pre_release": "{{env `PRE_RELEASE`}}",
+    "build_region": "{{env `PACKER_BUILD_REGION`}}",
+    "deploy_regions": "{{env `PACKER_DEPLOY_REGIONS`}}",
+    "image_version": "{{env `PACKER_IMAGE_VERSION`}}",
+    "pre_release": "{{env `PACKER_PRE_RELEASE`}}",
     "travis_job_web_url": "{{env `TRAVIS_JOB_WEB_URL`}}"
   }
 }

@@ -28,7 +28,7 @@ def eprint(*args, **kwargs):
 
 
 def main():
-    """Check pre-release flag and return value for DEPLOY_REGIONS."""
+    """Check pre-release flag and return value for PACKER_DEPLOY_REGIONS."""
     g = Github()
 
     slug = os.getenv("TRAVIS_REPO_SLUG")
@@ -52,14 +52,14 @@ def main():
     if release.prerelease:
         # This is a prerelease: no DEPLOY_REGIONS.
         eprint(f"{tag} is a pre-release build.")
-        print('export DEPLOY_REGIONS=""')
-        print('export PRE_RELEASE="True"')
+        print('export PACKER_DEPLOY_REGIONS=""')
+        print('export PACKER_PRE_RELEASE="True"')
         sys.exit(0)
     else:
         # This is a regular release: pass DEPLOY_REGIONS through.
         eprint(f"{tag} is NOT a pre-release build.")
-        print(f'export DEPLOY_REGIONS="f{os.getenv("DEPLOY_REGIONS")}"')
-        print('export PRE_RELEASE="False"')
+        print(f'export PACKER_DEPLOY_REGIONS="f{os.getenv("PACKER_DEPLOY_REGIONS")}"')
+        print('export PACKER_PRE_RELEASE="False"')
         sys.exit(-1)
 
 

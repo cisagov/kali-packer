@@ -31,8 +31,8 @@ env:
     jbpfg/7L4Bl57W1K/dg+yB3qrmTDoxck40ZjeqsUxv7b6DPI4j950PPiA3Lk1FofPO\
     CtBTm/+u12bXEqKzKP+nw1gGL7SmzwLRoRnV06WO6RVW4p7QcKS318DHrYbrwdfHtg\
     ihzpjw+GWxDjcWrwoV2Acj5cTdZrVJ6dsw="
-    - BUILD_REGION="us-east-2"
-    - DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
+    - PACKER_BUILD_REGION="us-east-2"
+    - PACKER_DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
     - PACKER_VERSION="1.4.2"
     - TERRAFORM_VERSION="0.12.3"
 
@@ -58,7 +58,7 @@ before_install:
 
 install:
   - pip install --upgrade --requirement requirements-test.txt
-  - export IMAGE_VERSION=$(./bump_version.sh show)
+  - export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
   - eval $(./update_env.py)
   # install roles
   - ansible-galaxy install --force --role-file src/requirements.yml
@@ -74,9 +74,3 @@ deploy:
     script: packer build --timestamp-ui src/packer.json
     on:
       tags: true
-  # # create a testing image
-  # - provider: script
-  #   script: export IMAGE_VERSION=${IMAGE_VERSION}-pre &&
-  #     packer build src/packer.json
-  #   on:
-  #     tags: false
