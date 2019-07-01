@@ -5,11 +5,11 @@ This script uses the GitHub API and the TRAVIS_REPO_SLUG and TRAVIS_TAG environm
 variables to determine if the current build is a pre-release.  It will then output
 shell commands for evaulation based on the pre-release status.
 
-Exit codes:
-    0: This is a pre-release.
-   -1: This is a regular release.
-   -2: Uset environment variables: TRAVIS_REPO_SLUG or TRAVIS_TAG
-   -3: Unable to find the release using the GitHub API
+When running in a Travis CI it is possible that the GitHub API call will be rate
+limited by the shared IP of all Travis users.  Setting the GITHUB_ACCESS_TOKEN
+will cause this script to be limited by the token owner instead.
+
+See: https://developer.github.com/v3/#rate-limiting
 
 Example usage:
     eval $(./update_env.py)
