@@ -40,12 +40,12 @@ def main():
     slug = os.getenv("TRAVIS_REPO_SLUG")
     if not slug:
         eprint("TRAVIS_REPO_SLUG not set")
-        sys.exit(-2)
+        sys.exit(-1)
 
     tag = os.getenv("TRAVIS_TAG")
     if not tag:
         eprint("TRAVIS_TAG not set")
-        sys.exit(-2)
+        sys.exit(-1)
 
     try:
         repo = g.get_repo(slug)
@@ -53,7 +53,7 @@ def main():
     except UnknownObjectException:
         # Either the slug or tag were not found.
         eprint(f"Unable to lookup pre-release status for {slug}:{tag}")
-        sys.exit(-3)
+        sys.exit(-1)
 
     if release.prerelease:
         # This is a prerelease: no DEPLOY_REGIONS.
