@@ -29,7 +29,13 @@ def eprint(*args, **kwargs):
 
 def main():
     """Check pre-release flag and return value for PACKER_DEPLOY_REGIONS."""
-    g = Github()
+    # if we have a Github access token use it, otherwise we may be rate limited
+    # by all the other Travis users coming from the same IP.
+    access_token = os.getenv("GITHUB_ACCESS_TOKEN")
+    if access_token:
+        g = Github(access_token)
+    else:
+        g = Github()
 
     slug = os.getenv("TRAVIS_REPO_SLUG")
     if not slug:
