@@ -59,11 +59,11 @@ before_install:
 install:
   - pip install --upgrade --requirement requirements-test.txt
   - export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
-  - eval $(./update_env.py)
   # install roles
   - ansible-galaxy install --force --role-file src/requirements.yml
 
 script:
+  - eval $(./update_env.py)
   - pre-commit run --all-files
   - packer validate src/packer.json
   - pytest
