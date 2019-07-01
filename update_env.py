@@ -56,13 +56,13 @@ def main():
         sys.exit(-1)
 
     if release.prerelease:
-        # This is a prerelease: no DEPLOY_REGIONS.
+        # This is a prerelease: no PACKER_DEPLOY_REGIONS.
         eprint(f"{tag} is a pre-release build.")
         print('export PACKER_DEPLOY_REGIONS=""')
         print('export PACKER_PRE_RELEASE="True"')
         sys.exit(0)
     else:
-        # This is a regular release: pass DEPLOY_REGIONS through.
+        # This is a regular release: do not modify PACKER_DEPLOY_REGIONS.
         eprint(f"{tag} is NOT a pre-release build.")
         print(f'export PACKER_DEPLOY_REGIONS="f{os.getenv("PACKER_DEPLOY_REGIONS")}"')
         print('export PACKER_PRE_RELEASE="False"')
