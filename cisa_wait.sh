@@ -52,3 +52,5 @@ cisa_jiggler() {
   echo -e "\n${ANSI_RED}Timeout (${timeout} minutes) reached. Terminating \"$*\"${ANSI_RESET}\n"
   kill -9 "${cmd_pid}"
 }
+
+cisa_wait "$@"
