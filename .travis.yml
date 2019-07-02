@@ -57,10 +57,8 @@ cache:
 
 before_install:
   # Install terraform
-  - >
-    wget
-    https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-    -O /tmp/terraform.zip
+  - curl --output /tmp/terraform.zip --location
+      "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
   - sudo unzip -d /opt/terraform /tmp/terraform.zip
   - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   # install packer
