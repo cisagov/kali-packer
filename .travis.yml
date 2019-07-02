@@ -54,17 +54,22 @@ cache:
   pip: true
   directories:
     - $HOME/.cache/pre-commit
+    - $HOME/.cache/curl
 
 before_install:
+  # make a cache directory for curl downloads
+  - mkdir -p $HOME/.cache/curl
   # Install terraform
-  - curl --output /tmp/terraform.zip --location
+  - curl --output $HOME/.cache/curl/terraform.zip
+      --time-cond $HOME/.cache/curl/terraform.zip --location
       "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-  - sudo unzip -d /opt/terraform /tmp/terraform.zip
+  - sudo unzip -d /opt/terraform $HOME/.cache/curl/terraform.zip
   - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   # install packer
-  - curl --output /tmp/packer.zip --location
+  - curl --output $HOME/.cache/curl/packer.zip
+      --time-cond $HOME/.cache/curl/packer.zip --location
       "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
-  - sudo unzip -o -d /usr/local/bin /tmp/packer.zip
+  - sudo unzip -o -d /usr/local/bin $HOME/.cache/curl/packer.zip
 
 install:
   - pip install --upgrade --requirement requirements-test.txt
