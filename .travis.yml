@@ -86,6 +86,7 @@ script:
 deploy:
   # create an image
   - provider: script
-    script: ./cisa_wait.sh 30 packer build --timestamp-ui src/packer.json
+    script: SHERPA_TIMEOUT=30
+      ./sherpa.py packer build --timestamp-ui src/packer.json
     on:
       tags: true
