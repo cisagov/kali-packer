@@ -76,6 +76,7 @@ install:
 
 script:
   - eval $(./update_env.py)
+  - source shell_helpers.sh
   - pre-commit run --all-files
   - packer validate src/packer.json
   - pytest
@@ -83,6 +84,6 @@ script:
 deploy:
   # create a production image
   - provider: script
-    script: packer build --timestamp-ui src/packer.json
+    script: cisa_wait 30 packer build --timestamp-ui src/packer.json
     on:
       tags: true
