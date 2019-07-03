@@ -15,11 +15,12 @@ import sys
 def main():
     """Start a child process, output status, and monitor exit."""
     command = " ".join(sys.argv[1:])
-    timeout = timedelta(minutes=int(os.getenv("SHERPA_TIMEOUT", 20)))
+    timeout = timedelta(minutes=int(os.getenv("SHERPA_TIMEOUT", 30)))
     now = datetime.utcnow()
     killtime = now + timeout
-    print(f"Sherpaing: {command}")
-    print(f"Sherpa will kill at {killtime}")
+    print(f"Sherpaing: {command}", flush=True)
+    print(f"Sherpa duration: {timeout}", flush=True)
+    print(f"Sherpa will kill at {killtime}", flush=True)
 
     child = subprocess.Popen(command, shell=True)  # nosec
     while now < killtime:
@@ -32,13 +33,13 @@ def main():
         except subprocess.TimeoutExpired:
             pass
         now = datetime.utcnow()
-        print(f"Still running at {now}")
+        print(f"Still running at {now}", flush=True)
     else:
-        print("Timeout reached... sherpa killing child.")
+        print("Timeout reached... sherpa killing child.", flush=True)
         child.kill()
 
     return_code = child.wait()
-    print(f"Child has exited with: {return_code}")
+    print(f"Child has exited with: {return_code}", flush=True)
     sys.exit(return_code)
 
 

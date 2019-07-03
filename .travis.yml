@@ -86,7 +86,6 @@ script:
 deploy:
   # create an image
   - provider: script
-    script: SHERPA_TIMEOUT=30
-      ./sherpa.py packer build --timestamp-ui src/packer.json
+    script: ./sherpa.py packer build --timestamp-ui src/packer.json
     on:
       tags: true
