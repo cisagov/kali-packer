@@ -45,36 +45,40 @@ env:
     3bX4KmUdPpv1mLNg5ugcp+8PWT1/Bb0U2A="
     - PACKER_BUILD_REGION="us-east-2"
     - PACKER_DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
+    - CURL_CACHE_DIR="$HOME/.cache/curl"
     - PACKER_VERSION="1.4.2"
+    - PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
     - TERRAFORM_VERSION="0.12.3"
+    - TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
 
-# Cache pip packages and pre-commit plugins to speed up builds
+# Cache pip packages, pre-commit plugins, and some curl downloads to
+# speed up builds
 cache:
   pip: true
   directories:
     - $HOME/.cache/pre-commit
-    - $HOME/.cache/curl
+    - $CURL_CACHE_DIR
 
 before_install:
-  # make a cache directory for curl downloads
-  - mkdir -p $HOME/.cache/curl
+  # Make a cache directory for curl downloads
+  - mkdir -p $CURL_CACHE_DIR
   # Install terraform
-  - curl --output $HOME/.cache/curl/terraform.zip
-      --time-cond $HOME/.cache/curl/terraform.zip --location
-      "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-  - sudo unzip -d /opt/terraform $HOME/.cache/curl/terraform.zip
+  - curl --output "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}"
+      --time-cond "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}" --location
+      "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
+  - sudo unzip -d /opt/terraform "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}"
   - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-  # install packer
-  - curl --output $HOME/.cache/curl/packer.zip
-      --time-cond $HOME/.cache/curl/packer.zip --location
-      "https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_amd64.zip"
-  - sudo unzip -o -d /usr/local/bin $HOME/.cache/curl/packer.zip
+  # Install packer
+  - curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}"
+      --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location
+      "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
+  - sudo unzip -o -d /usr/local/bin "${CURL_CACHE_DIR}/${PACKER_ZIP}"
 
 install:
   - pip install --upgrade --requirement requirements-test.txt
   - export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
-  # install roles
+  # Install roles
   - ansible-galaxy install --force --role-file src/requirements.yml
 
 script:
