@@ -89,7 +89,7 @@ before_deploy:
 deploy:
   # create an image
   - provider: script
-    script: travis-wait-improved --timeout 30m
-      packer build --timestamp-ui src/packer.json
+    script: travis-wait-improved --timeout=30m packer build --timestamp-ui
+      src/packer.json
     on:
       tags: true
