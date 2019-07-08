@@ -31,6 +31,7 @@ env:
     jbpfg/7L4Bl57W1K/dg+yB3qrmTDoxck40ZjeqsUxv7b6DPI4j950PPiA3Lk1FofPO\
     CtBTm/+u12bXEqKzKP+nw1gGL7SmzwLRoRnV06WO6RVW4p7QcKS318DHrYbrwdfHtg\
     ihzpjw+GWxDjcWrwoV2Acj5cTdZrVJ6dsw="
+    - CURL_CACHE_DIR="$HOME/.cache/curl"
     # GITHUB_ACCESS_TOKEN
     - secure: "CMVLqC2AYZ78mEn8w1GWv3p7Ci5lProngCei/Fzin0KCYrsV+DEBQCm\
     6nKvv/wmEKIy79BpdF2GNwz23uiJXE8VF9A3WBM82coF5KfCO1CporqsQ25cLYSwCF\
@@ -45,7 +46,6 @@ env:
     3bX4KmUdPpv1mLNg5ugcp+8PWT1/Bb0U2A="
     - PACKER_BUILD_REGION="us-east-2"
     - PACKER_DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
-    - CURL_CACHE_DIR="$HOME/.cache/curl"
     - PACKER_VERSION="1.4.2"
     - PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
     - TERRAFORM_VERSION="0.12.3"
