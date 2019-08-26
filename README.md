@@ -1,14 +1,9 @@
-# kali-packer 💀📦 #
+# kali-packer :dragon:📦 #
 
 [![Build Status](https://travis-ci.com/cisagov/kali-packer.svg?branch=develop)](https://travis-ci.com/cisagov/kali-packer)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) GitHub
-[packer](https://packer.io) project started.  This skeleton project
-contains [licensing information](LICENSE), as well as [pre-commit
-hooks](https://pre-commit.com) and a [Travis
-CI](https://travis-ci.com) configuration appropriate for the major
-languages that we use.
+This project can be used to create machine images that include
+[Kali Linux](https://www.kali.org), a Linux Penetration Testing Distribution.
 
 ## Pre-requisites ##
 
