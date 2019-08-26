@@ -95,16 +95,6 @@ def main():
     else:
         g = Github()
 
-    slug = os.getenv("TRAVIS_REPO_SLUG")
-    if not slug:
-        eprint("TRAVIS_REPO_SLUG not set")
-        sys.exit(-1)
-
-    tag = os.getenv("TRAVIS_TAG")
-    if not tag:
-        eprint("TRAVIS_TAG not set")
-        sys.exit(-1)
-
     build_region = os.getenv("PACKER_BUILD_REGION")
     if not build_region:
         eprint("PACKER_BUILD_REGION not set")
@@ -116,22 +106,33 @@ def main():
         sys.exit(-1)
     kms_map = make_kms_map(kms_map_string)
 
-    try:
-        repo = g.get_repo(slug)
-        release = repo.get_release(tag)
-    except UnknownObjectException:
-        # Either the slug or tag were not found.
-        eprint(f"Unable to lookup pre-release status for {slug}:{tag}")
+    slug = os.getenv("TRAVIS_REPO_SLUG")
+    if not slug:
+        eprint("TRAVIS_REPO_SLUG not set")
         sys.exit(-1)
 
-    if release.prerelease:
+    tag = os.getenv("TRAVIS_TAG")
+    if not tag:
+        eprint("TRAVIS_TAG not set (not a release)")
+        is_prerelease = False
+    else:
+        try:
+            repo = g.get_repo(slug)
+            release = repo.get_release(tag)
+            is_prerelease = release.prerelease
+        except UnknownObjectException:
+            # Either the slug or tag were not found.
+            eprint(f"Unable to lookup pre-release status for {slug}:{tag}")
+            sys.exit(-1)
+
+    if is_prerelease:
         # This is a prerelease: no PACKER_DEPLOY_REGIONS.
         eprint(f"{tag} is a pre-release build.")
     else:
         # This is a regular release: do not modify PACKER_DEPLOY_REGIONS.
         eprint(f"{tag} is NOT a pre-release build.")
 
-    patch_config(config_filename, build_region, kms_map, True)  # release.prerelease)
+    patch_config(config_filename, build_region, kms_map, is_prerelease)
 
     sys.exit(0)
 
