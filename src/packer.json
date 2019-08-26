@@ -34,7 +34,7 @@
           "679593333241"
         ]
       },
-      "ssh_username": "admin",
+      "ssh_username": "ec2-user",
       "tags": {
         "Application": "Kali",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
