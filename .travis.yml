@@ -82,8 +82,8 @@ install:
   - ansible-galaxy install --force --role-file src/requirements.yml
 
 script:
-  - eval $(./update_env.py)
   - pre-commit run --all-files
+  - ./patch_packer_config.py src/packer.json
   - packer validate src/packer.json
   - pytest
 

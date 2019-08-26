@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-"""Script to output shell commands needed to update the evironment.
+"""Modify a packer json configuration based on the build environment.
 
 This script uses the GitHub API and the TRAVIS_REPO_SLUG and TRAVIS_TAG environment
-variables to determine if the current build is a pre-release.  It will then output
-shell commands for evaulation based on the pre-release status.
+variables to determine if the current build is a pre-release.  It will then modify
+the passed in Packer configuration.
 
 When running in a Travis CI it is possible that the GitHub API call will be rate
 limited by the shared IP of all Travis users.  Setting the GITHUB_ACCESS_TOKEN
@@ -12,7 +12,7 @@ will cause this script to be limited by the token owner instead.
 See: https://developer.github.com/v3/#rate-limiting
 
 Example usage:
-    eval $(./update_env.py)
+    ./patch_packer_config.py src/packer.json
 """
 
 import os
