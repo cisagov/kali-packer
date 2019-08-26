@@ -38,7 +38,7 @@
       "tags": {
         "Application": "Kali",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
-        "OS_Version": "Debian Stretch",
+        "OS_Version": "Kali Linux",
         "Pre_Release": "{{user `pre_release`}}",
         "Release": "{{user `image_version`}}",
         "Team": "CISA - Development",
