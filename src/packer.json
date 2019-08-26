@@ -50,7 +50,7 @@
   "provisioners": [
     {
       "groups": [
-        "aws",
+        "aws"
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
