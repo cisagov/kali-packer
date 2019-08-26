@@ -6,19 +6,19 @@
           "delete_on_termination": true,
           "device_name": "xvda",
           "encrypted": true,
-          "volume_size": 8,
+          "volume_size": 20,
           "volume_type": "gp2"
         }
       ],
       "ami_name": "kali-hvm-{{timestamp}}-x86_64-ebs",
       "ami_regions": "{{user `deploy_regions`}}",
-      "instance_type": "t3.micro",
+      "instance_type": "t2.medium",
       "launch_block_device_mappings": [
         {
           "delete_on_termination": true,
           "device_name": "xvda",
           "encrypted": true,
-          "volume_size": 8,
+          "volume_size": 20,
           "volume_type": "gp2"
         }
       ],
