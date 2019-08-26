@@ -2,10 +2,10 @@
   name: banner
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
-- src: https://github.com/cisagov/skeleton-ansible-role
-  name: example
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
+- src: https://github.com/cisagov/ansible-role-kali
+  name: kali
 - src: https://github.com/cisagov/ansible-role-nvme
   name: nvme
 - src: https://github.com/cisagov/ansible-role-persist-journald
