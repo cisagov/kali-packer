@@ -42,7 +42,7 @@ Manager parameter store](https://docs.aws.amazon.com/systems-manager/latest/user
   be allowed to SSH to the instance based on this image
 - `/ssh/public_keys/<username>`: The public SSH key of each user in the
   `/cyhy/dev/users` list
-  
+
 ## Building the Image ##
 
 ### Using Travis-CI ###
