@@ -125,12 +125,11 @@ def main():
             eprint(f"Unable to lookup pre-release status for {slug}:{tag}")
             sys.exit(-1)
 
-    if is_prerelease:
-        # This is a prerelease: no PACKER_DEPLOY_REGIONS.
-        eprint(f"{tag} is a pre-release build.")
-    else:
-        # This is a regular release: do not modify PACKER_DEPLOY_REGIONS.
-        eprint(f"{tag} is NOT a pre-release build.")
+    if tag:
+        if is_prerelease:
+            eprint(f"{tag} is a pre-release build.")
+        else:
+            eprint(f"{tag} is NOT a pre-release build.")
 
     patch_config(config_filename, build_region, kms_map, is_prerelease)
 
