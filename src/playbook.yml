@@ -10,6 +10,7 @@
     - dev_ssh_access
     - persist_journald
     - htop
+    - kali
 
 - hosts: aws
   name: AWS-specific roles
@@ -19,10 +20,3 @@
     # The instance types used for almost all the instances expose EBS
     # volumes as NVMe block devices, so that's why we need nvme here.
     - nvme
-
-- hosts: example
-  name: Project-specific roles
-  become: yes
-  become_method: sudo
-  roles:
-    - example
