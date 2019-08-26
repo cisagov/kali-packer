@@ -62,7 +62,7 @@ def patch_config(filename, build_region, kms_map, is_prerelease):
             continue
 
         # invariants
-        builder["tags"]["Pre_Release"] = is_prerelease
+        builder["tags"]["Pre_Release"] = str(is_prerelease)
         builder["region"] = build_region
 
         if is_prerelease:
