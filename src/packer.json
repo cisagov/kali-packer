@@ -10,7 +10,7 @@
           "volume_type": "gp2"
         }
       ],
-      "ami_name": "example-hvm-{{timestamp}}-x86_64-ebs",
+      "ami_name": "kali-hvm-{{timestamp}}-x86_64-ebs",
       "ami_regions": "{{user `deploy_regions`}}",
       "instance_type": "t3.micro",
       "launch_block_device_mappings": [
@@ -25,7 +25,7 @@
       "region": "{{user `build_region`}}",
       "source_ami_filter": {
         "filters": {
-          "name": "debian-stretch-hvm-x86_64-gp2-*",
+          "name": "Kali Linux 2018.3-8b7fdfe3-8cd5-43cc-8e5e-4e0e7f4139d5-ami-020400477cd6b8959.4",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
@@ -36,7 +36,7 @@
       },
       "ssh_username": "admin",
       "tags": {
-        "Application": "Example",
+        "Application": "Kali",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "OS_Version": "Debian Stretch",
         "Pre_Release": "{{user `pre_release`}}",
@@ -51,7 +51,6 @@
     {
       "groups": [
         "aws",
-        "example"
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
