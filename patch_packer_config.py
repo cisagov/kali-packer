@@ -28,10 +28,11 @@ See: https://developer.github.com/v3/#rate-limiting
 Usage:
     patch_packer_config.py (query-github|pre-release|release) <packer-json>
     patch_packer_config.py -h | --help
+    patch_packer_config.py -v | --version
 
 Options:
   -h --help              Show this message.
-
+  -v --version           Output the version of the script.
 """
 
 import json
