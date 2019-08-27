@@ -61,7 +61,7 @@ how the build was triggered from GitHub.
    environment variable.
 1. **Production release deploy**: Publish a GitHub release with
    the "This is a pre-release" checkbox unchecked.  An image will be built
-   in the `PACKER_BUILD_REGION` and copied to each region listed in the
+   in the `PACKER_BUILD_REGION` and copied to each regions listed in the
    `PACKER_DEPLOY_REGION_KMS_MAP` environment variable.
 
 ### Using Your Local Environment ###
