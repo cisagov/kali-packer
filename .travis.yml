@@ -45,10 +45,13 @@ env:
     yKDN3LCV3Sj6nmiE4d3UmjP/YKkQxD9cqCzBFMuUtJKgNajpbuy0WKdtkConb2wxSa\
     3bX4KmUdPpv1mLNg5ugcp+8PWT1/Bb0U2A="
     - PACKER_BUILD_REGION="us-east-2"
-    - PACKER_DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
-    - PACKER_VERSION="1.4.2"
+    - PACKER_DEPLOY_REGION_KMS_MAP="us-east-1:alias/cool/ebs,
+                                    us-east-2:alias/cool/ebs,
+                                    us-west-1:alias/cool/ebs,
+                                    us-west-2:alias/cool/ebs"
+    - PACKER_VERSION="1.4.3"
     - PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
-    - TERRAFORM_VERSION="0.12.6"
+    - TERRAFORM_VERSION="0.12.7"
     - TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
 
@@ -82,8 +85,8 @@ install:
   - ansible-galaxy install --force --role-file src/requirements.yml
 
 script:
-  - eval $(./update_env.py)
   - pre-commit run --all-files
+  - ./patch_packer_config.py query-github src/packer.json
   - packer validate src/packer.json
   - pytest
 
@@ -91,8 +94,10 @@ before_deploy:
   - pip install travis-wait-improved
 
 deploy:
-  # create an image
+  # create an image when tagged
   - provider: script
+    # preserve patch to packer configuration by skipping cleanup
+    skip_cleanup: true
     script: travis-wait-improved --timeout=30m packer build --timestamp-ui
       src/packer.json
     on:

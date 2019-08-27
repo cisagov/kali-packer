@@ -38,36 +38,69 @@ Here is an example of encrypting the credentials for Travis:
 ```console
  travis encrypt --com --no-interactive "AWS_ACCESS_KEY_ID=AKIAxxxxxxxxxxxxxxxx"
  travis encrypt --com --no-interactive "AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ travis encrypt --com --no-interactive "GITHUB_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 ## Building the Image ##
 
 ### Using Travis-CI ###
 
-1. Create a new release in GitHub.
+1. Create a [new release](https://help.github.com/en/articles/creating-releases)
+   in GitHub.
 1. There is no step 2!
+
+Travis-CI can build this project in three different modes depending on
+how the build was triggered from GitHub.
+
+1. **Non-release test**: After a normal commit or pull request Travis
+   will build the project, and run tests and validation on the
+   packer configuration.  It will __not__ build an image.
+1. **Pre-release deploy**: Publish a GitHub release
+   with the "This is a pre-release" checkbox checked.  An image will be built
+   and deployed to the single region defined by the `PACKER_BUILD_REGION`
+   environment variable.
+1. **Production release deploy**: Publish a GitHub release with
+   the "This is a pre-release" checkbox unchecked.  An image will be built
+   in the `PACKER_BUILD_REGION` and copied to each region listed in the
+   `PACKER_DEPLOY_REGION_KMS_MAP` environment variable.
 
 ### Using Your Local Environment ###
 
 The following environment variables are used by Packer:
 
 - Required
-  - `PACKER_BUILD_REGION`: the region to build the build the image in.
+  - `PACKER_BUILD_REGION`: the region in which to build the image.
+  - `PACKER_DEPLOY_REGION_KMS_MAP`: a map of deploy regions to KMS keys.
 - Optional
-  - `PACKER_DEPLOY_REGIONS`: list of additional regions to deploy this image.
+  - `GITHUB_ACCESS_TOKEN`: a personal GitHub token to use for API access.
   - `PACKER_IMAGE_VERSION`: the version tag applied to the final image.
-  - `PACKER_PRE_RELEASE`: a boolean tag applied to the final image
 
-Here is an example of how to kick off a build:
+Here is an example of how to kick off a pre-release build:
 
 ```console
-export PACKER_BUILD_REGION="us-east-2"
-export PACKER_DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
-export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
-export PACKER_PRE_RELEASE="True"
 pip install --requirement requirements-dev.txt
+export PACKER_BUILD_REGION="us-east-2"
+export PACKER_DEPLOY_REGION_KMS_MAP="us-east-1:alias/cool/ebs,us-east-2:alias/cool/ebs,us-west-1:alias/cool/ebs,us-west-2:alias/cool/ebs"
+export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
 ansible-galaxy install --force --role-file src/requirements.yml
+./patch_packer_config.py pre-release src/packer.json
 packer build --timestamp-ui src/packer.json
+```
+
+If you are satisfied with your pre-release image, you can easily create a release
+that deploys to all regions by changing the `pre-release` command of
+`patch_packer_config.py` to `release` and rerunning packer:
+
+```console
+./patch_packer_config.py release src/packer.json
+packer build --timestamp-ui src/packer.json
+```
+
+See the patcher script's help for more information about its options and
+inner workings:
+
+```console
+./patch_packer_config.py --help
 ```
 
 ## Contributing ##
