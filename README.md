@@ -61,7 +61,7 @@ how the build was triggered from GitHub.
    environment variable.
 1. **Production release deploy**: Publish a GitHub release with
    the "This is a pre-release" checkbox unchecked.  An image will be built
-   in the `PACKER_BUILD_REGION` and copied to each regions listed in the
+   in the `PACKER_BUILD_REGION` and copied to each region listed in the
    `PACKER_DEPLOY_REGION_KMS_MAP` environment variable.
 
 ### Using Your Local Environment ###
@@ -87,7 +87,11 @@ ansible-galaxy install --force --role-file src/requirements.yml
 packer build --timestamp-ui src/packer.json
 ```
 
-For other release types see:
+To create a release that deploys to all regions, change the `pre-release`
+command of `patch_packer_config.py` to `release` in the example above.
+
+See the patcher script's help for more information about its options and
+inner workings:
 
 ```console
 ./patch_packer_config.py --help
