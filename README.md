@@ -52,9 +52,9 @@ Here is an example of encrypting the credentials for Travis:
 The following environment variables are used by Packer:
 
 - Required
-  - `PACKER_BUILD_REGION`: the region to build the build the image in.
+  - `PACKER_BUILD_REGION`: the region in which to build the image.
+  - `PACKER_DEPLOY_REGION_KMS_MAP`: a map of deploy regions to KMS keys.
 - Optional
-  - `PACKER_DEPLOY_REGIONS`: list of additional regions to deploy this image.
   - `PACKER_IMAGE_VERSION`: the version tag applied to the final image.
   - `PACKER_PRE_RELEASE`: a boolean tag applied to the final image
 
@@ -62,7 +62,7 @@ Here is an example of how to kick off a build:
 
 ```console
 export PACKER_BUILD_REGION="us-east-2"
-export PACKER_DEPLOY_REGIONS="us-east-1,us-west-1,us-west-2"
+export PACKER_DEPLOY_REGION_KMS_MAP="us-east-1:alias/cool/ebs,us-east-2:alias/cool/ebs,us-west-1:alias/cool/ebs,us-west-2:alias/cool/ebs"
 export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
 export PACKER_PRE_RELEASE="True"
 pip install --requirement requirements-dev.txt
