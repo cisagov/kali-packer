@@ -11,7 +11,7 @@
         }
       ],
       "ami_name": "kali-hvm-{{timestamp}}-x86_64-ebs",
-      "ami_regions": "{{user `deploy_regions`}}",
+      "ami_regions": "from-patcher-script",
       "instance_type": "t2.medium",
       "launch_block_device_mappings": [
         {
@@ -22,7 +22,10 @@
           "volume_type": "gp2"
         }
       ],
-      "region": "{{user `build_region`}}",
+      "region": "from-patcher-script",
+      "region_kms_key_ids": {
+        "from-patcher-script": "from-patcher-script"
+      },
       "source_ami_filter": {
         "filters": {
           "name": "Kali Linux 2018.3-8b7fdfe3-8cd5-43cc-8e5e-4e0e7f4139d5-ami-020400477cd6b8959.4",
@@ -39,7 +42,7 @@
         "Application": "Kali",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "OS_Version": "Kali Linux",
-        "Pre_Release": "{{user `pre_release`}}",
+        "Pre_Release": "from-patcher-script",
         "Release": "{{user `image_version`}}",
         "Team": "CISA - Development",
         "Travis_Job_Web_URL": "{{user `travis_job_web_url`}}"
@@ -58,10 +61,7 @@
   ],
   "sensitive-variables": [],
   "variables": {
-    "build_region": "{{env `PACKER_BUILD_REGION`}}",
-    "deploy_regions": "{{env `PACKER_DEPLOY_REGIONS`}}",
     "image_version": "{{env `PACKER_IMAGE_VERSION`}}",
-    "pre_release": "{{env `PACKER_PRE_RELEASE`}}",
     "travis_job_web_url": "{{env `TRAVIS_JOB_WEB_URL`}}"
   }
 }

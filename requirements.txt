@@ -1,2 +1,4 @@
 ansible
 boto3
+docopt
+PyGithub
