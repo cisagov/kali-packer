@@ -38,6 +38,7 @@ Here is an example of encrypting the credentials for Travis:
 ```console
  travis encrypt --com --no-interactive "AWS_ACCESS_KEY_ID=AKIAxxxxxxxxxxxxxxxx"
  travis encrypt --com --no-interactive "AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+ travis encrypt --com --no-interactive "GITHUB_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
 ## Building the Image ##
@@ -55,8 +56,9 @@ The following environment variables are used by Packer:
   - `PACKER_BUILD_REGION`: the region in which to build the image.
   - `PACKER_DEPLOY_REGION_KMS_MAP`: a map of deploy regions to KMS keys.
 - Optional
+  - `GITHUB_ACCESS_TOKEN`: a personal GitHub token to use for API access.
   - `PACKER_IMAGE_VERSION`: the version tag applied to the final image.
-  - `PACKER_PRE_RELEASE`: a boolean tag applied to the final image
+  - `PACKER_PRE_RELEASE`: a boolean tag applied to the final image.
 
 Here is an example of how to kick off a build:
 
