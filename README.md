@@ -45,8 +45,24 @@ Here is an example of encrypting the credentials for Travis:
 
 ### Using Travis-CI ###
 
-1. Create a new release in GitHub.
+1. Create a [new release](https://help.github.com/en/articles/creating-releases)
+   in GitHub.
 1. There is no step 2!
+
+Travis-CI can build this project in three different modes depending on
+how the build was triggered from GitHub.
+
+1. **Non-release test**: After a normal commit or pull request Travis
+   will build the project, and run tests and validation on the
+   packer configuration.  It will __not__ build an image.
+1. **Pre-release deploy**: Publish a GitHub release
+   with the "This is a pre-release" checkbox checked.  An image will be built
+   and deployed to the single region defined by the `PACKER_BUILD_REGION`
+   environment variable.
+1. **Production release deploy**: Publish a GitHub release with
+   the "This is a pre-release" checkbox unchecked.  An image will be built
+   in the `PACKER_BUILD_REGION` and copied to each region listed in the
+   `PACKER_DEPLOY_REGION_KMS_MAP` environment variable.
 
 ### Using Your Local Environment ###
 
@@ -58,19 +74,23 @@ The following environment variables are used by Packer:
 - Optional
   - `GITHUB_ACCESS_TOKEN`: a personal GitHub token to use for API access.
   - `PACKER_IMAGE_VERSION`: the version tag applied to the final image.
-  - `PACKER_PRE_RELEASE`: a boolean tag applied to the final image.
 
-Here is an example of how to kick off a build:
+Here is an example of how to kick off a pre-release build:
 
 ```console
+pip install --requirement requirements-dev.txt
 export PACKER_BUILD_REGION="us-east-2"
 export PACKER_DEPLOY_REGION_KMS_MAP="us-east-1:alias/cool/ebs,us-east-2:alias/cool/ebs,us-west-1:alias/cool/ebs,us-west-2:alias/cool/ebs"
 export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
-export PACKER_PRE_RELEASE="True"
-pip install --requirement requirements-dev.txt
 ansible-galaxy install --force --role-file src/requirements.yml
-./patch_packer_config.py src/packer.json
+./patch_packer_config.py pre-release src/packer.json
 packer build --timestamp-ui src/packer.json
+```
+
+For other release types see:
+
+```console
+./patch_packer_config.py --help
 ```
 
 ## Contributing ##

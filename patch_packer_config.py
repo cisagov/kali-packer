@@ -1,35 +1,48 @@
 #!/usr/bin/env python
-"""Modify a packer json configuration based on the build environment.
+"""Modify a packer json configuration to support pre-releases.
 
-This script uses the GitHub API and the TRAVIS_REPO_SLUG and TRAVIS_TAG environment
-variables to determine if the current build is a pre-release.  It will then modify
-the passed in Packer configuration.
+This script reads the PACKER_BUILD_REGION and PACKER_DEPLOY_REGION_KMS_MAP
+environment variables to calculate the values for the packer configuration.
 
-When running in a Travis CI it is possible that the GitHub API call will be rate
-limited by the shared IP of all Travis users.  Setting the GITHUB_ACCESS_TOKEN
-will cause this script to be limited by the token owner instead.
-
-See: https://developer.github.com/v3/#rate-limiting
-
-It reads the PACKER_BUILD_REGION and PACKER_DEPLOY_REGION_KMS_MAP environment
-variables to calculate the values in the packer configuration.
-
-It will overwrite the following sections of a packer amazon-ebs builder configuration:
+It will overwrite the following sections of a packer amazon-ebs builder
+configuration:
  - ami_regions
  - region
  - region_kms_key_ids
  - tags/Pre_Release
 
-Example usage:
-    ./patch_packer_config.py src/packer.json
+There are three modes of operation: pre-release, release, and query-github.  The
+first two modes are self-explanatory.
+
+When invoked with the query-github command the TRAVIS_REPO_SLUG and TRAVIS_TAG
+environment variables are used to determine if the current build is a
+pre-release using the GitHub API.
+
+Note: when running in a Travis CI it is possible that the GitHub API call will
+be rate limited by the shared IP of all Travis users.  Setting the
+GITHUB_ACCESS_TOKEN will cause this script to be limited by the token owner's
+account instead.
+
+See: https://developer.github.com/v3/#rate-limiting
+
+Usage:
+    patch_packer_config.py (query-github|pre-release|release) <packer-json>
+    patch_packer_config.py -h | --help
+
+Options:
+  -h --help              Show this message.
+
 """
 
 import json
 import os
 import sys
 
+import docopt
 from github import Github
 from github.GithubException import UnknownObjectException
+
+__version__ = "1.0.0"
 
 
 def eprint(*args, **kwargs):
@@ -49,6 +62,50 @@ def make_kms_map(map_string):
         k, v = line.split(":")
         result[k] = v
     return result
+
+
+def query_github():
+    """Query GitHub to see if this release is a pre-release."""
+    travis_tag = os.getenv("TRAVIS_TAG")
+    if not travis_tag:
+        eprint("TRAVIS_TAG not set (not a release)")
+        # The config still needs to be generated correctly as
+        # it will be validated even if it isn't deployed.
+        # So we'll generate it as if it was a full release since
+        # it will test more of the configuration.
+        return False
+
+    travis_repo_slug = os.getenv("TRAVIS_REPO_SLUG")
+    if not travis_repo_slug:
+        eprint("TRAVIS_REPO_SLUG not set. (required for query-github mode)")
+        sys.exit(-1)
+
+    access_token = os.getenv("GITHUB_ACCESS_TOKEN")
+    # if we have a Github access token use it, otherwise we may be rate limited
+    # by all the other Travis users coming from the same IP.
+    if access_token:
+        git = Github(access_token)
+        eprint(f"Using GITHUB_ACCESS_TOKEN to access GitHub API.")
+    else:
+        git = Github()
+        eprint(
+            f"Warning: GITHUB_ACCESS_TOKEN not set.  "
+            + "GitHub API access can easily fail if using a shared egress IP."
+        )
+    try:
+        repo = git.get_repo(travis_repo_slug)
+        release = repo.get_release(travis_tag)
+        if release.prerelease:
+            eprint(f"GitHub says {travis_tag} is a pre-release build.")
+        else:
+            eprint(f"GitHub says {travis_tag} is NOT a pre-release build.")
+        return release.prerelease
+    except UnknownObjectException:
+        # Either the travis_repo_slug or travis_tag were not found.
+        eprint(
+            f"Unable to lookup pre-release status for {travis_repo_slug}:{travis_tag}"
+        )
+        sys.exit(-1)
 
 
 def patch_config(filename, build_region, kms_map, is_prerelease):
@@ -86,58 +143,30 @@ def patch_config(filename, build_region, kms_map, is_prerelease):
 
 
 def main():
-    """Check pre-release flag and return value for PACKER_DEPLOY_REGIONS."""
-    try:
-        config_filename = sys.argv[1]
-    except IndexError:
-        eprint(f"Packer configuration file name not provided.")
-        sys.exit(-1)
+    """Modify a packer configuration file."""
+    args = docopt.docopt(__doc__, version=__version__)
 
-    # if we have a Github access token use it, otherwise we may be rate limited
-    # by all the other Travis users coming from the same IP.
-    access_token = os.getenv("GITHUB_ACCESS_TOKEN")
-    if access_token:
-        g = Github(access_token)
-    else:
-        g = Github()
+    config_filename = args["<packer-json>"]
 
     build_region = os.getenv("PACKER_BUILD_REGION")
     if not build_region:
-        eprint("PACKER_BUILD_REGION not set")
+        eprint("PACKER_BUILD_REGION not set (required)")
         sys.exit(-1)
 
     kms_map_string = os.getenv("PACKER_DEPLOY_REGION_KMS_MAP")
     if not kms_map_string:
-        eprint("PACKER_DEPLOY_REGION_KMS_MAP not set")
+        eprint("PACKER_DEPLOY_REGION_KMS_MAP not set (required)")
         sys.exit(-1)
     kms_map = make_kms_map(kms_map_string)
 
-    slug = os.getenv("TRAVIS_REPO_SLUG")
-    if not slug:
-        eprint("TRAVIS_REPO_SLUG not set")
-        sys.exit(-1)
-
-    tag = os.getenv("TRAVIS_TAG")
-    if not tag:
-        eprint("TRAVIS_TAG not set (not a release)")
-        # The config still needs to be generated correctly as
-        # it will be validated even if it isn't deployed.
-        # So we'll generate it as if it was a full release since
-        # it will test more of the configuration.
+    if args["query-github"]:
+        is_prerelease = query_github()
+    elif args["pre-release"]:
+        eprint(f"User requested a pre-release build.")
+        is_prerelease = True
+    else:  # release (enforced by docopt)
+        eprint(f"User requested a release build.")
         is_prerelease = False
-    else:
-        try:
-            repo = g.get_repo(slug)
-            release = repo.get_release(tag)
-            is_prerelease = release.prerelease
-        except UnknownObjectException:
-            # Either the slug or tag were not found.
-            eprint(f"Unable to lookup pre-release status for {slug}:{tag}")
-            sys.exit(-1)
-        if is_prerelease:
-            eprint(f"{tag} is a pre-release build.")
-        else:
-            eprint(f"{tag} is NOT a pre-release build.")
 
     patch_config(config_filename, build_region, kms_map, is_prerelease)
 

@@ -86,7 +86,7 @@ install:
 
 script:
   - pre-commit run --all-files
-  - ./patch_packer_config.py src/packer.json
+  - ./patch_packer_config.py query-github src/packer.json
   - packer validate src/packer.json
   - pytest
 
