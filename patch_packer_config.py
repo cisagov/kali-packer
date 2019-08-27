@@ -14,6 +14,12 @@ See: https://developer.github.com/v3/#rate-limiting
 It reads the PACKER_BUILD_REGION and PACKER_DEPLOY_REGION_KMS_MAP environment
 variables to calculate the values in the packer configuration.
 
+It will overwrite the following sections of a packer amazon-ebs builder configuration:
+ - ami_regions
+ - region
+ - region_kms_key_ids
+ - tags/Pre_Release
+
 Example usage:
     ./patch_packer_config.py src/packer.json
 """
@@ -114,6 +120,10 @@ def main():
     tag = os.getenv("TRAVIS_TAG")
     if not tag:
         eprint("TRAVIS_TAG not set (not a release)")
+        # The config still needs to be generated correctly as
+        # it will be validated even if it isn't deployed.
+        # So we'll generate it as if it was a full release since
+        # it will test more of the configuration.
         is_prerelease = False
     else:
         try:
@@ -124,8 +134,6 @@ def main():
             # Either the slug or tag were not found.
             eprint(f"Unable to lookup pre-release status for {slug}:{tag}")
             sys.exit(-1)
-
-    if tag:
         if is_prerelease:
             eprint(f"{tag} is a pre-release build.")
         else:
