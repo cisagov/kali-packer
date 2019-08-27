@@ -87,8 +87,14 @@ ansible-galaxy install --force --role-file src/requirements.yml
 packer build --timestamp-ui src/packer.json
 ```
 
-To create a release that deploys to all regions, change the `pre-release`
-command of `patch_packer_config.py` to `release` in the example above.
+If you are satisfied with your pre-release image, you can easily create a release
+that deploys to all regions by changing the `pre-release` command of
+`patch_packer_config.py` to `release` and rerunning packer:
+
+```console
+./patch_packer_config.py release src/packer.json
+packer build --timestamp-ui src/packer.json
+```
 
 See the patcher script's help for more information about its options and
 inner workings:
