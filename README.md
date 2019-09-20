@@ -82,7 +82,7 @@ pip install --requirement requirements-dev.txt
 export PACKER_BUILD_REGION="us-east-2"
 export PACKER_DEPLOY_REGION_KMS_MAP="us-east-1:alias/cool/ebs,us-east-2:alias/cool/ebs,us-west-1:alias/cool/ebs,us-west-2:alias/cool/ebs"
 export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
-ansible-galaxy install --force --role-file src/requirements.yml
+ansible-galaxy install --force --force-with-deps --role-file src/requirements.yml
 ./patch_packer_config.py pre-release src/packer.json
 packer build --timestamp-ui src/packer.json
 ```
