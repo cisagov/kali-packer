@@ -24,7 +24,7 @@ else
             sed "s/$old_version/$new_version/" $VERSION_FILE > $tmp_file
             mv $tmp_file $VERSION_FILE
             git add $VERSION_FILE
-            git commit -m"Bumping version from $old_version to $new_version"
+            git commit -m"Bump version from $old_version to $new_version"
             git push
             ;;
         finalize)
@@ -34,7 +34,7 @@ else
             sed "s/$old_version/$new_version/" $VERSION_FILE > $tmp_file
             mv $tmp_file $VERSION_FILE
             git add $VERSION_FILE
-            git commit -m"Bumping version from $old_version to $new_version"
+            git commit -m"Bump version from $old_version to $new_version"
             git push
             ;;
         show)
