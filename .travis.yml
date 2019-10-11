@@ -49,9 +49,9 @@ env:
                                     us-east-2:alias/cool/ebs,
                                     us-west-1:alias/cool/ebs,
                                     us-west-2:alias/cool/ebs"
-    - PACKER_VERSION="1.4.3"
+    - PACKER_VERSION="1.4.4"
     - PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
-    - TERRAFORM_VERSION="0.12.8"
+    - TERRAFORM_VERSION="0.12.10"
     - TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
 
