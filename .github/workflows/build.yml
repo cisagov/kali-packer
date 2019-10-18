@@ -1,7 +1,10 @@
 ---
 name: build
 
-on: [push]
+on:
+  push:
+  release:
+    types: [published, unpublished]
 
 jobs:
   build:
