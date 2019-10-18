@@ -58,13 +58,13 @@ jobs:
         run: pre-commit run --all-files
 
       - name: Patch Packer configuration (draft release)
-        if: github.event.name == "release" &&
-          contains( github.event.types, "unpublished" )
+        if: github.event.name == 'release' &&
+          contains( github.event.types, 'unpublished' )
         run: ./patch_packer_config.py draft src/packer.json
 
       - name: Patch Packer configuration (published release)
-        if: github.event.name == "release" &&
-          contains( github.event.types, "published" )
+        if: github.event.name == 'release' &&
+          contains( github.event.types, 'published' )
         run: ./patch_packer_config.py published src/packer.json
 
       - name: Test Packer configuration
@@ -73,9 +73,9 @@ jobs:
           pytest
 
       - name: Create Machine Image
-        if: github.event.name == "release" &&
-          ( contains( github.event.types, "published" ) ||
-          contains( github.event.types, "unpublished" ) )
+        if: github.event.name == 'release' &&
+          ( contains( github.event.types, 'published' ) ||
+          contains( github.event.types, 'unpublished' ) )
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
