@@ -10,6 +10,11 @@ jobs:
 
     env:
       CURL_CACHE_DIR: $HOME/.cache/curl
+      PACKER_BUILD_REGION: us-east-2
+      PACKER_DEPLOY_REGION_KMS_MAP: "us-east-1:alias/cool/ebs,
+                                     us-east-2:alias/cool/ebs,
+                                     us-west-1:alias/cool/ebs,
+                                     us-west-2:alias/cool/ebs"
       PACKER_VERSION: 1.4.4
       TERRAFORM_VERSION: 0.12.10
 
@@ -59,5 +64,8 @@ jobs:
           pytest
 
       - name: Create Machine Image
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: echo "Soon" #packer build --timestamp-ui src/packer.json
         # if github.event is release publish
