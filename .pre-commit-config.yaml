@@ -29,7 +29,7 @@ repos:
         args:
           - --config=.mdl_config.json
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.17.0
+    rev: v1.18.0
     hooks:
       - id: yamllint
   - repo: https://github.com/detailyang/pre-commit-shell
@@ -43,7 +43,7 @@ repos:
         additional_dependencies:
           - flake8-docstrings
   - repo: https://github.com/asottile/pyupgrade
-    rev: v1.23.0
+    rev: v1.25.0
     hooks:
       - id: pyupgrade
   # Run bandit on "tests" tree with a configuration
@@ -66,11 +66,12 @@ repos:
     rev: 19.3b0
     hooks:
       - id: black
-  - repo: https://github.com/ansible/ansible-lint.git
-    rev: v4.1.1a0
-    hooks:
-      - id: ansible-lint
-        # files: molecule/default/playbook.yml
+  # Disabled until: https://github.com/ansible/ansible-lint/issues/590
+  # - repo: https://github.com/ansible/ansible-lint.git
+  #   rev: v4.1.1a0
+  #   hooks:
+  #     - id: ansible-lint
+  #       # files: molecule/default/playbook.yml
   - repo: https://github.com/antonbabenko/pre-commit-terraform.git
     rev: v1.12.0
     hooks:
