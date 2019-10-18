@@ -68,9 +68,15 @@ jobs:
         run: ./patch_packer_config.py published src/packer.json
 
       - name: Test Packer configuration
-        run: |
-          packer validate src/packer.json
-          pytest
+        run: packer validate src/packer.json
+
+      - name: Run release tests
+        if: github.event.name == 'release' &&
+          ( contains( github.event.types, 'published' ) ||
+          contains( github.event.types, 'unpublished' ) )
+        env:
+          GITHUB_REF: ${{ github.ref }}
+        run: pytest
 
       - name: Create Machine Image
         if: github.event.name == 'release' &&
