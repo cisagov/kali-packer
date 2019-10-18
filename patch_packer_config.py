@@ -11,22 +11,10 @@ configuration:
  - region_kms_key_ids
  - tags/Pre_Release
 
-There are three modes of operation: pre-release, release, and query-github.  The
-first two modes are self-explanatory.
-
-When invoked with the query-github command the TRAVIS_REPO_SLUG and TRAVIS_TAG
-environment variables are used to determine if the current build is a
-pre-release using the GitHub API.
-
-Note: when running in a Travis CI it is possible that the GitHub API call will
-be rate limited by the shared IP of all Travis users.  Setting the
-GITHUB_ACCESS_TOKEN will cause this script to be limited by the token owner's
-account instead.
-
-See: https://developer.github.com/v3/#rate-limiting
+There are two modes of operation: published, and unpublished (draft).
 
 Usage:
-    patch_packer_config.py (query-github|pre-release|release) <packer-json>
+    patch_packer_config.py (published|unpublished) <packer-json>
     patch_packer_config.py -h | --help
     patch_packer_config.py -v | --version
 
@@ -40,8 +28,6 @@ import os
 import sys
 
 import docopt
-from github import Github
-from github.GithubException import UnknownObjectException
 
 __version__ = "1.0.0"
 
@@ -65,51 +51,7 @@ def make_kms_map(map_string):
     return result
 
 
-def query_github():
-    """Query GitHub to see if this release is a pre-release."""
-    travis_tag = os.getenv("TRAVIS_TAG")
-    if not travis_tag:
-        eprint("TRAVIS_TAG not set (not a release)")
-        # The config still needs to be generated correctly as
-        # it will be validated even if it isn't deployed.
-        # So we'll generate it as if it was a full release since
-        # it will test more of the configuration.
-        return False
-
-    travis_repo_slug = os.getenv("TRAVIS_REPO_SLUG")
-    if not travis_repo_slug:
-        eprint("TRAVIS_REPO_SLUG not set. (required for query-github mode)")
-        sys.exit(-1)
-
-    access_token = os.getenv("GITHUB_ACCESS_TOKEN")
-    # if we have a Github access token use it, otherwise we may be rate limited
-    # by all the other Travis users coming from the same IP.
-    if access_token:
-        git = Github(access_token)
-        eprint(f"Using GITHUB_ACCESS_TOKEN to access GitHub API.")
-    else:
-        git = Github()
-        eprint(
-            f"Warning: GITHUB_ACCESS_TOKEN not set.  "
-            + "GitHub API access can easily fail if using a shared egress IP."
-        )
-    try:
-        repo = git.get_repo(travis_repo_slug)
-        release = repo.get_release(travis_tag)
-        if release.prerelease:
-            eprint(f"GitHub says {travis_tag} is a pre-release build.")
-        else:
-            eprint(f"GitHub says {travis_tag} is NOT a pre-release build.")
-        return release.prerelease
-    except UnknownObjectException:
-        # Either the travis_repo_slug or travis_tag were not found.
-        eprint(
-            f"Unable to lookup pre-release status for {travis_repo_slug}:{travis_tag}"
-        )
-        sys.exit(-1)
-
-
-def patch_config(filename, build_region, kms_map, is_prerelease):
+def patch_config(filename, build_region, kms_map, is_draft):
     """Patch the packer configuration file."""
     try:
         # read and parse the packer configuration file
@@ -126,15 +68,15 @@ def patch_config(filename, build_region, kms_map, is_prerelease):
             continue
 
         # invariants
-        builder["tags"]["Pre_Release"] = str(is_prerelease)
+        builder["tags"]["Draft"] = str(is_draft)
         builder["region"] = build_region
 
-        if is_prerelease:
-            # Pre-Release
+        if is_draft:
+            # Unpublished (draft)
             builder["ami_regions"] = build_region
             builder["region_kms_key_ids"] = {build_region: kms_map[build_region]}
         else:
-            # Production Release
+            # Published Release
             builder["ami_regions"] = ",".join(kms_map.keys())
             builder["region_kms_key_ids"] = kms_map
 
@@ -160,16 +102,14 @@ def main():
         sys.exit(-1)
     kms_map = make_kms_map(kms_map_string)
 
-    if args["query-github"]:
-        is_prerelease = query_github()
-    elif args["pre-release"]:
-        eprint(f"User requested a pre-release build.")
-        is_prerelease = True
-    else:  # release (enforced by docopt)
-        eprint(f"User requested a release build.")
-        is_prerelease = False
+    if args["unpublished"]:
+        eprint(f"User requested a unpublished (draft) build.")
+        is_draft = True
+    else:  # published (enforced by docopt)
+        eprint(f"User requested a published build.")
+        is_draft = False
 
-    patch_config(config_filename, build_region, kms_map, is_prerelease)
+    patch_config(config_filename, build_region, kms_map, is_draft)
 
     sys.exit(0)
 
