@@ -18,7 +18,7 @@ jobs:
                                      us-west-1:alias/cool/ebs,
                                      us-west-2:alias/cool/ebs"
       PACKER_VERSION: 1.4.4
-      TERRAFORM_VERSION: 0.12.10
+      TERRAFORM_VERSION: 0.12.11
 
     steps:
       - uses: actions/checkout@v1
