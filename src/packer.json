@@ -41,11 +41,11 @@
       "tags": {
         "Application": "Example",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
+        "GitHub_SHA": "{{user `github_sha`}}",
         "OS_Version": "Debian Buster",
         "Pre_Release": "from-patcher-script",
         "Release": "{{user `image_version`}}",
-        "Team": "CISA - Development",
-        "Travis_Job_Web_URL": "{{user `travis_job_web_url`}}"
+        "Team": "CISA - Development"
       },
       "type": "amazon-ebs"
     }
@@ -62,7 +62,7 @@
   ],
   "sensitive-variables": [],
   "variables": {
-    "image_version": "{{env `PACKER_IMAGE_VERSION`}}",
-    "travis_job_web_url": "{{env `TRAVIS_JOB_WEB_URL`}}"
+    "github_sha": "{{env `GITHUB_SHA`}}",
+    "image_version": "{{env `PACKER_IMAGE_VERSION`}}"
   }
 }
