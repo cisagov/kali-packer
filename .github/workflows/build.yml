@@ -28,8 +28,8 @@ jobs:
         env:
           TERRAFORM_ZIP: terraform_${TERRAFORM_VERSION}_linux_amd64.zip
         run: |
-          curl --output "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}"
-            --time-cond "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}" --location
+          curl --output "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}" \
+            --time-cond "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}" --location \
             "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
           sudo unzip -d /opt/terraform "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}"
           sudo ln -s /opt/terraform/terraform /usr/bin/terraform
@@ -38,8 +38,8 @@ jobs:
         env:
           PACKER_ZIP: packer_${PACKER_VERSION}_linux_amd64.zip
         run: |
-          curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}"
-            --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location
+          curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}" \
+            --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location \
             "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
           sudo unzip -o -d /usr/local/bin "${CURL_CACHE_DIR}/${PACKER_ZIP}"
 
