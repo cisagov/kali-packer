@@ -9,6 +9,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     env:
+      AWS_DEFAULT_REGION: us-east-2
       CURL_CACHE_DIR: $HOME/.cache/curl
       BUILD_REGION: us-east-2
       PRERELEASE_DEPLOY_REGION_KMS_MAP: "us-east-2:alias/cool/ebs"
