@@ -1,20 +1,16 @@
 #!/usr/bin/env python
-"""Modify a packer json configuration to support pre-releases.
+"""Modify a packer json configuration deploy regions and KMS keys.
 
-This script reads the PACKER_BUILD_REGION and PACKER_DEPLOY_REGION_KMS_MAP
-environment variables to calculate the values for the packer configuration.
+This script reads the REGION_KMS_MAP environment variable to calculate
+the values for the packer configuration.
 
 It will overwrite the following sections of a packer amazon-ebs builder
 configuration:
  - ami_regions
- - region
  - region_kms_key_ids
- - tags/Pre_Release
-
-There are two modes of operation: published, and unpublished (draft).
 
 Usage:
-    patch_packer_config.py (published|unpublished) <packer-json>
+    patch_packer_config.py <packer-json>
     patch_packer_config.py -h | --help
     patch_packer_config.py -v | --version
 
@@ -29,7 +25,7 @@ import sys
 
 import docopt
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 
 
 def eprint(*args, **kwargs):
@@ -51,7 +47,7 @@ def make_kms_map(map_string):
     return result
 
 
-def patch_config(filename, build_region, kms_map, is_draft):
+def patch_config(filename, kms_map):
     """Patch the packer configuration file."""
     try:
         # read and parse the packer configuration file
@@ -66,19 +62,8 @@ def patch_config(filename, build_region, kms_map, is_draft):
         # only modify AWS builders
         if builder.get("type") != "amazon-ebs":
             continue
-
-        # invariants
-        builder["tags"]["Draft"] = str(is_draft)
-        builder["region"] = build_region
-
-        if is_draft:
-            # Unpublished (draft)
-            builder["ami_regions"] = build_region
-            builder["region_kms_key_ids"] = {build_region: kms_map[build_region]}
-        else:
-            # Published Release
-            builder["ami_regions"] = ",".join(kms_map.keys())
-            builder["region_kms_key_ids"] = kms_map
+        builder["ami_regions"] = ",".join(kms_map.keys())
+        builder["region_kms_key_ids"] = kms_map
 
     # write the modified configuration back out
     with open(filename, "w") as fp:
@@ -91,25 +76,13 @@ def main():
 
     config_filename = args["<packer-json>"]
 
-    build_region = os.getenv("PACKER_BUILD_REGION")
-    if not build_region:
-        eprint("PACKER_BUILD_REGION not set (required)")
-        sys.exit(-1)
-
-    kms_map_string = os.getenv("PACKER_DEPLOY_REGION_KMS_MAP")
+    kms_map_string = os.getenv("REGION_KMS_MAP")
     if not kms_map_string:
-        eprint("PACKER_DEPLOY_REGION_KMS_MAP not set (required)")
+        eprint("REGION_KMS_MAP not set (required)")
         sys.exit(-1)
     kms_map = make_kms_map(kms_map_string)
 
-    if args["unpublished"]:
-        eprint(f"User requested a unpublished (draft) build.")
-        is_draft = True
-    else:  # published (enforced by docopt)
-        eprint(f"User requested a published build.")
-        is_draft = False
-
-    patch_config(config_filename, build_region, kms_map, is_draft)
+    patch_config(config_filename, kms_map)
 
     sys.exit(0)
 
