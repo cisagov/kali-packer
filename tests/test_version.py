@@ -5,7 +5,7 @@ import os
 
 import pytest
 
-GITHUB_RELEASE_TAG = os.getenv("GITHUB_REF")
+GITHUB_RELEASE_TAG = os.getenv("GITHUB_RELEASE_TAG")
 VERSION_FILE = "src/version.txt"
 
 
