@@ -16,13 +16,6 @@ jobs:
           python-version: 3.7
       - name: Setup cache # GitHub support coming soon
         run: mkdir -p $CURL_CACHE_DIR
-      - name: Install Packer
-        run: |
-          PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
-          curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}" \
-            --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location \
-            "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -o -d /usr/local/bin "${CURL_CACHE_DIR}/${PACKER_ZIP}"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
