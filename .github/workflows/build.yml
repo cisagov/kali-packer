@@ -29,6 +29,7 @@ jobs:
       CURL_CACHE_DIR: $HOME/.cache/curl
       PACKER_VERSION: 1.4.4
     steps:
+      - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
         with:
           python-version: 3.7
