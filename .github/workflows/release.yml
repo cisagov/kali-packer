@@ -52,7 +52,7 @@ jobs:
           export REGION_KMS_MAP="$PRERELEASE_DEPLOY_REGION_KMS_MAP"
           ./patch_packer_config.py src/packer.json
       - name: Patch Packer configuration (release)
-        if: github.event.release.prerelease == true
+        if: github.event.release.prerelease == false
         run: |
           export REGION_KMS_MAP="$RELEASE_DEPLOY_REGION_KMS_MAP"
           ./patch_packer_config.py src/packer.json
