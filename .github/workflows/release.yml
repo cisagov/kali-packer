@@ -45,7 +45,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade -r requirements.txt
       - name: Install ansible roles
-          ansible-galaxy install --force --role-file src/requirements.yml
+        run: ansible-galaxy install --force --role-file src/requirements.yml
       - name: Patch Packer configuration (pre-release)
         if: github.event.release.prerelease == true
         run: |
