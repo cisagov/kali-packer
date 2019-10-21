@@ -1,3 +1,4 @@
 ansible
+boto3
 docopt
 semver
