@@ -59,15 +59,6 @@
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
-    },
-    {
-      "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
-      "inline": [
-        "rm --force /etc/sudoers.d/90-cloud-init-users",
-        "/usr/sbin/userdel --remove --force admin"
-      ],
-      "skip_clean": true,
-      "type": "shell"
     }
   ],
   "sensitive-variables": [],
