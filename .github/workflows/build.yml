@@ -4,11 +4,13 @@ name: build
 on:
   push:
 
+env:
+  CURL_CACHE_DIR: $HOME/.cache/curl
+  PACKER_VERSION: 1.4.4
+
 jobs:
   lint:
     runs-on: ubuntu-latest
-    env:
-      CURL_CACHE_DIR: $HOME/.cache/curl
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
@@ -25,9 +27,6 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
-    env:
-      CURL_CACHE_DIR: $HOME/.cache/curl
-      PACKER_VERSION: 1.4.4
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
