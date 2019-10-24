@@ -1,13 +1,19 @@
 #!/usr/bin/env python
 """Modify a packer json configuration deploy regions and KMS keys.
 
-This script reads the REGION_KMS_MAP environment variable to calculate
-the values for the packer configuration.
+This script reads the region to kms map from standard in and updates packer
+configuration with the calculated values.
 
 It will overwrite the following sections of a packer amazon-ebs builder
 configuration:
  - ami_regions
  - region_kms_key_ids
+
+The input format of the region to kms map should be:
+<aws-region>:<kms_key>,...
+
+Example:
+us-east-1:alias/cool/ebs,us-east-2:alias/cool/ebs,us-west-1:alias/cool/ebs
 
 Usage:
     patch_packer_config.py <packer-json>
@@ -17,10 +23,10 @@ Usage:
 Options:
   -h --help              Show this message.
   -v --version           Output the version of the script.
+
 """
 
 import json
-import os
 import sys
 
 import docopt
@@ -76,9 +82,10 @@ def main():
 
     config_filename = args["<packer-json>"]
 
-    kms_map_string = os.getenv("REGION_KMS_MAP")
+    kms_map_string = "".join(sys.stdin.readlines())
+
     if not kms_map_string:
-        eprint("REGION_KMS_MAP not set (required)")
+        eprint("The region to kms map must be passed via stdin.")
         sys.exit(-1)
     kms_map = make_kms_map(kms_map_string)
 
