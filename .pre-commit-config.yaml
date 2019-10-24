@@ -67,7 +67,7 @@ repos:
     hooks:
       - id: black
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: v4.1.1a0
+    rev: 7a2221a32968f12bee8494caf978ce150ad1494f
     hooks:
       - id: ansible-lint
         # files: molecule/default/playbook.yml
