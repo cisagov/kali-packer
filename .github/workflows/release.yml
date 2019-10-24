@@ -56,6 +56,4 @@ jobs:
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
-        run: |
-          export PACKER_IMAGE_VERSION=$(./bump_version.sh show)
-          packer build --timestamp-ui src/packer.json
+        run: packer build --timestamp-ui src/packer.json
