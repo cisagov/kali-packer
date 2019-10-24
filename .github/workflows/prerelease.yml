@@ -1,18 +1,15 @@
 ---
-name: release
+name: prerelease
 
 on:
   release:
-    types: [released]
+    types: [prereleased]
 
 env:
   AWS_DEFAULT_REGION: us-east-2
   CURL_CACHE_DIR: $HOME/.cache/curl
   BUILD_REGION: us-east-2
-  DEPLOY_REGION_KMS_MAP: "us-east-1:alias/cool/ebs,
-                          us-east-2:alias/cool/ebs,
-                          us-west-1:alias/cool/ebs,
-                          us-west-2:alias/cool/ebs"
+  DEPLOY_REGION_KMS_MAP: "us-east-2:alias/cool/ebs"
   PACKER_VERSION: 1.4.4
   TERRAFORM_VERSION: 0.12.12
 
