@@ -37,7 +37,6 @@
           "136693071363"
         ]
       },
-      "ssh_clear_authorized_keys": true,
       "ssh_username": "admin",
       "tags": {
         "Application": "Example",
@@ -59,6 +58,17 @@
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
+    },
+    {
+      "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
+      "inline": [
+        "rm --force /etc/cloud/cloud.cfg.d/01_debian_cloud.cfg",
+        "rm --force /etc/sudoers.d/90-cloud-init-users",
+        "rm --force /root/.ssh/authorized_keys",
+        "/usr/sbin/userdel --remove --force admin"
+      ],
+      "skip_clean": true,
+      "type": "shell"
     }
   ],
   "sensitive-variables": [],
