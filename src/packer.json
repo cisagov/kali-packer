@@ -63,8 +63,8 @@
     {
       "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
       "inline": [
-        "rm -f /etc/sudoers.d/90-cloud-init-users",
-        "/usr/sbin/userdel -r -f admin"
+        "rm --force /etc/sudoers.d/90-cloud-init-users",
+        "/usr/sbin/userdel --remove --force admin"
       ],
       "skip_clean": true,
       "type": "shell"
