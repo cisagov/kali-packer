@@ -38,7 +38,7 @@
         ]
       },
       "ssh_clear_authorized_keys": true,
-      "ssh_username": "packer",
+      "ssh_username": "admin",
       "tags": {
         "Application": "Example",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
