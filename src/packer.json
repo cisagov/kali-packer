@@ -62,7 +62,7 @@
     {
       "execute_command": "chmod +x {{ .Path }}; sudo env {{ .Vars }} {{ .Path }} ; rm -f {{ .Path }}",
       "inline": [
-        "rm --force /etc/cloud/cloud.cfg.d/01_debian_cloud.cfg",
+        "sed -i '/^users:/ {N; s/users:.*/users: []/g}' /etc/cloud/cloud.cfg",
         "rm --force /etc/sudoers.d/90-cloud-init-users",
         "rm --force /root/.ssh/authorized_keys",
         "/usr/sbin/userdel --remove --force admin"
