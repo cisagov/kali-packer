@@ -37,6 +37,7 @@
           "136693071363"
         ]
       },
+      "ssh_clear_authorized_keys": true,
       "ssh_username": "admin",
       "tags": {
         "Application": "Example",
