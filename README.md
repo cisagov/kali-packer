@@ -15,7 +15,7 @@ appropriate for the major languages that we use.
 This project requires a build user to exist in AWS.  The accompanying terraform
 code will create the user with the appropriate name and permissions.  This only
 needs to be run once per project, per AWS account.  This user will also be used by
-Travis-CI.
+GitHub Actions.
 
 ```console
 cd terraform
