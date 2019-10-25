@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-"""Modify a packer json configuration deploy regions and KMS keys.
+"""Modify a packer json configuration's deploy regions and KMS keys.
 
-This script reads the region to kms map from standard in and updates packer
+This script reads the region to kms map from standard in and updates the packer
 configuration with the calculated values.
 
 It will overwrite the following sections of a packer amazon-ebs builder
