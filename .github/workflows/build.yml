@@ -6,7 +6,6 @@ on:
 
 env:
   CURL_CACHE_DIR: $HOME/.cache/curl
-  PACKER_VERSION: 1.4.4
 
 jobs:
   lint:
@@ -28,6 +27,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
         with:

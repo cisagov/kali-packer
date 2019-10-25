@@ -10,13 +10,12 @@ env:
   BUILD_REGION: us-east-2
   CURL_CACHE_DIR: $HOME/.cache/curl
   DEPLOY_REGION_KMS_MAP: "us-east-2:alias/cool/ebs"
-  PACKER_VERSION: 1.4.4
-  TERRAFORM_VERSION: 0.12.12
 
 jobs:
   prerelease:
     runs-on: ubuntu-latest
     steps:
+      - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v1
       - uses: actions/setup-python@v1
         with:
