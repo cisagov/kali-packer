@@ -24,7 +24,7 @@
       ],
       "region": "{{user `build_region`}}",
       "region_kms_key_ids": {
-        "from-patcher-script": "from-patcher-script"
+        "from-patcher-script": "alias/from_patcher_script/ebs"
       },
       "source_ami_filter": {
         "filters": {
