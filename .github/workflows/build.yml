@@ -57,7 +57,7 @@ jobs:
       - name: Cache curl downloads
         uses: actions/cache@v1
         with:
-          path: $CURL_CACHE_DIR
+          path: ${{ env.CURL_CACHE_DIR }}
           key: ${{ runner.os }}-curl-packer-${{ env.PACKER_VERSION }}
       - name: Install Packer
         run: |
