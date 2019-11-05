@@ -15,8 +15,21 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Setup cache # GitHub support coming soon
-        run: mkdir -p $CURL_CACHE_DIR
+      - name: Cache pip test requirements
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: "${{ runner.os }}-pip-test-\
+            ${{ hashFiles('**/requirements-test.txt') }}"
+          restore-keys: |
+            ${{ runner.os }}-pip-test-
+            ${{ runner.os }}-pip-
+      - name: Cache pre-commit hooks
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pre-commit
+          key: "${{ runner.os }}-pre-commit-\
+            ${{ hashFiles('**/.pre-commit-config.yaml') }}"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -32,10 +45,23 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Setup cache # GitHub support coming soon
-        run: mkdir -p $CURL_CACHE_DIR
+      - name: Cache pip test requirements
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: "${{ runner.os }}-pip-test-\
+            ${{ hashFiles('**/requirements-test.txt') }}"
+          restore-keys: |
+            ${{ runner.os }}-pip-test-
+            ${{ runner.os }}-pip-
+      - name: Cache curl downloads
+        uses: actions/cache@v1
+        with:
+          path: $CURL_CACHE_DIR
+          key: ${{ runner.os }}-curl-packer-${{ env.PACKER_VERSION }}
       - name: Install Packer
         run: |
+          mkdir -p $CURL_CACHE_DIR
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}" \
             --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location \
