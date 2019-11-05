@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v2.4.0
     hooks:
       - id: check-executables-have-shebangs
       - id: check-json
@@ -37,7 +37,7 @@ repos:
     hooks:
       - id: shell-lint
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.8
+    rev: 3.7.9
     hooks:
       - id: flake8
         additional_dependencies:
@@ -63,11 +63,11 @@ repos:
         name: bandit (everything else)
         exclude: tests
   - repo: https://github.com/python/black
-    rev: 19.3b0
+    rev: 19.10b0
     hooks:
       - id: black
   - repo: https://github.com/ansible/ansible-lint.git
-    rev: 7a2221a32968f12bee8494caf978ce150ad1494f
+    rev: v4.1.1a3
     hooks:
       - id: ansible-lint
         # files: molecule/default/playbook.yml
