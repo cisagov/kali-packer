@@ -57,7 +57,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install --upgrade \
-                      --requirement requirements.txt \
+                      --requirement requirements.txt
       - name: Install ansible roles
         run: ansible-galaxy install --force --role-file src/requirements.yml
       - name: Create machine image
