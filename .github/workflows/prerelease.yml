@@ -8,8 +8,8 @@ on:
 env:
   AWS_DEFAULT_REGION: us-east-2
   BUILD_REGION: us-east-2
+  BUILD_REGION_KMS: alias/cool/ebs
   CURL_CACHE_DIR: $HOME/.cache/curl
-  DEPLOY_REGION_KMS_MAP: "us-east-2:alias/cool/ebs"
 
 jobs:
   prerelease:
@@ -58,10 +58,6 @@ jobs:
           pip install --upgrade -r requirements.txt
       - name: Install ansible roles
         run: ansible-galaxy install --force --role-file src/requirements.yml
-      - name: Patch Packer configuration
-        run: |
-          echo $DEPLOY_REGION_KMS_MAP | \
-            ./patch_packer_config.py src/packer.json
       - name: Create machine image
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
