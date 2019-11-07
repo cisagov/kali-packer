@@ -12,7 +12,7 @@ env:
   COPY_REGIONS_KMS_MAP: "us-east-1:alias/cool/ebs,
                          us-west-1:alias/cool/ebs,
                          us-west-2:alias/cool/ebs"
-  CURL_CACHE_DIR: $HOME/.cache/curl
+  CURL_CACHE_DIR: ~/.cache/curl
 
 jobs:
   release:

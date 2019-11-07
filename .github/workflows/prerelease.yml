@@ -9,7 +9,7 @@ env:
   AWS_DEFAULT_REGION: us-east-2
   BUILD_REGION: us-east-2
   BUILD_REGION_KMS: alias/cool/ebs
-  CURL_CACHE_DIR: $HOME/.cache/curl
+  CURL_CACHE_DIR: ~/.cache/curl
 
 jobs:
   prerelease:
