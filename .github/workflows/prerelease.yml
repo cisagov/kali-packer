@@ -11,6 +11,7 @@ env:
   BUILD_REGION_KMS: alias/cool/ebs
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
+  RUN_TMATE: ${{ secrets.RUN_TMATE }}
 
 jobs:
   prerelease:
@@ -39,19 +40,23 @@ jobs:
             terraform-${{ env.TERRAFORM_VERSION }}"
       - name: Install Packer
         run: |
-          mkdir -p $CURL_CACHE_DIR
+          mkdir -p ${{ env.CURL_CACHE_DIR }}
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
-          curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}" \
-            --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location \
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --location \
             "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -o -d /usr/local/bin "${CURL_CACHE_DIR}/${PACKER_ZIP}"
+          sudo unzip -o -d /usr/local/bin \
+            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
       - name: Install Terraform
         run: |
           TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-          curl --output "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}" \
-            --time-cond "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}" --location \
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
+            --location \
             "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
-          sudo unzip -d /opt/terraform "${CURL_CACHE_DIR}/${TERRAFORM_ZIP}"
+          sudo unzip -d /opt/terraform \
+            ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
           sudo ln -s /opt/terraform/terraform /usr/bin/terraform
       - name: Install dependencies
         run: |
@@ -68,3 +73,6 @@ jobs:
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
         run: packer build --timestamp-ui src/packer.json
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v1
+        if: env.RUN_TMATE
