@@ -8,11 +8,12 @@ on:
 env:
   AWS_DEFAULT_REGION: us-east-2
   BUILD_REGION: us-east-2
-  CURL_CACHE_DIR: $HOME/.cache/curl
-  DEPLOY_REGION_KMS_MAP: "us-east-1:alias/cool/ebs,
-                          us-east-2:alias/cool/ebs,
-                          us-west-1:alias/cool/ebs,
-                          us-west-2:alias/cool/ebs"
+  BUILD_REGION_KMS: alias/cool/ebs
+  COPY_REGIONS_KMS_MAP: "us-east-1:alias/cool/ebs,
+                         us-west-1:alias/cool/ebs,
+                         us-west-2:alias/cool/ebs"
+  CURL_CACHE_DIR: ~/.cache/curl
+  PIP_CACHE_DIR: ~/.cache/pip
 
 jobs:
   release:
@@ -23,10 +24,25 @@ jobs:
       - uses: actions/setup-python@v1
         with:
           python-version: 3.7
-      - name: Setup cache # GitHub support coming soon
-        run: mkdir -p $CURL_CACHE_DIR
+      - name: Cache pip build requirements
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.PIP_CACHE_DIR }}
+          key: "${{ runner.os }}-pip-build-\
+            ${{ hashFiles('**/requirements.txt') }}"
+          restore-keys: |
+            ${{ runner.os }}-pip-build-
+            ${{ runner.os }}-pip-
+      - name: Cache curl downloads
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.CURL_CACHE_DIR }}
+          key: "${{ runner.os }}-curl-\
+            packer-${{ env.PACKER_VERSION }}-\
+            terraform-${{ env.TERRAFORM_VERSION }}"
       - name: Install Packer
         run: |
+          mkdir -p $CURL_CACHE_DIR
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}" \
             --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location \
@@ -43,12 +59,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install --upgrade -r requirements.txt
+          pip install --upgrade \
+                      --requirement requirements.txt
       - name: Install ansible roles
         run: ansible-galaxy install --force --role-file src/requirements.yml
-      - name: Patch Packer configuration
+      - name: Add copy regions to packer configuration
         run: |
-          echo $DEPLOY_REGION_KMS_MAP | \
+          echo $COPY_REGIONS_KMS_MAP | \
             ./patch_packer_config.py src/packer.json
       - name: Create machine image
         env:

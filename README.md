@@ -66,9 +66,10 @@ Packer will use your
 [standard AWS environment](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
 to build the image.
 
-The [Packer template](src/packer.json) requires one environment variable to be defined:
+The [Packer template](src/packer.json) requires two environment variables to be defined:
 
 - `BUILD_REGION`: the region in which to build the image.
+- `BUILD_REGION_KMS`: the kms key alias to use to encrypt the image.
 
 Additionally, the following optional environment variables can be used
 by the [Packer template](src/packer.json) to tag the final image:
@@ -83,18 +84,19 @@ Here is an example of how to kick off a pre-release build:
 pip install --requirement requirements-dev.txt
 ansible-galaxy install --force --force-with-deps --role-file src/requirements.yml
 export BUILD_REGION="us-east-2"
+export BUILD_REGION_KMS="alias/cool/ebs"
 export GITHUB_RELEASE_TAG=$(./bump_version.sh show)
-echo "us-east-2:alias/cool/ebs" | ./patch_packer_config.py src/packer.json
 packer build --timestamp-ui src/packer.json
 ```
 
 If you are satisfied with your pre-release image, you can easily create a release
-that deploys to all regions by changing the input to
-`patch_packer_config.py` to include additional comma-separated regions:kms_keys
+that deploys to all regions by adding additional regions to the packer configuration.
+This can be done with the `patch_packer_config.py` helper script.
+Echo in a comma-separated regions:kms_keys list to `patch_packer_config.py`
 and rerunning packer:
 
 ```console
-echo "us-east-1:alias/cool/ebs,us-east-2:alias/cool/ebs,us-west-1:alias/cool/ebs,\
+echo "us-east-1:alias/cool/ebs,us-west-1:alias/cool/ebs,\
 us-west-2:alias/cool/ebs" | ./patch_packer_config.py src/packer.json
 packer build --timestamp-ui src/packer.json
 ```
