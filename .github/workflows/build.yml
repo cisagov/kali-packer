@@ -8,6 +8,7 @@ env:
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
+  RUN_TMATE: ${{ secrets.RUN_TMATE }}
 
 jobs:
   lint:
@@ -64,12 +65,14 @@ jobs:
           key: ${{ runner.os }}-curl-packer-${{ env.PACKER_VERSION }}
       - name: Install Packer
         run: |
-          mkdir -p $CURL_CACHE_DIR
+          mkdir -p ${{ env.CURL_CACHE_DIR }}
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
-          curl --output "${CURL_CACHE_DIR}/${PACKER_ZIP}" \
-            --time-cond "${CURL_CACHE_DIR}/${PACKER_ZIP}" --location \
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --location \
             "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -o -d /usr/local/bin "${CURL_CACHE_DIR}/${PACKER_ZIP}"
+          sudo unzip -o -d /usr/local/bin \
+            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -81,3 +84,6 @@ jobs:
         env:
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: pytest
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v1
+        if: env.RUN_TMATE
