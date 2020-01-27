@@ -1,0 +1,78 @@
+---
+name: prerelease
+
+on:
+  release:
+    types: [prereleased]
+
+env:
+  AWS_DEFAULT_REGION: us-east-2
+  BUILD_REGION: us-east-2
+  BUILD_REGION_KMS: alias/cool/ebs
+  CURL_CACHE_DIR: ~/.cache/curl
+  PIP_CACHE_DIR: ~/.cache/pip
+  RUN_TMATE: ${{ secrets.RUN_TMATE }}
+
+jobs:
+  prerelease:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cisagov/setup-env-github-action@develop
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Cache pip build requirements
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.PIP_CACHE_DIR }}
+          key: "${{ runner.os }}-pip-build-\
+            ${{ hashFiles('**/requirements.txt') }}"
+          restore-keys: |
+            ${{ runner.os }}-pip-build-
+            ${{ runner.os }}-pip-
+      - name: Cache curl downloads
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.CURL_CACHE_DIR }}
+          key: "${{ runner.os }}-curl-\
+            packer-${{ env.PACKER_VERSION }}-\
+            terraform-${{ env.TERRAFORM_VERSION }}"
+      - name: Install Packer
+        run: |
+          mkdir -p ${{ env.CURL_CACHE_DIR }}
+          PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --location \
+            "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
+          sudo unzip -o -d /usr/local/bin \
+            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
+      - name: Install Terraform
+        run: |
+          TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
+            --location \
+            "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
+          sudo unzip -d /opt/terraform \
+            ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
+          sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade \
+                      --requirement requirements.txt
+      - name: Install ansible roles
+        run: ansible-galaxy install --force --role-file src/requirements.yml
+      - name: Create machine image
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
+          GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
+          GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
+        run: packer build --timestamp-ui src/packer.json
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v1
+        if: env.RUN_TMATE
