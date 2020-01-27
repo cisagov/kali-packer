@@ -1,8 +1,10 @@
 ---
 name: build
 
-on:
-  push:
+on: [
+  push,
+  pull_request
+]
 
 env:
   CURL_CACHE_DIR: ~/.cache/curl
