@@ -1,8 +1,10 @@
 #!/usr/bin/env pytest -vs
 """Version tests for packer skeleton project."""
 
+# Standard Python Libraries
 import os
 
+# Third-Party Libraries
 import pytest
 
 GITHUB_RELEASE_TAG = os.getenv("GITHUB_RELEASE_TAG")
