@@ -16,10 +16,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Cache pip test requirements
         uses: actions/cache@v1
         with:
@@ -40,17 +40,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade \
                       --requirement requirements-test.txt
-      - name: Run linters on all files
+      - name: Run pre-commit on all files
         run: pre-commit run --all-files
 
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: cisagov/setup-env-github-action@develop
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.8
       - name: Cache pip test requirements
         uses: actions/cache@v1
         with:
