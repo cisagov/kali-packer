@@ -102,7 +102,7 @@ commands:
 cd skeleton-packer
 pyenv virtualenv <python_version_to_use> skeleton-packer
 pyenv local skeleton-packer
-pip install -r requirements-dev.txt
+pip install --requirement requirements-dev.txt
 ```
 
 #### Installing the pre-commit hook ####
