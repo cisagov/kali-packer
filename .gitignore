@@ -7,4 +7,4 @@ __pycache__
 *.egg-info
 dist
 packer_cache
-terraform/.terraform
+terraform*/.terraform
