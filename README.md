@@ -100,8 +100,8 @@ Here is an example of how to kick off a pre-release build:
 ```console
 pip install --requirement requirements-dev.txt
 ansible-galaxy install --force --force-with-deps --role-file src/requirements.yml
-export BUILD_REGION="us-east-2"
-export BUILD_REGION_KMS="alias/cool/ebs"
+export BUILD_REGION="us-east-1"
+export BUILD_REGION_KMS="alias/cool-amis"
 export GITHUB_RELEASE_TAG=$(./bump_version.sh show)
 packer build --timestamp-ui src/packer.json
 ```
@@ -113,8 +113,8 @@ Echo in a comma-separated regions:kms_keys list to `patch_packer_config.py`
 and rerunning packer:
 
 ```console
-echo "us-east-1:alias/cool/ebs,us-west-1:alias/cool/ebs,\
-us-west-2:alias/cool/ebs" | ./patch_packer_config.py src/packer.json
+echo "us-east-2:alias/cool-amis,us-west-1:alias/cool-amis,\
+us-west-2:alias/cool-amis" | ./patch_packer_config.py src/packer.json
 packer build --timestamp-ui src/packer.json
 ```
 
