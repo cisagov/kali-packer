@@ -1,6 +1,6 @@
-# skeleton-packer 💀📦 #
+# skeleton-packer-cool 💀📦 #
 
-[![GitHub Build Status](https://github.com/cisagov/skeleton-packer/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-packer/actions)
+[![GitHub Build Status](https://github.com/cisagov/skeleton-packer-cool/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-packer-cool/actions)
 
 This is a generic skeleton project that can be used to quickly get a
 new [cisagov](https://github.com/cisagov) GitHub
@@ -24,7 +24,7 @@ terraform apply
 ```
 
 Once the user is created you will need to update the
-[repository's secrets](https://github.com/cisagov/skeleton-packer/settings/secrets)
+[repository's secrets](https://github.com/cisagov/skeleton-packer-cool/settings/secrets)
 with the new encrypted environment variables.
 
 ```console
@@ -33,7 +33,7 @@ terraform state show module.iam_user.aws_iam_access_key.key
 
 Take the `id` and `secret` fields from the above command's output and create the
 `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables in the
-[repository's secrets](https://github.com/cisagov/skeleton-packer/settings/secrets).
+[repository's secrets](https://github.com/cisagov/skeleton-packer-cool/settings/secrets).
 
 ## Building the Image ##
 
