@@ -17,8 +17,25 @@ code will create the user with the appropriate name and permissions.  This only
 needs to be run once per project, per AWS account.  This user will also be used by
 GitHub Actions.
 
+Before the build user can be created, the following profiles must exist in
+your AWS credentials file:
+
+* `cool-images-provisionec2amicreateroles`
+* `cool-images-provisionparameterstorereadroles`
+* `cool-terraform-backend`
+* `cool-users-provisionaccount`
+
+The easiest way to set up those profiles is to use our
+[aws-profile-sync](https://github.com/cisagov/aws-profile-sync) utility.
+Follow the usage instructions in that repository before continuing with the
+next steps.  Note that you will need to know where your team stores their
+remote profile data in order to use
+[aws-profile-sync](https://github.com/cisagov/aws-profile-sync).
+
+To create the build user, follow these instructions:
+
 ```console
-cd terraform
+cd terraform-test-user
 terraform init --upgrade=true
 terraform apply
 ```
@@ -68,15 +85,15 @@ to build the image.
 
 The [Packer template](src/packer.json) requires two environment variables to be defined:
 
-- `BUILD_REGION`: the region in which to build the image.
-- `BUILD_REGION_KMS`: the kms key alias to use to encrypt the image.
+* `BUILD_REGION`: the region in which to build the image.
+* `BUILD_REGION_KMS`: the kms key alias to use to encrypt the image.
 
 Additionally, the following optional environment variables can be used
 by the [Packer template](src/packer.json) to tag the final image:
 
-- `GITHUB_IS_PRERELEASE`: boolean pre-release status
-- `GITHUB_RELEASE_TAG`: image version
-- `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release
+* `GITHUB_IS_PRERELEASE`: boolean pre-release status
+* `GITHUB_RELEASE_TAG`: image version
+* `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release
 
 Here is an example of how to kick off a pre-release build:
 
