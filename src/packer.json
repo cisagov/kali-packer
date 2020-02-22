@@ -63,6 +63,9 @@
   ],
   "provisioners": [
     {
+      "ansible_env_vars": [
+        "AWS_DEFAULT_REGION={{user `build_region`}}"
+      ],
       "groups": [
         "aws",
         "example"
