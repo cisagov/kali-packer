@@ -6,12 +6,12 @@ on:
     types: [released]
 
 env:
-  AWS_DEFAULT_REGION: us-east-2
-  BUILD_REGION: us-east-2
-  BUILD_REGION_KMS: alias/cool/ebs
-  COPY_REGIONS_KMS_MAP: "us-east-1:alias/cool/ebs,
-                         us-west-1:alias/cool/ebs,
-                         us-west-2:alias/cool/ebs"
+  AWS_DEFAULT_REGION: us-east-1
+  BUILD_REGION: us-east-1
+  BUILD_REGION_KMS: alias/cool-amis
+  COPY_REGIONS_KMS_MAP: "us-east-2:alias/cool-amis,
+                         us-west-1:alias/cool-amis,
+                         us-west-2:alias/cool-amis"
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
