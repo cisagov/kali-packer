@@ -1,4 +1,4 @@
-# skeleton-packer-cool 💀📦 #
+# skeleton-packer-cool 💀📦🆒 #
 
 [![GitHub Build Status](https://github.com/cisagov/skeleton-packer-cool/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-packer-cool/actions)
 
