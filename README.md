@@ -52,6 +52,10 @@ Take the `id` and `secret` fields from the above command's output and create the
 `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables in the
 [repository's secrets](https://github.com/cisagov/skeleton-packer-cool/settings/secrets).
 
+IMPORTANT: The account where your images will be built must have a VPC and
+a public subnet both tagged with the name "AMI Build", otherwise `packer`
+will not be able to build images.
+
 ## Building the Image ##
 
 ### Using GitHub Actions ###
@@ -81,18 +85,35 @@ how the build was triggered from GitHub.
 
 Packer will use your
 [standard AWS environment](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
-to build the image.
+to build the image, however you will need to set up one profile for the
+previously-created build user and another profile to assume the associated
+`EC2AMICreate` role.  You will need the `aws_access_key_id` and
+`aws_secret_access_key` that you set as GitHub secrets earlier.
+
+Add the following blocks to your AWS credentials file (be sure to replace the
+dummy account ID in the `role_arn` with your own):
+
+```console
+[test-skeleton-packer-cool]
+aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+[cool-images-ec2amicreate-skeleton-packer-cool]
+role_arn = arn:aws:iam::111111111111:role/EC2AMICreate-test-skeleton-packer-cool
+source_profile = test-skeleton-packer-cool
+role_session_name = example
+```
 
 The [Packer template](src/packer.json) requires two environment variables to be defined:
 
-* `BUILD_REGION`: the region in which to build the image.
-* `BUILD_REGION_KMS`: the kms key alias to use to encrypt the image.
+* `BUILD_REGION`: The region in which to build the image.
+* `BUILD_REGION_KMS`: The KMS key alias to use to encrypt the image.
 
 Additionally, the following optional environment variables can be used
 by the [Packer template](src/packer.json) to tag the final image:
 
-* `GITHUB_IS_PRERELEASE`: boolean pre-release status
-* `GITHUB_RELEASE_TAG`: image version
+* `GITHUB_IS_PRERELEASE`: Boolean pre-release status
+* `GITHUB_RELEASE_TAG`: Image version
 * `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release
 
 Here is an example of how to kick off a pre-release build:
@@ -103,7 +124,7 @@ ansible-galaxy install --force --force-with-deps --role-file src/requirements.ym
 export BUILD_REGION="us-east-1"
 export BUILD_REGION_KMS="alias/cool-amis"
 export GITHUB_RELEASE_TAG=$(./bump_version.sh show)
-packer build --timestamp-ui src/packer.json
+AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer-cool packer build --timestamp-ui src/packer.json
 ```
 
 If you are satisfied with your pre-release image, you can easily create a release
@@ -115,7 +136,7 @@ and rerunning packer:
 ```console
 echo "us-east-2:alias/cool-amis,us-west-1:alias/cool-amis,\
 us-west-2:alias/cool-amis" | ./patch_packer_config.py src/packer.json
-packer build --timestamp-ui src/packer.json
+AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer-cool packer build --timestamp-ui src/packer.json
 ```
 
 See the patcher script's help for more information about its options and
