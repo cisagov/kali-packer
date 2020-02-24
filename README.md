@@ -52,6 +52,14 @@ Take the `id` and `secret` fields from the above command's output and create the
 `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables in the
 [repository's secrets](https://github.com/cisagov/skeleton-packer-cool/settings/secrets).
 
+You will also need to add one additional repository secret called
+`BUILD_ROLE_TO_ASSUME`.  Here is how to see the ARN that you need to set
+as the value for that secret:
+
+```console
+terraform state show module.iam_user.aws_iam_role.ec2amicreate_role[0] | grep ":role/"
+```
+
 IMPORTANT: The account where your images will be built must have a VPC and
 a public subnet both tagged with the name "AMI Build", otherwise `packer`
 will not be able to build images.

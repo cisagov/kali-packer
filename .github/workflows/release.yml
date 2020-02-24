@@ -9,8 +9,6 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   BUILD_REGION: us-east-1
   BUILD_REGION_KMS: alias/cool-amis
-  BUILD_ROLE_TO_ASSUME: >
-    arn:aws:iam::207871073513:role/EC2AMICreate-test-skeleton-packer-cool
   COPY_REGIONS_KMS_MAP: "us-east-2:alias/cool-amis,
                          us-west-1:alias/cool-amis,
                          us-west-2:alias/cool-amis"
@@ -80,7 +78,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.BUILD_REGION }}
-          role-to-assume: ${{ env.BUILD_ROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
           role-duration-seconds: 7200
       - name: Create machine image
         env:
