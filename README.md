@@ -154,6 +154,19 @@ inner workings:
 ./patch_packer_config.py --help
 ```
 
+### Giving Other AWS Accounts Permission to Launch the Image ###
+
+After the AMI has been successfully created, you may want to allow other
+accounts in your AWS organization permission to launch it.  For this project,
+we want to allow all accounts whose names begin with "env" to launch the
+most-recently-created AMI.  To do that, follow these instructions:
+
+```console
+cd terraform-post-packer
+terraform init --upgrade=true
+terraform apply
+```
+
 ## Contributing ##
 
 We welcome contributions!  Please see [here](CONTRIBUTING.md) for
