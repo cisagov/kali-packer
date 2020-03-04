@@ -6,9 +6,9 @@ on:
     types: [prereleased]
 
 env:
-  AWS_DEFAULT_REGION: us-east-2
-  BUILD_REGION: us-east-2
-  BUILD_REGION_KMS: alias/cool/ebs
+  AWS_DEFAULT_REGION: us-east-1
+  BUILD_REGION: us-east-1
+  BUILD_REGION_KMS: alias/cool-amis
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
@@ -65,10 +65,16 @@ jobs:
                       --requirement requirements.txt
       - name: Install ansible roles
         run: ansible-galaxy install --force --role-file src/requirements.yml
+      - name: Assume AWS build role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.BUILD_REGION }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
+          role-duration-seconds: 3600
       - name: Create machine image
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}

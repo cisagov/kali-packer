@@ -1,4 +1,4 @@
-# kali-packer :dragon:📦 #
+# kali-packer 💀📦🆒 #
 
 [![GitHub Build Status](https://github.com/cisagov/kali-packer/workflows/build/badge.svg)](https://github.com/cisagov/kali-packer/actions)
 
@@ -13,8 +13,25 @@ terraform code will create the user with the appropriate name and
 permissions.  This only needs to be run once per project, per AWS
 account.  This user will also be used by GitHub Actions.
 
+Before the build user can be created, the following profiles must exist in
+your AWS credentials file:
+
+* `cool-images-provisionec2amicreateroles`
+* `cool-images-provisionparameterstorereadroles`
+* `cool-terraform-backend`
+* `cool-users-provisionaccount`
+
+The easiest way to set up those profiles is to use our
+[`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync) utility.
+Follow the usage instructions in that repository before continuing with the
+next steps.  Note that you will need to know where your team stores their
+remote profile data in order to use
+[`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync).
+
+To create the build user, follow these instructions:
+
 ```console
-cd terraform
+cd terraform-test-user
 terraform init --upgrade=true
 terraform apply
 ```
@@ -32,13 +49,25 @@ create the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment
 variables in the [repository's
 secrets](https://github.com/cisagov/kali-packer/settings/secrets).
 
+You will also need to add one additional repository secret called
+`BUILD_ROLE_TO_ASSUME`.  Here is how to see the ARN that you need to
+set as the value for that secret:
+
+```console
+terraform state show module.iam_user.aws_iam_role.ec2amicreate_role[0] | grep ":role/"
+```
+
+IMPORTANT: The account where your images will be built must have a VPC
+and a public subnet both tagged with the name "AMI Build", otherwise
+`packer` will not be able to build images.
+
 This project also requires the following data to exist in your [AWS
 Systems Manager parameter
 store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html):
 
-- `/cyhy/dev/users`: A comma-separated list of usernames of users that should
+* `/cyhy/dev/users`: A comma-separated list of usernames of users that should
   be allowed to SSH to the instance based on this image
-- `/ssh/public_keys/<username>`: The public SSH key of each user in the
+* `/ssh/public_keys/<username>`: The public SSH key of each user in the
   `/cyhy/dev/users` list
 
 ## Building the Image ##
@@ -71,30 +100,47 @@ depending on how the build was triggered from GitHub.
 
 Packer will use your [standard AWS
 environment](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
-to build the image.
+to build the image, however you will need to set up one profile for
+the previously-created build user and another profile to assume the
+associated `EC2AMICreate` role.  You will need the `aws_access_key_id`
+and `aws_secret_access_key` that you set as GitHub secrets earlier.
+
+Add the following blocks to your AWS credentials file (be sure to
+replace the dummy account ID in the `role_arn` with your own):
+
+```console
+[test-skeleton-packer-cool]
+aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+[cool-images-ec2amicreate-skeleton-packer-cool]
+role_arn = arn:aws:iam::111111111111:role/EC2AMICreate-test-skeleton-packer-cool
+source_profile = test-skeleton-packer-cool
+role_session_name = example
+```
 
 The [Packer template](src/packer.json) requires two environment
 variables to be defined:
 
-- `BUILD_REGION`: the region in which to build the image.
-- `BUILD_REGION_KMS`: the kms key alias to use to encrypt the image.
+* `BUILD_REGION`: The region in which to build the image.
+* `BUILD_REGION_KMS`: The KMS key alias to use to encrypt the image.
 
 Additionally, the following optional environment variables can be used
 by the [Packer template](src/packer.json) to tag the final image:
 
-- `GITHUB_IS_PRERELEASE`: boolean pre-release status
-- `GITHUB_RELEASE_TAG`: image version
-- `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release
+* `GITHUB_IS_PRERELEASE`: Boolean pre-release status.
+* `GITHUB_RELEASE_TAG`: Image version.
+* `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release.
 
 Here is an example of how to kick off a pre-release build:
 
 ```console
 pip install --requirement requirements-dev.txt
 ansible-galaxy install --force --force-with-deps --role-file src/requirements.yml
-export BUILD_REGION="us-east-2"
-export BUILD_REGION_KMS="alias/cool/ebs"
+export BUILD_REGION="us-east-1"
+export BUILD_REGION_KMS="alias/cool-amis"
 export GITHUB_RELEASE_TAG=$(./bump_version.sh show)
-packer build --timestamp-ui src/packer.json
+AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer-cool packer build --timestamp-ui src/packer.json
 ```
 
 If you are satisfied with your pre-release image, you can easily
@@ -105,9 +151,9 @@ regions:kms_keys list to `patch_packer_config.py` and rerunning
 packer:
 
 ```console
-echo "us-east-1:alias/cool/ebs,us-west-1:alias/cool/ebs,\
-us-west-2:alias/cool/ebs" | ./patch_packer_config.py src/packer.json
-packer build --timestamp-ui src/packer.json
+echo "us-east-2:alias/cool-amis,us-west-1:alias/cool-amis,\
+us-west-2:alias/cool-amis" | ./patch_packer_config.py src/packer.json
+AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer-cool packer build --timestamp-ui src/packer.json
 ```
 
 See the patcher script's help for more information about its options
@@ -115,6 +161,19 @@ and inner workings:
 
 ```console
 ./patch_packer_config.py --help
+```
+
+### Giving Other AWS Accounts Permission to Launch the Image ###
+
+After the AMI has been successfully created, you may want to allow other
+accounts in your AWS organization permission to launch it.  For this project,
+we want to allow all accounts whose names begin with "env" to launch the
+most-recently-created AMI.  To do that, follow these instructions:
+
+```console
+cd terraform-post-packer
+terraform init --upgrade=true
+terraform apply
 ```
 
 ## Contributing ##
