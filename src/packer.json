@@ -29,7 +29,7 @@
       "region_kms_key_ids": {},
       "source_ami_filter": {
         "filters": {
-          "name": "Kali Linux 2018.3-8b7fdfe3-8cd5-43cc-8e5e-4e0e7f4139d5-ami-020400477cd6b8959.4",
+          "name": "Kali Linux 2020.1a-8b7fdfe3-8cd5-43cc-8e5e-4e0e7f4139d5-ami-05c2d7ea6af4b44d7.4",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
