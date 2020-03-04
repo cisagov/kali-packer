@@ -1,7 +1,5 @@
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
-- src: https://github.com/cisagov/ansible-role-dev-ssh-access
-  name: dev_ssh_access
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
 - src: https://github.com/cisagov/ansible-role-kali
