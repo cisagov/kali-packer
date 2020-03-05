@@ -16,12 +16,12 @@ provider "aws" {
 data "aws_caller_identity" "images" {
 }
 
-# The most-recent AMI created by cisagov/skeleton-packer-cool
+# The most-recent AMI created by cisagov/kali-packer
 data "aws_ami" "example" {
   filter {
     name = "name"
     values = [
-      "example-hvm-*-x86_64-ebs",
+      "kali-hvm-*-x86_64-ebs",
     ]
   }
 
