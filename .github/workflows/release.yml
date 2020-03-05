@@ -21,17 +21,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: cisagov/setup-env-github-action@develop
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.8
+      - name: Store installed Python version
+        run: |
+          echo "::set-env name=PY_VERSION::"\
+          "$(python -c "import platform;print(platform.python_version())")"
       - name: Cache pip build requirements
         uses: actions/cache@v1
         with:
           path: ${{ env.PIP_CACHE_DIR }}
-          key: "${{ runner.os }}-pip-build-\
+          key: "${{ runner.os }}-pip-build-py${{ env.PY_VERSION }}-\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
+            ${{ runner.os }}-pip-build-py${{ env.PY_VERSION }}-
             ${{ runner.os }}-pip-build-
             ${{ runner.os }}-pip-
       - name: Cache curl downloads
