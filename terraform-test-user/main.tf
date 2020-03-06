@@ -35,8 +35,14 @@ module "iam_user" {
 
   add_packer_permissions = true
   images_account_id      = data.aws_caller_identity.images.account_id
-  ssm_parameters         = ["/cyhy/dev/users", "/ssh/public_keys/*", "/neo4j/password"]
-  user_name              = "test-kali-packer"
+  ssm_parameters = [
+    "/cyhy/dev/users",
+    "/ssh/public_keys/*",
+    "/neo4j/password",
+    "/vnc/username",
+    "/vnc/password",
+  ]
+  user_name = "test-kali-packer"
   tags = {
     Team        = "CISA - Development"
     Application = "kali-packer"
