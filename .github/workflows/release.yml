@@ -6,12 +6,12 @@ on:
     types: [released]
 
 env:
-  AWS_DEFAULT_REGION: us-east-2
-  BUILD_REGION: us-east-2
-  BUILD_REGION_KMS: alias/cool/ebs
-  COPY_REGIONS_KMS_MAP: "us-east-1:alias/cool/ebs,
-                         us-west-1:alias/cool/ebs,
-                         us-west-2:alias/cool/ebs"
+  AWS_DEFAULT_REGION: us-east-1
+  BUILD_REGION: us-east-1
+  BUILD_REGION_KMS: alias/cool-amis
+  COPY_REGIONS_KMS_MAP: "us-east-2:alias/cool-amis,
+                         us-west-1:alias/cool-amis,
+                         us-west-2:alias/cool-amis"
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
@@ -21,17 +21,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: cisagov/setup-env-github-action@develop
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: actions/setup-python@v1
         with:
-          python-version: 3.7
+          python-version: 3.8
+      - name: Store installed Python version
+        run: |
+          echo "::set-env name=PY_VERSION::"\
+          "$(python -c "import platform;print(platform.python_version())")"
       - name: Cache pip build requirements
         uses: actions/cache@v1
         with:
           path: ${{ env.PIP_CACHE_DIR }}
-          key: "${{ runner.os }}-pip-build-\
+          key: "${{ runner.os }}-pip-build-py${{ env.PY_VERSION }}-\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
+            ${{ runner.os }}-pip-build-py${{ env.PY_VERSION }}-
             ${{ runner.os }}-pip-build-
             ${{ runner.os }}-pip-
       - name: Cache curl downloads
@@ -72,10 +77,16 @@ jobs:
         run: |
           echo $COPY_REGIONS_KMS_MAP | \
             ./patch_packer_config.py src/packer.json
+      - name: Assume AWS build role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.BUILD_REGION }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
+          role-duration-seconds: 3600
       - name: Create machine image
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}

@@ -1,4 +1,4 @@
-*.egg-info
+.mypy_cache
 __pycache__
 .python-version
 .coverage
@@ -7,4 +7,4 @@ __pycache__
 *.egg-info
 dist
 packer_cache
-terraform/.terraform
+terraform*/.terraform

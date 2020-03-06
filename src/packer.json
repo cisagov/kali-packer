@@ -12,8 +12,9 @@
       ],
       "ami_name": "kali-hvm-{{timestamp}}-x86_64-ebs",
       "ami_regions": "",
+      "associate_public_ip_address": true,
       "encrypt_boot": true,
-      "instance_type": "t3.small",
+      "instance_type": "t2.small",
       "kms_key_id": "{{user `build_region_kms`}}",
       "launch_block_device_mappings": [
         {
@@ -28,7 +29,7 @@
       "region_kms_key_ids": {},
       "source_ami_filter": {
         "filters": {
-          "name": "Kali Linux 2018.3-8b7fdfe3-8cd5-43cc-8e5e-4e0e7f4139d5-ami-020400477cd6b8959.4",
+          "name": "Kali Linux 2020.1a-8b7fdfe3-8cd5-43cc-8e5e-4e0e7f4139d5-ami-05c2d7ea6af4b44d7.4",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
@@ -38,6 +39,11 @@
         ]
       },
       "ssh_username": "ec2-user",
+      "subnet_filter": {
+        "filters": {
+          "tag:Name": "AMI Build"
+        }
+      },
       "tags": {
         "Application": "Kali",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
@@ -47,11 +53,19 @@
         "Release": "{{user `github_release_tag`}}",
         "Team": "CISA - Development"
       },
-      "type": "amazon-ebs"
+      "type": "amazon-ebs",
+      "vpc_filter": {
+        "filters": {
+          "tag:Name": "AMI Build"
+        }
+      }
     }
   ],
   "provisioners": [
     {
+      "ansible_env_vars": [
+        "AWS_DEFAULT_REGION={{user `build_region`}}"
+      ],
       "groups": [
         "aws"
       ],
