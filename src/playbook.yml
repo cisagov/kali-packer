@@ -12,6 +12,27 @@
     - htop
     - kali
 
+- hosts: all
+  name: Install bloodhound
+  become: yes
+  become_method: sudo
+  roles:
+    - bloodhound
+  vars:
+    # The password for Neo4j
+    password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+
+- hosts: all
+  name: Install VNC
+  become: yes
+  become_method: sudo
+  roles:
+    - vnc
+  vars:
+    # The username and password for VNC
+    username: "{{ lookup('aws_ssm', '/vnc/username') }}"
+    password: "{{ lookup('aws_ssm', '/vnc/password') }}"
+
 - hosts: aws
   name: AWS-specific roles
   become: yes
