@@ -1,5 +1,7 @@
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
+- src: https://github.com/cisagov/ansible-role-bloodhound
+  name: bloodhound
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
 - src: https://github.com/cisagov/ansible-role-htop
@@ -14,3 +16,5 @@
   name: python
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
+- src: https://github.com/cisagov/ansible-role-vnc-server
+  name: vnc
