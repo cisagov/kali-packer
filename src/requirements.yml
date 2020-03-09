@@ -4,6 +4,7 @@
   name: bloodhound
 - src: https://github.com/cisagov/ansible-role-clamav
   name: clamav
+  version: feature/support-kali-linux
 - src: https://github.com/cisagov/ansible-role-cloudwatch-agent
   name: cloudwatch_agent
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
