@@ -66,6 +66,9 @@
       "ansible_env_vars": [
         "AWS_DEFAULT_REGION={{user `build_region`}}"
       ],
+      "extra_arguments": [
+        "-vvv"
+      ],
       "groups": [
         "aws"
       ],
