@@ -11,7 +11,7 @@
     - persist_journald
     - htop
     - kali
-    # - clamav
+    - clamav
 
 - hosts: all
   name: Install bloodhound
@@ -44,4 +44,4 @@
     # The instance types used for almost all the instances expose EBS
     # volumes as NVMe block devices, so that's why we need nvme here.
     - nvme
-    # - cloudwatch_agent
+    - cloudwatch_agent
