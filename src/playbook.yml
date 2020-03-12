@@ -11,6 +11,7 @@
     - persist_journald
     - htop
     - kali
+    - clamav
 
 - hosts: all
   name: Install bloodhound
@@ -29,9 +30,11 @@
   roles:
     - vnc
   vars:
-    # The username and password for VNC
+    # The username, password, and ssh keys for the VNC user
     username: "{{ lookup('aws_ssm', '/vnc/username') }}"
     password: "{{ lookup('aws_ssm', '/vnc/password') }}"
+    public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_public_key') }}"
+    private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_private_key') }}"
 
 - hosts: aws
   name: AWS-specific roles
@@ -41,3 +44,4 @@
     # The instance types used for almost all the instances expose EBS
     # volumes as NVMe block devices, so that's why we need nvme here.
     - nvme
+    - cloudwatch_agent

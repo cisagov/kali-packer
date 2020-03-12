@@ -41,6 +41,8 @@ module "iam_user" {
     "/neo4j/password",
     "/vnc/username",
     "/vnc/password",
+    "/vnc/ssh/rsa_public_key",
+    "/vnc/ssh/rsa_private_key",
   ]
   user_name = "test-kali-packer"
   tags = {
