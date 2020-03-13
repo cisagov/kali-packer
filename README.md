@@ -30,7 +30,8 @@ with the new encrypted environment variables. This should be done using the
 tool available in the
 [development guide](https://github.com/cisagov/development-guide). Instructions
 for how to use this tool can be found in the
-[Project Setup README](https://github.com/cisagov/development-guide/tree/develop/project_setup).
+["Terraform IAM Credentials to GitHub Secrets" section](https://github.com/cisagov/development-guide/tree/develop/project_setup#terraform-iam-credentials-to-github-secrets-).
+of the Project Setup README.
 
 If you have appropriate permissions for the repository you can view existing
 secrets on the
