@@ -32,8 +32,9 @@ for how to use this tool can be found in the
 [Project Setup README](https://github.com/cisagov/development-guide/tree/develop/project_setup).
 
 If you have appropriate permissions for the repository you view existing
-secrets in the
-[repository settings](https://github.com/cisagov/skeleton-packer/settings/secrets).
+secrets on the
+[appropriate page][repository settings](https://github.com/cisagov/skeleton-packer/settings/secrets)
+in the repository's settings.
 
 ## Building the Image ##
 
