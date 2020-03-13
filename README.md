@@ -31,7 +31,7 @@ with the new encrypted environment variables. This should be done using the
 for how to use this tool can be found in the
 [Project Setup README](https://github.com/cisagov/development-guide/tree/develop/project_setup).
 
-If you have appropriate permissions for the repository you view existing
+If you have appropriate permissions for the repository you can view existing
 secrets on the
 [appropriate page][repository settings](https://github.com/cisagov/skeleton-packer/settings/secrets)
 in the repository's settings.
