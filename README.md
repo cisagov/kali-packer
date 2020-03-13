@@ -33,7 +33,7 @@ for how to use this tool can be found in the
 
 If you have appropriate permissions for the repository you can view existing
 secrets on the
-[appropriate page][repository settings](https://github.com/cisagov/skeleton-packer/settings/secrets)
+[appropriate page](https://github.com/cisagov/skeleton-packer/settings/secrets)
 in the repository's settings.
 
 ## Building the Image ##
