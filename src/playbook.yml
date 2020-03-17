@@ -36,6 +36,21 @@
     public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_public_key') }}"
     private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_private_key') }}"
 
+- hosts: all
+  name: Add VNC user to kali-trusted group
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Add VNC user to kali-trusted group
+      user:
+        append: yes
+        groups:
+          - kali-trusted
+        name: "{{ username }}"
+  vars:
+    # The username for the VNC user
+    username: "{{ lookup('aws_ssm', '/vnc/username') }}"
+
 - hosts: aws
   name: AWS-specific roles
   become: yes
