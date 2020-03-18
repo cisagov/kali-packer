@@ -17,7 +17,7 @@ data "aws_caller_identity" "images" {
 }
 
 # ------------------------------------------------------------------------------
-# Retrieve the information for all accouts in the organization.  This is used to lookup
+# Retrieve the information for all accounts in the organization.  This is used to lookup
 # the Images account ID for use in the calculation of the related env account names.
 # ------------------------------------------------------------------------------
 data "aws_organizations_organization" "cool" {
@@ -34,7 +34,7 @@ locals {
     x.name if x.id == data.aws_caller_identity.images.account_id
   ][0]
 
-  # Calculate what then environment account names should look like.  This
+  # Calculate what the environment account names should look like.  This
   # assumes that the images account name is one word long, and any additional
   # words are modifiers.
   # Examples:
