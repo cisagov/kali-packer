@@ -16,6 +16,36 @@ provider "aws" {
 data "aws_caller_identity" "images" {
 }
 
+# ------------------------------------------------------------------------------
+# Retrieve the information for all accounts in the organization.  This is used to lookup
+# the Images account ID for use in the calculation of the related env account names.
+# ------------------------------------------------------------------------------
+data "aws_organizations_organization" "cool" {
+  provider = aws.master
+}
+
+# ------------------------------------------------------------------------------
+# Evaluate expressions for use throughout this configuration.
+# ------------------------------------------------------------------------------
+locals {
+  # Find the Images account by id.
+  images_account_name = [
+    for x in data.aws_organizations_organization.cool.accounts :
+    x.name if x.id == data.aws_caller_identity.images.account_id
+  ][0]
+
+  # Calculate what the environment account names should look like.  This
+  # assumes that the images account name is one word long, and any additional
+  # words are modifiers.
+  # Examples:
+  # Images -> "^env[[:digit:]]+$"
+  # Images Staging -> "^env[[:digit:]]+ Staging$"
+  # Images Alpha Testing -> "^env[[:digit:]]+ Alpha Testing$"
+  images_account_prefix = split(" ", local.images_account_name)[0]
+  images_account_suffix = trimprefix(local.images_account_name, local.images_account_prefix)
+  account_name_regex    = format("^env[[:digit:]]+%s$", local.images_account_suffix)
+}
+
 # The most-recent AMI created by cisagov/kali-packer
 data "aws_ami" "example" {
   filter {
@@ -48,6 +78,6 @@ module "ami_launch_permission" {
     aws.master = aws.master
   }
 
-  account_name_regex = "^env"
+  account_name_regex = local.account_name_regex
   ami_id             = data.aws_ami.example.id
 }
