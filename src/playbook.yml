@@ -10,7 +10,6 @@
     - dev_ssh_access
     - persist_journald
     - htop
-    - kali
     - clamav
 
 - hosts: all
@@ -22,6 +21,17 @@
   vars:
     # The password for Neo4j
     password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+
+- hosts: all
+  name: Install other Kali tools
+  become: yes
+  become_method: sudo
+  roles:
+    - kali
+  vars:
+    # The group that should own the tools installed to /target.  The
+    # VNC user is in this group.
+    group: kali-trusted
 
 - hosts: all
   name: Install VNC
