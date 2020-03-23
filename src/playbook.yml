@@ -11,6 +11,7 @@
     - persist_journald
     - htop
     - clamav
+    - docker
 
 - hosts: all
   name: Install bloodhound
