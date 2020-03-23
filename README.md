@@ -17,15 +17,12 @@ code will create the user with the appropriate name and permissions.  This only
 needs to be run once per project, per AWS account.  This user will also be used by
 GitHub Actions.
 
-Before the build user can be created, the following profiles must exist in
+Before the build user can be created, the following profile must exist in
 your AWS credentials file:
 
-* `cool-images-provisionec2amicreateroles`
-* `cool-images-provisionparameterstorereadroles`
 * `cool-terraform-backend`
-* `cool-users-provisionaccount`
 
-The easiest way to set up those profiles is to use our
+The easiest way to set up that profile is to use our
 [`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync) utility.
 Follow the usage instructions in that repository before continuing with the
 next steps.  Note that you will need to know where your team stores their
