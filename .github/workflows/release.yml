@@ -83,7 +83,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.BUILD_REGION }}
-          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_PRODUCTION }}
           role-duration-seconds: 3600
       - name: Create machine image
         env:
