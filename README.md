@@ -38,24 +38,19 @@ terraform apply
 ```
 
 Once the user is created you will need to update the
-[repository's secrets](https://github.com/cisagov/skeleton-packer-cool/settings/secrets)
-with the new encrypted environment variables.
+[repository's secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
+with the new encrypted environment variables. This should be done using the
+[`terraform-to-secrets`](https://github.com/cisagov/development-guide/tree/develop/project_setup#terraform-iam-credentials-to-github-secrets-)
+tool available in the
+[development guide](https://github.com/cisagov/development-guide). Instructions
+for how to use this tool can be found in the
+["Terraform IAM Credentials to GitHub Secrets" section](https://github.com/cisagov/development-guide/tree/develop/project_setup#terraform-iam-credentials-to-github-secrets-).
+of the Project Setup README.
 
-```console
-terraform state show module.iam_user.aws_iam_access_key.key
-```
-
-Take the `id` and `secret` fields from the above command's output and create the
-`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` environment variables in the
-[repository's secrets](https://github.com/cisagov/skeleton-packer-cool/settings/secrets).
-
-You will also need to add one additional repository secret called
-`BUILD_ROLE_TO_ASSUME`.  Here is how to see the ARN that you need to set
-as the value for that secret:
-
-```console
-terraform state show module.iam_user.aws_iam_role.ec2amicreate_role[0] | grep ":role/"
-```
+If you have appropriate permissions for the repository you can view existing
+secrets on the
+[appropriate page](https://github.com/cisagov/skeleton-packer-cool/settings/secrets)
+in the repository's settings.
 
 IMPORTANT: The account where your images will be built must have a VPC and
 a public subnet both tagged with the name "AMI Build", otherwise `packer`
