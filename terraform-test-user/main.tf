@@ -1,4 +1,11 @@
-# Provider that is only used for obtaining the caller identity
+# Provider that is only used for obtaining the caller identity.
+# Note that we cannot use a provider that assumes a role via an ARN from a
+# Terraform remote state for this purpose (like we do for all of the other
+# providers below).  This is because we derive the session name (in the
+# assume_role block within the provider) from the caller identity of this
+# provider; if we try to do that, it results in a Terraform "Cycle" error.
+# Hence, for our caller identity, we use a provider based on a profile that
+# must exist for the Terraform backend to work ("cool-terraform-backend").
 provider "aws" {
   alias   = "cool-terraform-backend"
   region  = "us-east-1"
