@@ -79,7 +79,7 @@ how the build was triggered from GitHub.
    with the "This is a pre-release" checkbox checked.  An image will be built
    and deployed using the [`prerelease`](.github/workflows/prerelease.yml)
    workflow.  This should be configured to deploy the image to a single region
-   using a non-production account.
+   using a non-production account (e.g. "staging").
 1. **Production release deploy**: Publish a GitHub release with
    the "This is a pre-release" checkbox unchecked.  An image will be built
    and deployed using the [`release`](.github/workflows/release.yml)
@@ -156,10 +156,13 @@ inner workings:
 After the AMI has been successfully created, you may want to allow other
 accounts in your AWS organization permission to launch it.  For this project,
 we want to allow all accounts whose names begin with "env" to launch the
-most-recently-created AMI.  To do that, follow these instructions:
+most-recently-created AMI.  To do that, follow these instructions, noting that
+"ENVIRONMENT_TYPE" below should be replaced with where the AMI was created
+(e.g "production", "staging", etc.):
 
 ```console
 cd terraform-post-packer
+terraform workspace select ENVIRONMENT_TYPE
 terraform init --upgrade=true
 terraform apply
 ```
