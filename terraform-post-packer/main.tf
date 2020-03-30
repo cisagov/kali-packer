@@ -34,16 +34,12 @@ locals {
     x.name if x.id == data.aws_caller_identity.images.account_id
   ][0]
 
-  # Calculate what the environment account names should look like.  This
-  # assumes that the images account name is one word long, and any additional
-  # words are modifiers.
-  # Examples:
-  # Images -> "^env[[:digit:]]+$"
-  # Images Staging -> "^env[[:digit:]]+ Staging$"
-  # Images Alpha Testing -> "^env[[:digit:]]+ Alpha Testing$"
-  images_account_prefix = split(" ", local.images_account_name)[0]
-  images_account_suffix = trimprefix(local.images_account_name, local.images_account_prefix)
-  account_name_regex    = format("^env[[:digit:]]+%s$", local.images_account_suffix)
+  # Calculate what the names of the accounts that are allowed to use
+  # this AMI should look like.  In this case the only accounts that
+  # are allowed to use this AMI are the env* accounts of the same type
+  # (production, staging, etc.) as the Images account.
+  images_account_type = trim(split("(", local.images_account_name)[1], ")")
+  account_name_regex  = format("^env[[:digit:]]+ \\(%s\\)$", local.images_account_type)
 }
 
 # The most-recent AMI created by cisagov/skeleton-packer-cool
