@@ -9,9 +9,13 @@ env:
   AWS_DEFAULT_REGION: us-east-1
   BUILD_REGION: us-east-1
   BUILD_REGION_KMS: alias/cool-amis
-  COPY_REGIONS_KMS_MAP: "us-east-2:alias/cool-amis,
-                         us-west-1:alias/cool-amis,
-                         us-west-2:alias/cool-amis"
+  # Do not copy the AMI to other regions until we have figured out a
+  # workable mechanism for creating and managing AMI KMS keys in other
+  # regions.
+  # See https://github.com/cisagov/cool-system/issues/18 for details.
+  # COPY_REGIONS_KMS_MAP: "us-east-2:alias/cool-amis,
+  #                        us-west-1:alias/cool-amis,
+  #                        us-west-2:alias/cool-amis"
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
@@ -73,10 +77,14 @@ jobs:
                       --requirement requirements.txt
       - name: Install ansible roles
         run: ansible-galaxy install --force --role-file src/requirements.yml
-      - name: Add copy regions to packer configuration
-        run: |
-          echo $COPY_REGIONS_KMS_MAP | \
-            ./patch_packer_config.py src/packer.json
+      # Do not copy the AMI to other regions until we have figured out a
+      # workable mechanism for creating and managing AMI KMS keys in other
+      # regions.
+      # See https://github.com/cisagov/cool-system/issues/18 for details.
+      # - name: Add copy regions to packer configuration
+      #   run: |
+      #     echo $COPY_REGIONS_KMS_MAP | \
+      #       ./patch_packer_config.py src/packer.json
       - name: Assume AWS build role
         uses: aws-actions/configure-aws-credentials@v1
         with:
