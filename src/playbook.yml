@@ -73,7 +73,7 @@
     - name: Enable all cloud-init services
       service:
         name: "{{ item }}"
-        state: enabled
+        enabled: yes
       loop:
         - cloud-init-local
         - cloud-init
