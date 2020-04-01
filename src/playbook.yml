@@ -62,6 +62,24 @@
     # The username for the VNC user
     username: "{{ lookup('aws_ssm', '/vnc/username') }}"
 
+# For some reason cloud-init-local, cloud-config, and cloud-final are
+# not enabled in the base Kali AMI.  We need cloud-config anabled, and
+# we may as well enable the others while we're at it.
+- hosts: all
+  name: Enable all cloud-init services
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Enable all cloud-init services
+      service:
+        name: "{{ item }}"
+        enabled: yes
+      loop:
+        - cloud-init-local
+        - cloud-init
+        - cloud-config
+        - cloud-final
+
 - hosts: aws
   name: AWS-specific roles
   become: yes
