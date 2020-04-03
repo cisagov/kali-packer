@@ -1,10 +1,18 @@
 ---
-- name: Import playbooks
-  import_playbook: "{{ item }}"
-  loop:
-    - base.yml
-    - ufw.yml
-    - assessor_tools.yml
-    - vnc.yml
-    - cloud_init.yml
-    - aws.yml
+- name: Import base image playbook
+  import_playbook: base.yml
+
+- name: Import UFW playbook
+  import_playbook: ufw.yml
+
+- name: Import assessor tools playbook
+  import_playbook: assessor_tools.yml
+
+- name: Import VNC playbook
+  import_playbook: vnc.yml
+
+- name: Import cloud-init playbook
+  import_playbook: cloud_init.yml
+
+- name: Import AWS playbook
+  import_playbook: aws.yml
