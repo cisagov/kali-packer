@@ -92,7 +92,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.BUILD_REGION }}
           role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_PRODUCTION }}
-          role-duration-seconds: 43200
+          role-duration-seconds: 7200 # 2 hours
       - name: Create machine image
         env:
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
