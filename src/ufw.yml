@@ -21,12 +21,14 @@
         to_port: "{{ item }}"
         proto: tcp
       loop:
+        - 22
         - 25
         - 53
         - 80
         - 443
         - 587
         - 993
+        - 5901
         - 8080
     - name: Allow incoming traffic through default UDP ports
       ufw:
