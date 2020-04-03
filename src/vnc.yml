@@ -1,0 +1,28 @@
+---
+- hosts: all
+  name: Install VNC
+  become: yes
+  become_method: sudo
+  roles:
+    - vnc
+  vars:
+    # The username, password, and ssh keys for the VNC user
+    username: "{{ lookup('aws_ssm', '/vnc/username') }}"
+    password: "{{ lookup('aws_ssm', '/vnc/password') }}"
+    public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_public_key') }}"
+    private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_private_key') }}"
+
+- hosts: all
+  name: Add VNC user to kali-trusted group
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Add VNC user to kali-trusted group
+      user:
+        append: yes
+        groups:
+          - kali-trusted
+        name: "{{ username }}"
+  vars:
+    # The username for the VNC user
+    username: "{{ lookup('aws_ssm', '/vnc/username') }}"
