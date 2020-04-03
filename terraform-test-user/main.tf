@@ -83,6 +83,9 @@ module "iam_user" {
     aws.images-staging-ssm    = aws.images-staging-ssm
   }
 
+  # This image can take a while to build, so we set the max session
+  # duration to 2 hours.
+  ec2amicreate_role_max_session_duration = 2 * 60 * 60
   ssm_parameters = [
     "/cyhy/dev/users",
     "/ssh/public_keys/*",
