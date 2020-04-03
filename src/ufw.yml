@@ -35,3 +35,4 @@
         proto: udp
       loop:
         - 53
+        - 8080
