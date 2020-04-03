@@ -17,24 +17,24 @@
   tasks:
     - name: Allow incoming traffic through default TCP ports
       ufw:
+        proto: tcp
         rule: allow
         to_port: "{{ item }}"
-        proto: tcp
       loop:
-        - 22
-        - 25
-        - 53
-        - 80
-        - 443
-        - 587
-        - 993
-        - 5901
-        - 8080
+        - "22"
+        - "25"
+        - "53"
+        - "80"
+        - "443"
+        - "587"
+        - "993"
+        - "5901"
+        - "8080"
     - name: Allow incoming traffic through default UDP ports
       ufw:
+        proto: udp
         rule: allow
         to_port: "{{ item }}"
-        proto: udp
       loop:
-        - 53
-        - 8080
+        - "53"
+        - "8080"
