@@ -14,7 +14,7 @@
       "ami_regions": "",
       "associate_public_ip_address": true,
       "encrypt_boot": true,
-      "instance_type": "t2.small",
+      "instance_type": "t2.xlarge",
       "kms_key_id": "{{user `build_region_kms`}}",
       "launch_block_device_mappings": [
         {
