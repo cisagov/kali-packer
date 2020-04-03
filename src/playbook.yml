@@ -1,7 +1,10 @@
 ---
-- include: base
-- include: ufw
-- include: assessor_tools
-- include: vnc
-- include: cloud_init
-- include: aws
+- name: Import playbooks
+  import_playbook: "{{ item }}"
+  loop:
+    - base.yml
+    - ufw.yml
+    - assessor_tools.yml
+    - vnc.yml
+    - cloud_init.yml
+    - aws.yml
