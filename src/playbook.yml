@@ -1,5 +1,6 @@
 ---
 - include: base
+- include: ufw
 - include: assessor_tools
 - include: vnc
 - include: cloud_init
