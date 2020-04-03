@@ -1,0 +1,40 @@
+---
+- hosts: all
+  name: Install ufw
+  become: yes
+  become_method: sudo
+  roles:
+    - ufw
+  vars:
+    # Do not actually enforce firewall rules.  The assessors will turn
+    # UFW on if they want it.
+    state: disabled
+
+- hosts: all
+  name: Basic configuration for UFW
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Allow incoming traffic through default TCP ports
+      ufw:
+        proto: tcp
+        rule: allow
+        to_port: "{{ item }}"
+      loop:
+        - "22"
+        - "25"
+        - "53"
+        - "80"
+        - "443"
+        - "587"
+        - "993"
+        - "5901"
+        - "8080"
+    - name: Allow incoming traffic through default UDP ports
+      ufw:
+        proto: udp
+        rule: allow
+        to_port: "{{ item }}"
+      loop:
+        - "53"
+        - "8080"

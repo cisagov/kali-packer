@@ -1,0 +1,21 @@
+---
+- hosts: all
+  name: Install bloodhound
+  become: yes
+  become_method: sudo
+  roles:
+    - bloodhound
+  vars:
+    # The password for Neo4j
+    password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+
+- hosts: all
+  name: Install other Kali tools
+  become: yes
+  become_method: sudo
+  roles:
+    - kali
+  vars:
+    # The group that should own the tools installed to /target.  The
+    # VNC user is in this group.
+    group: kali-trusted
