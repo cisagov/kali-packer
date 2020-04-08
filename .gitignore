@@ -3,7 +3,7 @@
 .mypy_cache
 .pytest_cache
 .python-version
+.terraform
 __pycache__
 dist
 packer_cache
-terraform/.terraform
