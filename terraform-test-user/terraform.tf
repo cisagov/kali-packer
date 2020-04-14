@@ -1,9 +1,10 @@
 terraform {
   backend "s3" {
     encrypt        = true
-    bucket         = "playground-terraform-state-storage"
+    bucket         = "cisa-cool-terraform-state"
     dynamodb_table = "terraform-state-lock"
+    profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "skeleton-packer/terraform.tfstate"
+    key            = "skeleton-packer/terraform-test-user.tfstate"
   }
 }
