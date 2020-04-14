@@ -42,7 +42,7 @@ locals {
   account_name_regex  = format("^env[[:digit:]]+ \\(%s\\)$", local.images_account_type)
 }
 
-# The most-recent AMI created by cisagov/skeleton-packer-cool
+# The most-recent AMI created by cisagov/skeleton-packer
 data "aws_ami" "example" {
   filter {
     name = "name"
