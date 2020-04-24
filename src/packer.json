@@ -66,8 +66,9 @@
       "ansible_env_vars": [
         "AWS_DEFAULT_REGION={{user `build_region`}}"
       ],
-      "groups": [
-        "aws"
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_python_interpreter=/usr/bin/python3"
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
