@@ -10,9 +10,9 @@
     - nvme
     # This role forces the installation of python2, which breaks any
     # pip modules that are installed afterwards because Ansible will
-    # see that /usr/bin/python exists and it.  In particular, Ansible
-    # will try to install python-apt during idempotence; since this
-    # package does not exist in Debian 11 (Bullseye) that causes
+    # see that /usr/bin/python exists and use it.  In particular,
+    # Ansible will try to install python-apt during idempotence; since
+    # this package does not exist in Debian 11 (Bullseye) that causes
     # Ansible to fail.
     #
     # I have created aws/efs-utils#57 to encourage the good folks at
