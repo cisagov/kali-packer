@@ -63,6 +63,10 @@
   ],
   "provisioners": [
     {
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_python_interpreter=/usr/bin/python3"
+      ],
       "playbook_file": "src/python.yml",
       "type": "ansible"
     },
