@@ -67,6 +67,14 @@
         "--extra-vars",
         "ansible_python_interpreter=/usr/bin/python3"
       ],
+      "playbook_file": "src/upgrade.yml",
+      "type": "ansible"
+    },
+    {
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_python_interpreter=/usr/bin/python3"
+      ],
       "playbook_file": "src/python.yml",
       "type": "ansible"
     },
