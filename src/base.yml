@@ -4,8 +4,6 @@
   become: yes
   become_method: sudo
   roles:
-    - upgrade
-    - python
     - banner
     - dev_ssh_access
     - persist_journald
