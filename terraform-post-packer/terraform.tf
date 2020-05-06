@@ -5,6 +5,6 @@ terraform {
     dynamodb_table = "terraform-state-lock"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "skeleton-packer-cool/terraform-post-packer.tfstate"
+    key            = "skeleton-packer/terraform-post-packer.tfstate"
   }
 }
