@@ -101,7 +101,7 @@ jobs:
         # these two GitHub issues:
         # * https://github.com/hashicorp/terraform/issues/15895
         # * https://github.com/hashicorp/terraform/issues/15811
-        run: pre-commit run --all-files\
+        run: pre-commit run --all-files
                             --config=.github-actions-pre-commit-config.yaml
   test:
     runs-on: ubuntu-latest
