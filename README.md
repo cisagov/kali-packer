@@ -94,13 +94,13 @@ Add the following blocks to your AWS credentials file (be sure to replace the
 dummy account ID in the `role_arn` with your own):
 
 ```console
-[test-skeleton-packer]
+[build-skeleton-packer]
 aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 [cool-images-ec2amicreate-skeleton-packer]
-role_arn = arn:aws:iam::111111111111:role/EC2AMICreate-test-skeleton-packer
-source_profile = test-skeleton-packer
+role_arn = arn:aws:iam::111111111111:role/EC2AMICreate-build-skeleton-packer
+source_profile = build-skeleton-packer
 role_session_name = example
 ```
 
