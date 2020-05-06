@@ -32,7 +32,7 @@ remote profile data in order to use
 To create the build user, follow these instructions:
 
 ```console
-cd terraform-test-user
+cd terraform-build-user
 terraform init --upgrade=true
 terraform apply
 ```
