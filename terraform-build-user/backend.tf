@@ -5,6 +5,6 @@ terraform {
     dynamodb_table = "terraform-state-lock"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "kali-packer/terraform-test-user.tfstate"
+    key            = "kali-packer/terraform-build-user.tfstate"
   }
 }
