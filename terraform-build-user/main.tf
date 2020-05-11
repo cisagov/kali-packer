@@ -20,6 +20,7 @@ module "iam_user" {
     "/vnc/password",
     "/vnc/ssh/rsa_public_key",
     "/vnc/ssh/rsa_private_key",
+    "/gitlab/personal_authorization_token",
   ]
   user_name = "build-kali-packer"
   tags = {
