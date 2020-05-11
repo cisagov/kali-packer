@@ -1,3 +1,14 @@
+locals {
+  # Extract the user name of the caller for use in assumed role session names.
+  # When using the value of `user_id` we were unable to assume roles using
+  # `caller_user_name` as their `session_name`. The error message returned by AWS
+  # did not indicate that the `session_name` was the issue, however when the
+  # semicolon was removed there were no issues. Please see the documentation at
+  # https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html
+  # for information about acceptable characters for the session name.
+  caller_user_name = replace(data.aws_caller_identity.terraform_backend.user_id, ":", ".")
+}
+
 # Provider that is only used for obtaining the caller identity.
 # Note that we cannot use a provider that assumes a role via an ARN from a
 # Terraform remote state for this purpose (like we do for all of the other
@@ -10,17 +21,6 @@ provider "aws" {
   alias   = "cool-terraform-backend"
   region  = "us-east-1"
   profile = "cool-terraform-backend"
-}
-
-# Retrieve the effective Account ID, User ID, and ARN in which Terraform is
-# authorized.  This is used to calculate the session names for assumed roles.
-data "aws_caller_identity" "terraform_backend" {
-  provider = aws.cool-terraform-backend
-}
-
-locals {
-  # Extract the user name of the caller for use in assumed role session names.
-  caller_user_name = split("/", data.aws_caller_identity.terraform_backend.arn)[1]
 }
 
 # Default AWS provider (ProvisionAccount for the Users account)
@@ -69,35 +69,5 @@ provider "aws" {
   assume_role {
     role_arn     = data.terraform_remote_state.images_parameterstore_staging.outputs.provisionparameterstorereadroles_role.arn
     session_name = local.caller_user_name
-  }
-}
-
-module "iam_user" {
-  source = "github.com/cisagov/ami-build-iam-user-tf-module"
-
-  providers = {
-    aws                       = aws
-    aws.images-production-ami = aws.images-production-ami
-    aws.images-staging-ami    = aws.images-staging-ami
-    aws.images-production-ssm = aws.images-production-ssm
-    aws.images-staging-ssm    = aws.images-staging-ssm
-  }
-
-  # This image can take a while to build, so we set the max session
-  # duration to 2 hours.
-  ec2amicreate_role_max_session_duration = 2 * 60 * 60
-  ssm_parameters = [
-    "/cyhy/dev/users",
-    "/ssh/public_keys/*",
-    "/neo4j/password",
-    "/vnc/username",
-    "/vnc/password",
-    "/vnc/ssh/rsa_public_key",
-    "/vnc/ssh/rsa_private_key",
-  ]
-  user_name = "test-kali-packer"
-  tags = {
-    Team        = "CISA - Development"
-    Application = "kali-packer"
   }
 }

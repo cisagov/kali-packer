@@ -1,21 +1,3 @@
-# Default AWS provider (EC2AMICreate role in the Images account)
-provider "aws" {
-  region  = "us-east-1"
-  profile = "cool-images-ec2amicreate"
-}
-
-# AWS provider for the Master account (OrganizationsReadOnly role)
-provider "aws" {
-  region  = "us-east-1"
-  profile = "cool-master-organizationsreadonly"
-  alias   = "master"
-}
-
-# Use aws_caller_identity with the default provider (Images account)
-# so we can provide the Images account ID below
-data "aws_caller_identity" "images" {
-}
-
 # ------------------------------------------------------------------------------
 # Retrieve the information for all accounts in the organization.  This is used to lookup
 # the Images account ID for use in the calculation of the related env account names.
@@ -43,7 +25,7 @@ locals {
 }
 
 # The most-recent AMI created by cisagov/kali-packer
-data "aws_ami" "example" {
+data "aws_ami" "kali" {
   filter {
     name = "name"
     values = [
@@ -75,5 +57,5 @@ module "ami_launch_permission" {
   }
 
   account_name_regex = local.account_name_regex
-  ami_id             = data.aws_ami.example.id
+  ami_id             = data.aws_ami.kali.id
 }
