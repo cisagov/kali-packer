@@ -26,9 +26,11 @@ Options:
 
 """
 
+# Standard Python Libraries
 import json
 import sys
 
+# Third-Party Libraries
 import docopt
 
 __version__ = "1.1.0"
