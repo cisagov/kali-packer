@@ -4,18 +4,22 @@
   become: yes
   become_method: sudo
   roles:
-    - bloodhound
-  vars:
-    # The password for Neo4j
-    password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+    - role: bloodhound
+      vars:
+        # The password for Neo4j
+        password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
 
 - hosts: all
   name: Install other Kali tools
   become: yes
   become_method: sudo
   roles:
-    - kali
-  vars:
-    # The group that should own the tools installed to /target.  The
-    # VNC user is in this group.
-    group: kali-trusted
+    - role: kali
+      vars:
+        # The GitLab PAT used to pull dns-profile-randomizer from a
+        # private repository.
+        gitlab_token: "{{ lookup('aws_ssm',
+        '/gitlab/personal_authorization_token') }}"
+        # The group that should own the tools installed to /target.
+        # The VNC user is in this group.
+        group: kali-trusted
