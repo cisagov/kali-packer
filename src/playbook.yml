@@ -1,28 +1,9 @@
 ---
-- hosts: all
-  name: Setup base image
-  become: yes
-  become_method: sudo
-  roles:
-    - upgrade
-    - python
-    - banner
-    - dev_ssh_access
-    - persist_journald
-    - htop
+- name: Import base image playbook
+  import_playbook: base.yml
 
-- hosts: aws
-  name: AWS-specific roles
-  become: yes
-  become_method: sudo
-  roles:
-    # The instance types used for almost all the instances expose EBS
-    # volumes as NVMe block devices, so that's why we need nvme here.
-    - nvme
+- name: Import AWS playbook
+  import_playbook: aws.yml
 
-- hosts: example
-  name: Project-specific roles
-  become: yes
-  become_method: sudo
-  roles:
-    - example
+- name: Import Example playbook
+  import_playbook: example.yml

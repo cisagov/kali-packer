@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: Setup base image
+  become: yes
+  become_method: sudo
+  roles:
+    - banner
+    - clamav
+    - dev_ssh_access
+    - htop
+    - persist_journald

@@ -1,5 +1,13 @@
+- src: https://github.com/cisagov/ansible-role-amazon-efs-utils
+  name: amazon_efs_utils
+- src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
+  name: amazon_ssm_agent
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
+- src: https://github.com/cisagov/ansible-role-clamav
+  name: clamav
+- src: https://github.com/cisagov/ansible-role-cloudwatch-agent
+  name: cloudwatch_agent
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
 - src: https://github.com/cisagov/skeleton-ansible-role
@@ -10,7 +18,11 @@
   name: nvme
 - src: https://github.com/cisagov/ansible-role-persist-journald
   name: persist_journald
+- src: https://github.com/cisagov/ansible-role-pip
+  name: pip
 - src: https://github.com/cisagov/ansible-role-python
   name: python
+- src: https://github.com/cisagov/ansible-role-remove-python2
+  name: remove_python2
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
