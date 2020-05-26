@@ -4,4 +4,10 @@
 # the repo. Unless a later match takes precedence,
 # these owners will be requested for review when someone
 # opens a pull request.
-*       @dav3r @felddy @hillaryj @jsf9k @mcdonnnj @cisagov/team-ois
+* @dav3r @felddy
+
+# Let jsf9k own the sometimes-touchy AWS and Python playbooks, as well
+# as the packer.json file.
+/src/aws.yml @jsf9k
+/src/packer.json @jsf9k
+/src/python.yml @jsf9k
