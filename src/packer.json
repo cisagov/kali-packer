@@ -51,7 +51,7 @@
         "OS_Version": "Debian Buster",
         "Pre_Release": "{{user `github_is_prerelease`}}",
         "Release": "{{user `github_release_tag`}}",
-        "Team": "CISA - Development"
+        "Team": "VM Fusion - Development"
       },
       "type": "amazon-ebs",
       "vpc_filter": {
@@ -63,12 +63,16 @@
   ],
   "provisioners": [
     {
+      "playbook_file": "src/upgrade.yml",
+      "type": "ansible"
+    },
+    {
+      "playbook_file": "src/python.yml",
+      "type": "ansible"
+    },
+    {
       "ansible_env_vars": [
         "AWS_DEFAULT_REGION={{user `build_region`}}"
-      ],
-      "groups": [
-        "aws",
-        "example"
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
