@@ -51,7 +51,7 @@
         "OS_Version": "Kali Linux",
         "Pre_Release": "{{user `github_is_prerelease`}}",
         "Release": "{{user `github_release_tag`}}",
-        "Team": "CISA - Development"
+        "Team": "VM Fusion - Development"
       },
       "type": "amazon-ebs",
       "vpc_filter": {
