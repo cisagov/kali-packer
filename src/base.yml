@@ -5,9 +5,9 @@
   become_method: sudo
   roles:
     - banner
-    - dev_ssh_access
-    - persist_journald
-    - htop
     - clamav
+    - dev_ssh_access
     - docker
+    - htop
+    - persist_journald
     - xfce_cool
