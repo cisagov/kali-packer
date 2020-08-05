@@ -30,6 +30,10 @@ jobs:
         run: |
           echo "::set-env name=PY_VERSION::"\
           "$(python -c "import platform;print(platform.python_version())")"
+      - name: Store installed Go version
+        run: |
+          echo "::set-env name=GO_VERSION::"\
+          "$(go version | sed 's/^go version go\([0-9.]\+\) .*/\1/')"
       - name: Lookup go cache directory
         id: go-cache
         run: |
@@ -45,11 +49,14 @@ jobs:
             ${{ env.TF_CACHE_DIR }}
           key: "lint-${{ runner.os }}-\
             py${{ env.PY_VERSION }}-\
+            go${{ env.GO_VERSION }}-\
             tf${{ env.TERRAFORM_VERSION }}-\
             ${{ hashFiles('**/requirements-test.txt') }}-\
             ${{ hashFiles('**/.pre-commit-config.yaml') }}"
           restore-keys: |
-            lint-${{ runner.os }}-py${{ env.PY_VERSION }}-\
+            lint-${{ runner.os }}-\
+            py${{ env.PY_VERSION }}-\
+            go${{ env.GO_VERSION }}-\
             tf${{ env.TERRAFORM_VERSION }}-
             lint-${{ runner.os }}-
       - name: Install Terraform
