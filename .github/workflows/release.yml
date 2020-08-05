@@ -26,30 +26,30 @@ jobs:
     steps:
       - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.8
       - name: Store installed Python version
         run: |
           echo "::set-env name=PY_VERSION::"\
           "$(python -c "import platform;print(platform.python_version())")"
-      - name: Cache pip build requirements
-        uses: actions/cache@v1
+      - name: Cache release building environments
+        uses: actions/cache@v2
         with:
-          path: ${{ env.PIP_CACHE_DIR }}
-          key: "${{ runner.os }}-pip-build-py${{ env.PY_VERSION }}-\
+          path: |
+            ${{ env.PIP_CACHE_DIR }}
+            ${{ env.CURL_CACHE_DIR }}
+          key: "release-${{ runner.os }}-\
+            py${{ env.PY_VERSION }}-\
+            packer-${{ env.PACKER_VERSION }}-\
+            tf-${{ env.TERRAFORM_VERSION }}-\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
-            ${{ runner.os }}-pip-build-py${{ env.PY_VERSION }}-
-            ${{ runner.os }}-pip-build-
-            ${{ runner.os }}-pip-
-      - name: Cache curl downloads
-        uses: actions/cache@v1
-        with:
-          path: ${{ env.CURL_CACHE_DIR }}
-          key: "${{ runner.os }}-curl-\
+            release-${{ runner.os }}-\
+            py${{ env.PY_VERSION }}-\
             packer-${{ env.PACKER_VERSION }}-\
-            terraform-${{ env.TERRAFORM_VERSION }}"
+            tf-${{ env.TERRAFORM_VERSION }}-
+            release-${{ runner.os }}-
       - name: Install Packer
         run: |
           mkdir -p ${{ env.CURL_CACHE_DIR }}
