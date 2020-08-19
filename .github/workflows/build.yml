@@ -74,8 +74,13 @@ jobs:
         run: GO111MODULE=on go get github.com/segmentio/terraform-docs
       - name: Verify Terraform installation details
         run: |
+          ls -la /usr/bin/terraform
+          ls -la /usr/local/bin/terraform
           command -v terraform
+          /usr/local/bin/terraform --version
+          /usr/bin/terraform --version
           terraform --version
+          env | grep PATH
       - name: Find and initialize Terraform directories
         run: |
           for path in $(find . -not \( -type d -name ".terraform" -prune \) \
