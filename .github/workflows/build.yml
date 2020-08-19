@@ -82,7 +82,7 @@ jobs:
           terraform --version
           env | grep PATH
       - name: Find all terraform binaries
-        run: find / -type f -iname "terraform"
+        run: sudo find / -type f -iname "terraform"
       - name: Find and initialize Terraform directories
         run: |
           for path in $(find . -not \( -type d -name ".terraform" -prune \) \
