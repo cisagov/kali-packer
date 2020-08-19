@@ -72,6 +72,10 @@ jobs:
           sudo ln -s /opt/terraform/terraform /usr/bin/terraform
       - name: Install Terraform-docs
         run: GO111MODULE=on go get github.com/segmentio/terraform-docs
+      - name: Verify Terraform installation details
+        run: |
+          command -v terraform
+          terraform --version
       - name: Find and initialize Terraform directories
         run: |
           for path in $(find . -not \( -type d -name ".terraform" -prune \) \
