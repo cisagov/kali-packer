@@ -12,7 +12,6 @@ env:
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
-  TF_CACHE_DIR: .terraform
 
 jobs:
   lint:
@@ -41,12 +40,17 @@ jobs:
       - name: Cache linting environments
         uses: actions/cache@v2
         with:
+          # Note that the .terraform directory IS NOT included in the
+          # cache because if we were caching, then we would need to use
+          # the `-upgrade=true` option. This option blindly pulls down the
+          # latest modules and providers instead of checking to see if an
+          # update is required. That behavior defeats the benefits of caching.
+          # so there is no point in doing it for the .terraform directory.
           path: |
             ${{ env.PIP_CACHE_DIR }}
             ${{ env.PRE_COMMIT_CACHE_DIR }}
             ${{ env.CURL_CACHE_DIR }}
             ${{ steps.go-cache.outputs.dir }}
-            ${{ env.TF_CACHE_DIR }}
           key: "lint-${{ runner.os }}-\
             py${{ env.PY_VERSION }}-\
             go${{ env.GO_VERSION }}-\
@@ -70,12 +74,15 @@ jobs:
           sudo unzip -d /opt/terraform \
             ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
           sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+          sudo mv /usr/local/bin/terraform /usr/local/bin/terraform-default
+          sudo ln -s /opt/terraform/terraform /usr/local/bin/terraform
       - name: Install Terraform-docs
         run: GO111MODULE=on go get github.com/segmentio/terraform-docs
       - name: Find and initialize Terraform directories
         run: |
-          for path in [[ $(find . -type f -iname "*.tf" -exec dirname "{}" \; \
-            | sort -u) ]]; do \
+          for path in $(find . -not \( -type d -name ".terraform" -prune \) \
+            -type f -iname "*.tf" -exec dirname "{}" \; | sort -u); do \
+            echo "Initializing '$path'..."; \
             terraform init -input=false -backend=false "$path"; \
             done
       - name: Install dependencies
