@@ -78,7 +78,8 @@ jobs:
         run: |
           for path in $(find . -not \( -type d -name ".terraform" -prune \) \
             -type f -iname "*.tf" -exec dirname "{}" \; | sort -u); do \
-            terraform init -input=false -backend=false "$path"; \
+            echo "Initializing '$path'..."; \
+            terraform init -upgrade=true -input=false -backend=false "$path"; \
             done
       - name: Install dependencies
         run: |
