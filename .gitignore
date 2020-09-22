@@ -1,9 +1,9 @@
-*.egg-info
+__pycache__
 .coverage
 .mypy_cache
 .pytest_cache
 .python-version
 .terraform
-__pycache__
+*.egg-info
 dist
 packer_cache
