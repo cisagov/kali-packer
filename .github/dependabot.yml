@@ -11,13 +11,3 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-
-  - package-ecosystem: "terraform"
-    directory: "/terraform-build-user"
-    schedule:
-      interval: "weekly"
-
-  - package-ecosystem: "terraform"
-    directory: "/terraform-post-packer"
-    schedule:
-      interval: "weekly"
