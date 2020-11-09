@@ -12,6 +12,8 @@
   name: clamav
 - src: https://github.com/cisagov/ansible-role-cloudwatch-agent
   name: cloudwatch_agent
+- src: https://github.com/cisagov/ansible-role-cobalt-strike
+  name: cobalt_strike
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
 - src: https://github.com/cisagov/ansible-role-docker
@@ -22,6 +24,8 @@
   name: kali
 - src: https://github.com/cisagov/ansible-role-nvme
   name: nvme
+- src: https://github.com/cisagov/ansible-role-openjdk
+  name: openjdk
 - src: https://github.com/cisagov/ansible-role-persist-journald
   name: persist_journald
 - src: https://github.com/cisagov/ansible-role-pip
@@ -30,6 +34,8 @@
   name: python
 - src: https://github.com/cisagov/ansible-role-remove-python2
   name: remove_python2
+- src: https://github.com/cisagov/ansible-role-server-setup
+  name: server_setup
 - src: https://github.com/cisagov/ansible-role-ufw
   name: ufw
 - src: https://github.com/cisagov/ansible-role-upgrade
