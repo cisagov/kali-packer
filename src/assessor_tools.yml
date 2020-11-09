@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: Install bloodhound
+  name: Install Bloodhound and Cobalt Strike
   become: yes
   become_method: sudo
   roles:
@@ -8,6 +8,7 @@
       vars:
         # The password for Neo4j
         password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+    - role: cobalt_strike
 
 - hosts: all
   name: Install other Kali tools
