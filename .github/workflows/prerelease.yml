@@ -7,6 +7,7 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
+  BUILD_BUCKET: ${{ secrets.THIRD_PARTY_BUCKET_STAGING }}
   BUILD_REGION: us-east-1
   BUILD_REGION_KMS: alias/cool-amis
   CURL_CACHE_DIR: ~/.cache/curl
