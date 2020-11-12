@@ -54,7 +54,7 @@
           - dir_name: "Malleable-C2-Randomizer"
             repo: |
               https://github.com/bluscreenofjeff/Malleable-C2-Randomizer/tarball/master
-    - name: Install mono for the manually installed packages that need it
+    - name: Install Mono for the manually installed packages that need it
       package:
         name:
           - mono-complete
