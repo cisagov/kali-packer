@@ -94,11 +94,12 @@ jobs:
           aws-region: ${{ env.BUILD_REGION }}
           role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_PRODUCTION }}
           role-duration-seconds: 3600
-      # Ansible will find /usr/bin/python3 and use it, so we must
-      # ensure that it points to the version of python that we
-      # installed.  This can hose other tasks that are expecting to
-      # use the system python, though, so we undo this change after
-      # running packer.
+      # When called by Packer, Ansible will find /usr/bin/python3 and
+      # use it; therefore, we must ensure that /usr/bin/python3 points
+      # to the version of python that we installed.  This can hose
+      # other tasks that are expecting to find the system python at
+      # that location, though, so we undo this change after running
+      # packer.
       - name: Create a /usr/bin/python3 symlink to the installed python
         run: |
           sudo mv /usr/bin/python3 /usr/bin/python3-default
