@@ -7,6 +7,7 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
+  BUILD_BUCKET: ${{ secrets.THIRD_PARTY_BUCKET_STAGING }}
   BUILD_REGION: us-east-1
   BUILD_REGION_KMS: alias/cool-amis
   CURL_CACHE_DIR: ~/.cache/curl
@@ -64,6 +65,8 @@ jobs:
           sudo unzip -d /opt/terraform \
             ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
           sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+          sudo mv /usr/local/bin/terraform /usr/local/bin/terraform-default
+          sudo ln -s /opt/terraform/terraform /usr/local/bin/terraform
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -79,6 +82,16 @@ jobs:
           aws-region: ${{ env.BUILD_REGION }}
           role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
           role-duration-seconds: 7200 # 2 hours
+      # Ansible will find /usr/bin/python3 and use it, so we must
+      # ensure that it points to the version of python that we
+      # installed.  This can hose other tasks that are expecting to
+      # use the system python, though, so we undo this change after
+      # running packer.
+      - name: Create a /usr/bin/python3 symlink to the installed python
+        run: |
+          sudo mv /usr/bin/python3 /usr/bin/python3-default
+          sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
+          /usr/bin/python3
       - name: Create machine image
         env:
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
@@ -86,6 +99,9 @@ jobs:
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
           AWS_MAX_ATTEMPTS: 240
         run: packer build --timestamp-ui src/packer.json
+      - name: Remove /usr/bin/python3 symlink to the installed python
+        run: |
+          sudo mv /usr/bin/python3-default /usr/bin/python3
       - name: Setup tmate debug session
         uses: mxschmitt/action-tmate@v1
         if: env.RUN_TMATE

@@ -5,6 +5,9 @@
 - name: Import UFW playbook
   import_playbook: ufw.yml
 
+- name: Import Cobalt Strike and related tools playbook
+  import_playbook: cobalt_strike.yml
+
 - name: Import assessor tools playbook
   import_playbook: assessor_tools.yml
 

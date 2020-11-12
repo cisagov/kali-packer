@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: Install bloodhound
+  name: Install Bloodhound
   become: yes
   become_method: sudo
   roles:
