@@ -10,7 +10,7 @@
         bucket_name: "{{ build_bucket }}"
     - server_setup
   tasks:
-    - name: Install thunderbird mail client
+    - name: Install Thunderbird mail client
       package:
         name: thunderbird
     - name: Install some tools manually
