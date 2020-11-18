@@ -19,14 +19,10 @@ jobs:
     steps:
       - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - id: setup-python
+        uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: Store installed Python version
-        run: |
-          echo "PY_VERSION="\
-          "$(python -c "import platform;print(platform.python_version())")" \
-          >> $GITHUB_ENV
       - name: Cache prerelease building environments
         uses: actions/cache@v2
         with:
@@ -34,13 +30,13 @@ jobs:
             ${{ env.PIP_CACHE_DIR }}
             ${{ env.CURL_CACHE_DIR }}
           key: "prerelease-${{ runner.os }}-\
-            py${{ env.PY_VERSION }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
             packer-${{ env.PACKER_VERSION }}-\
             tf-${{ env.TERRAFORM_VERSION }}-\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
             prerelease-${{ runner.os }}-\
-            py${{ env.PY_VERSION }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
             packer-${{ env.PACKER_VERSION }}-\
             tf-${{ env.TERRAFORM_VERSION }}-
             prerelease-${{ runner.os }}-
