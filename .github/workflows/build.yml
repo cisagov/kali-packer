@@ -19,17 +19,13 @@ jobs:
     steps:
       - uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - id: setup-python
+        uses: actions/setup-python@v2
         with:
           python-version: 3.9
       - uses: actions/setup-go@v2
         with:
           go-version: '1.15'
-      - name: Store installed Python version
-        run: |
-          echo "PY_VERSION="\
-          "$(python -c "import platform;print(platform.python_version())")" \
-          >> $GITHUB_ENV
       - name: Store installed Go version
         run: |
           echo "GO_VERSION="\
@@ -54,7 +50,7 @@ jobs:
             ${{ env.CURL_CACHE_DIR }}
             ${{ steps.go-cache.outputs.dir }}
           key: "lint-${{ runner.os }}-\
-            py${{ env.PY_VERSION }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
             go${{ env.GO_VERSION }}-\
             tf${{ env.TERRAFORM_VERSION }}-\
             ${{ hashFiles('**/requirements-test.txt') }}-\
@@ -62,7 +58,7 @@ jobs:
             ${{ hashFiles('**/.pre-commit-config.yaml') }}"
           restore-keys: |
             lint-${{ runner.os }}-\
-            py${{ env.PY_VERSION }}-\
+            py${{ steps.setup-python.outputs.python-version }}-
             go${{ env.GO_VERSION }}-\
             tf${{ env.TERRAFORM_VERSION }}-
             lint-${{ runner.os }}-
