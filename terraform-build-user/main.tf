@@ -32,7 +32,7 @@ module "iam_user" {
 # Attach 3rd party S3 bucket read-only policy from
 # cisagov/ansible-role-cobalt-strike to the production EC2AMICreate
 # role
-resource "aws_iam_role_policy_attachment" "thirdpartybucketread_production" {
+resource "aws_iam_role_policy_attachment" "thirdpartybucketread_cobaltstrike_production" {
   provider = aws.images-production-ami
 
   policy_arn = data.terraform_remote_state.ansible_role_cobalt_strike.outputs.production_policy.arn
@@ -41,9 +41,27 @@ resource "aws_iam_role_policy_attachment" "thirdpartybucketread_production" {
 
 # Attach 3rd party S3 bucket read-only policy from
 # cisagov/ansible-role-cobalt-strike to the staging EC2AMICreate role
-resource "aws_iam_role_policy_attachment" "thirdpartybucketread_staging" {
+resource "aws_iam_role_policy_attachment" "thirdpartybucketread_cobaltstrike_staging" {
   provider = aws.images-staging-ami
 
   policy_arn = data.terraform_remote_state.ansible_role_cobalt_strike.outputs.staging_policy.arn
+  role       = module.iam_user.ec2amicreate_role_staging.name
+}
+
+# Attach 3rd party S3 bucket read-only policy from
+# cisagov/ansible-role-kali to the production EC2AMICreate role
+resource "aws_iam_role_policy_attachment" "thirdpartybucketread_kali_production" {
+  provider = aws.images-production-ami
+
+  policy_arn = data.terraform_remote_state.ansible_role_kali.outputs.production_bucket_policy.arn
+  role       = module.iam_user.ec2amicreate_role_production.name
+}
+
+# Attach 3rd party S3 bucket read-only policy from
+# cisagov/ansible-role-kali to the staging EC2AMICreate role
+resource "aws_iam_role_policy_attachment" "thirdpartybucketread_kali_staging" {
+  provider = aws.images-staging-ami
+
+  policy_arn = data.terraform_remote_state.ansible_role_kali.outputs.staging_bucket_policy.arn
   role       = module.iam_user.ec2amicreate_role_staging.name
 }
