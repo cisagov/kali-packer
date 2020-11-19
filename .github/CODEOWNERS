@@ -10,3 +10,7 @@
 /src/aws.yml @jsf9k
 /src/packer.json @jsf9k
 /src/python.yml @jsf9k
+
+# These folks own any files in the .github directory at the root of
+# the repository and any of its subdirectories.
+/.github/ @dav3r @felddy @hillaryj @jsf9k @mcdonnnj
