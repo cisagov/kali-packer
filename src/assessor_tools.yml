@@ -23,3 +23,6 @@
         # The group that should own the tools installed to /target.
         # The VNC user is in this group.
         group: kali-trusted
+        # The name of the AWS S3 bucket where third-party software is
+        # located
+        third_party_bucket_name: "{{ build_bucket }}"
