@@ -153,5 +153,5 @@ jobs:
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: pytest
       - name: Setup tmate debug session
-        uses: mxschmitt/action-tmate@v1
+        uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
