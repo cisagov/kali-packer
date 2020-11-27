@@ -22,7 +22,6 @@
   name: htop
 - src: https://github.com/cisagov/ansible-role-kali
   name: kali
-  version: improvement/add-burp-suite-pro
 - src: https://github.com/cisagov/ansible-role-nvme
   name: nvme
 - src: https://github.com/cisagov/ansible-role-openjdk
