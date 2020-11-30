@@ -38,7 +38,7 @@
           "679593333241"
         ]
       },
-      "ssh_username": "ec2-user",
+      "ssh_username": "kali",
       "subnet_filter": {
         "filters": {
           "tag:Name": "AMI Build"
@@ -95,7 +95,7 @@
         "sed -i '/^users:/ {N; s/users:.*/users: []/g}' /etc/cloud/cloud.cfg",
         "rm --force /etc/sudoers.d/90-cloud-init-users",
         "rm --force /root/.ssh/authorized_keys",
-        "/usr/sbin/userdel --remove --force ec2-user"
+        "/usr/sbin/userdel --remove --force kali"
       ],
       "skip_clean": true,
       "type": "shell"
