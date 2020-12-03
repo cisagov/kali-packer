@@ -30,23 +30,20 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: Cache release building environments
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        env:
+          BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
+            packer${{ env.PACKER_VERSION }}-\
+            tf-${{ env.TERRAFORM_VERSION }}-"
         with:
           path: |
             ${{ env.PIP_CACHE_DIR }}
             ${{ env.CURL_CACHE_DIR }}
-          key: "release-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-\
-            packer-${{ env.PACKER_VERSION }}-\
-            tf-${{ env.TERRAFORM_VERSION }}-\
+          key: "${{ env.BASE_CACHE_KEY }}\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
-            release-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-\
-            packer-${{ env.PACKER_VERSION }}-\
-            tf-${{ env.TERRAFORM_VERSION }}-
-            release-${{ runner.os }}-
+            ${{ env.BASE_CACHE_KEY }}
       - name: Install Packer
         run: |
           mkdir -p ${{ env.CURL_CACHE_DIR }}
@@ -113,5 +110,5 @@ jobs:
         run: |
           sudo mv /usr/bin/python3-default /usr/bin/python3
       - name: Setup tmate debug session
-        uses: mxschmitt/action-tmate@v1
+        uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE

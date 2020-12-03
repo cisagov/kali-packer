@@ -35,8 +35,12 @@ jobs:
         id: go-cache
         run: |
           echo "::set-output name=dir::$(go env GOCACHE)"
-      - name: Cache linting environments
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        env:
+          BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
+            go${{ env.GO_VERSION }}-\
+            tf${{ env.TERRAFORM_VERSION }}-"
         with:
           # Note that the .terraform directory IS NOT included in the
           # cache because if we were caching, then we would need to use
@@ -49,19 +53,12 @@ jobs:
             ${{ env.PRE_COMMIT_CACHE_DIR }}
             ${{ env.CURL_CACHE_DIR }}
             ${{ steps.go-cache.outputs.dir }}
-          key: "lint-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-\
-            go${{ env.GO_VERSION }}-\
-            tf${{ env.TERRAFORM_VERSION }}-\
+          key: "${{ env.BASE_CACHE_KEY }}\
             ${{ hashFiles('**/requirements-test.txt') }}-\
             ${{ hashFiles('**/requirements.txt') }}-\
             ${{ hashFiles('**/.pre-commit-config.yaml') }}"
           restore-keys: |
-            lint-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-
-            go${{ env.GO_VERSION }}-\
-            tf${{ env.TERRAFORM_VERSION }}-
-            lint-${{ runner.os }}-
+            ${{ env.BASE_CACHE_KEY }}
       - name: Install Terraform
         run: |
           mkdir -p ${{ env.CURL_CACHE_DIR }}
@@ -90,23 +87,8 @@ jobs:
           pip install --upgrade --requirement requirements-test.txt
       - name: Set up pre-commit hook environments
         run: pre-commit install-hooks
-      - name: Create modified GitHub Actions pre-commit configuration
-        run: |
-          sed '/terraform_validate/d' < .pre-commit-config.yaml \
-          > /tmp/.github-actions-pre-commit-config.yaml
-      - name: Run pre-commit with modified configuration file on all files
-        # We run pre-commit here with a custom configuration that has
-        # the terraform-validate hook removed.  This is because
-        # terraform validate cannot currently run without accessing
-        # the remote state because of the way the providers are
-        # defined in providers.tf.  This is something that may be
-        # remedied in the future.  For more information, check out
-        # these two GitHub issues:
-        # * https://github.com/hashicorp/terraform/issues/15895
-        # * https://github.com/hashicorp/terraform/issues/15811
-        run: |
-          pre-commit run --all-files \
-          --config=/tmp/.github-actions-pre-commit-config.yaml
+      - name: Run pre-commit on all files
+        run: pre-commit run --all-files
   test:
     runs-on: ubuntu-latest
     steps:
@@ -116,22 +98,20 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
-      - name: Cache testing environments
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
+        env:
+          BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
+            packer${{ env.PACKER_VERSION }}-"
         with:
           path: |
             ${{ env.PIP_CACHE_DIR }}
             ${{ env.CURL_CACHE_DIR }}
-          key: "test-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-\
-            packer${{ env.PACKER_VERSION }}-\
+          key: "${{ env.BASE_CACHE_KEY }}\
             ${{ hashFiles('**/requirements-test.txt') }}-\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
-            test-${{ runner.os }}-\
-            py${{ steps.setup-python.outputs.python-version }}-\
-            packer${{ env.PACKER_VERSION }}-
-            test-${{ runner.os }}-
+            ${{ env.BASE_CACHE_KEY }}
       - name: Install Packer
         run: |
           mkdir -p ${{ env.CURL_CACHE_DIR }}
@@ -153,5 +133,5 @@ jobs:
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: pytest
       - name: Setup tmate debug session
-        uses: mxschmitt/action-tmate@v1
+        uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
