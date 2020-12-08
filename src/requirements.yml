@@ -40,6 +40,7 @@
   name: ufw
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
+  version: bugfix/use-noninteractive-for-debian
 - src: https://github.com/cisagov/ansible-role-vnc-server
   name: vnc
 - src: https://github.com/cisagov/ansible-role-xfce-cool
