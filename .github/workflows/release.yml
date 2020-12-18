@@ -103,10 +103,15 @@ jobs:
           /usr/bin/python3
       - name: Create machine image
         env:
+          # Since we are using the default value of 15 seconds for
+          # AWS_POLL_DELAY_SECONDS, this corresponds to a timeout of
+          # two hours.  We need such a long timeout because it can
+          # take well over an hour to copy this AMI from one region to
+          # another.
+          AWS_MAX_ATTEMPTS: 480
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
-          AWS_MAX_ATTEMPTS: 240
         run: packer build --timestamp-ui src/packer.json
       - name: Remove /usr/bin/python3 symlink to the installed python
         run: |
