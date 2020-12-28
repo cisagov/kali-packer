@@ -84,7 +84,7 @@
       ],
       "extra_arguments": [
         "--extra-vars",
-        "{ansible_python_interpreter: /usr/bin/python3, build_bucket: {{user `build_bucket`}}}"
+        "{ansible_python_interpreter: /usr/bin/python3, build_bucket: {{user `build_bucket`}}, private_role_vars: true}"
       ],
       "playbook_file": "src/playbook.yml",
       "type": "ansible"
