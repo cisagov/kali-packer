@@ -2,6 +2,8 @@
   name: amazon_efs_utils
 - src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   name: amazon_ssm_agent
+- src: https://github.com/cisagov/ansible-role-assessment-tool
+  name: assessment_tool
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
 - src: https://github.com/cisagov/ansible-role-bloodhound
@@ -20,8 +22,6 @@
   name: docker
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
-- src: https://github.com/cisagov/ansible-role-kali
-  name: kali
 - src: https://github.com/cisagov/ansible-role-nvme
   name: nvme
 - src: https://github.com/cisagov/ansible-role-openjdk
