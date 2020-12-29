@@ -1,28 +1,323 @@
 ---
 - hosts: all
-  name: Install Bloodhound
+  name: Install assessment tools
   become: yes
   become_method: sudo
+  vars:
+    # The group that should own the tools installed to /target.  The
+    # VNC user is in this group.
+    group: kali-trusted
   roles:
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/mdsecactivebreach/CACTUSTORCH/\
+        tarball/master"
+        csharp: yes
+        install_dir: /tools/CACTUSTORCH
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/Techno-Hwizrdry/checkpwnedemails/\
+        tarball/master"
+        install_dir: /tools/checkpwnedemails
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/bovine/datapipe/tarball/master
+        install_dir: /tools/datapipe
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/nccgroup/demiguise/tarball/master
+        install_dir: /tools/demiguise
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/maurosoria/dirsearch/tarball/master
+        install_dir: /tools/dirsearch
+        pip_requirements_file: requirements.txt
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/sixdub/DomainTrustExplorer/\
+        tarball/master"
+        install_dir: /tools/DomainTrustExplorer
+        pip_packages:
+          - matplotlib
+          - networkx
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/ChrisTruncer/Egress-Assess/\
+        tarball/master"
+        install_dir: /tools/Egress-Assess
+        pip_packages:
+          - pyftpdlib
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/MacR6/ftpenum/tarball/master
+        install_dir: /tools/ftpenum
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/Lockless/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/Lockless
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/Rubeus/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/Rubeus
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/Seatbelt/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/Seatbelt
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/SafetyKatz/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/SafetyKatz
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/SharpDPAPI/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/SharpDPAPI
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/SharpDump/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/SharpDump
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/SharpRoast/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/SharpRoast
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/SharpUp/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/SharpUp
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/GhostPack/SharpWMI/tarball/master
+        csharp: yes
+        install_dir: /tools/GhostPack/SharpWMI
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/ChrisTruncer/gnmap-parser/tarball/master
+        install_dir: /tools/gnmap-parser
+    # https://github.com/FortyNorthSecurity/Hasher
+    - role: assessment_tool
+      vars:
+        install_dir: /tools/Hasher
+        pip_packages:
+          - hashes
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/HarmJ0y/ImpDump/tarball/master
+        install_dir: /tools/ImpDump
+        pip_packages:
+          - impacket
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/eladshamir/Internal-Monologue/\
+        tarball/master"
+        csharp: yes
+        install_dir: /tools/Internal-Monologue
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/HarmJ0y/KeeThief/tarball/master
+        csharp: yes
+        install_dir: /tools/KeeThief
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/ChrisTruncer/mikto/tarball/master
+        install_dir: /tools/mikto
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/xan7r/Misc/tarball/master
+        install_dir: /tools/Misc
+        powershell: yes
+    # https://github.com/fox-it/mitm6
+    - role: assessment_tool
+      vars:
+        install_dir: /tools/mitm6
+        pip_packages:
+          - mitm6
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/vysecurity/morphHTA/tarball/master
+        install_dir: /tools/morphHTA
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/worawit/MS17-010/tarball/master
+        install_dir: /tools/MS17-010
+        pip_packages:
+          - impacket
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/noahpowers/nlzr/tarball/master
+        install_dir: /tools/nlzr
+        pip_packages:
+          - requests
+          - requests-toolbelt
+          - Sublist3r
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/PowerShellEmpire/PowerTools/\
+        tarball/master"
+        install_dir: /tools/PowerTools
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/master
+        install_dir: /tools/PowerUpSQL
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/xorrior/RandomPS-Scripts/tarball/master
+        install_dir: /tools/RandomPS-Scripts
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
+        install_dir: /tools/SessionGopher
+        powershell: yes
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
+        tarball/master"
+        csharp: yes
+        install_dir: /tools/SharpShooter
+        pip_requirements_file: requirements.txt
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/mubix/shellshocker-pocs/tarball/master
+        install_dir: /tools/shellshocker-pocs
+        pip_packages:
+          - scapy
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/SimplySecurity/SimplyEmail/\
+        tarball/master"
+        install_dir: /tools/SimplyEmail
+        # The misspelling here is intentional.  See
+        # https://github.com/SimplySecurity/SimplyEmail/blob/master/setup/requirments.txt.
+        pip_requirements_file: setup/requirments.txt
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/SimplySecurity/SimplyTemplate/\
+        tarball/master"
+        install_dir: /tools/SimplyTemplate
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/MacR6/sshenum/tarball/master
+        install_dir: /tools/sshenum
+        pip_packages:
+          - paramiko
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
+        csharp: yes
+        install_dir: /tools/TikiTorch
+    # ysoserial requires Java
+    - role: openjdk
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/frohoff/ysoserial/tarball/master
+        install_dir: /tools/ysoserial
     - role: bloodhound
       vars:
         # The password for Neo4j
         password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+    - role: burp_suite_pro
 
-- hosts: all
-  name: Install other Kali tools
-  become: yes
-  become_method: sudo
-  roles:
-    - role: kali
-      vars:
-        # The GitLab PAT used to pull dns-profile-randomizer from a
-        # private repository.
-        gitlab_token: "{{ lookup('aws_ssm',
-        '/gitlab/personal_authorization_token') }}"
-        # The group that should own the tools installed to /target.
-        # The VNC user is in this group.
-        group: kali-trusted
-        # The name of the AWS S3 bucket where third-party software is
-        # located
-        third_party_bucket_name: "{{ build_bucket }}"
+  tasks:
+    - name: Install system packages for tools where possible
+      ansible.builtin.package:
+        name:
+          - crackmapexec
+          - dnsutils
+          - exploitdb
+          - eyewitness
+          - flameshot
+          - gobuster
+          - kerberoast
+          - libreoffice
+          - mimikatz
+          - nikto
+          - powershell-empire
+          - powersploit
+          - responder
+          - seclists
+          - sqlmap
+          - sublist3r
+          - veil
+
+    # Aquatone requires Google Chromium
+    - name: Install aquatone
+      block:
+        # Chromium is currently removed from Debian Testing (Bullseye)
+        # and therefore Kali Linux, so we install Google Chrome
+        # directly from a deb file below.  See #45 for details.
+        #
+        # TODO: Revert this change when the chromium package again
+        # becomes available.  See this issue:
+        # https://github.com/cisagov/ansible-role-kali/issues/47
+        # - name: Install dependencies for aquatone
+        #   ansible.builtin.package:
+        #     name:
+        #       - chromium
+        - name: Install Google Chrome
+          block:
+            # apt requires this package when installing a deb file
+            - name: Install xz-utils
+              ansible.builtin.package:
+                name:
+                  - xz-utils
+            - name: Install Google Chrome
+              ansible.builtin.apt:
+                deb: "https://dl.google.com/linux/direct/\
+                google-chrome-stable_current_amd64.deb"
+        - name: Install aquatone
+          ansible.builtin.import_role:
+            name: assessment_tool
+          vars:
+            archive_src: "https://github.com/michenriksen/aquatone/\
+            releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip"
+            install_dir: /tools/aquatone
+
+    # dns-profile-randomizer lives in a private GitLab repository and
+    # hence must be downloaded using a GitLab access token.
+    - name: Install dns-profile-randomizer
+      block:
+        - name: Download the dns-profile-randomizer archive
+          get_url:
+            url: https://gitlab.com/api/v4/projects/8989548/repository/archive
+            dest: /tmp/dns-profile-randomizer.tar.gz
+            headers:
+              Authorization: "Bearer {{ lookup('aws_ssm', \
+              '/gitlab/personal_authorization_token', \
+              region='us-east-1') }}"
+        - name: Install dns-profile-randomizer
+          ansible.builtin.import_role:
+            name: assessment_tool
+          vars:
+            archive_src: /tmp/dns-profile-randomizer.tar.gz
+            install_dir: /tools/dns-profile-randomizer
+            pip_requirements_file: requirements.txt
+
+# - hosts: all
+#   name: Install other Kali tools
+#   become: yes
+#   become_method: sudo
+#   roles:
+#     - role: kali
+#       vars:
+#         # The GitLab PAT used to pull dns-profile-randomizer from a
+#         # private repository.
+#         gitlab_token: "{{ lookup('aws_ssm',
+#         '/gitlab/personal_authorization_token') }}"
+#         # The group that should own the tools installed to /target.
+#         # The VNC user is in this group.
+#         group: kali-trusted
+#         # The name of the AWS S3 bucket where third-party software is
+#         # located
+#         third_party_bucket_name: "{{ build_bucket }}"

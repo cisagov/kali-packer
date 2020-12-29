@@ -8,6 +8,8 @@
   name: banner
 - src: https://github.com/cisagov/ansible-role-bloodhound
   name: bloodhound
+- src: https://github.com/cisagov/ansible-role-burp-suite-pro
+  name: burp_suite_pro
 - src: https://github.com/cisagov/ansible-role-chrony-aws
   name: chrony_aws
 - src: https://github.com/cisagov/ansible-role-clamav
