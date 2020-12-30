@@ -14,24 +14,34 @@
         tarball/master"
         csharp: yes
         install_dir: /tools/CACTUSTORCH
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/Techno-Hwizrdry/checkpwnedemails/\
         tarball/master"
         install_dir: /tools/checkpwnedemails
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/bovine/datapipe/tarball/master
         install_dir: /tools/datapipe
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/nccgroup/demiguise/tarball/master
         install_dir: /tools/demiguise
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/maurosoria/dirsearch/tarball/master
         install_dir: /tools/dirsearch
         pip_requirements_file: requirements.txt
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/sixdub/DomainTrustExplorer/\
@@ -40,6 +50,8 @@
         pip_packages:
           - matplotlib
           - networkx
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/ChrisTruncer/Egress-Assess/\
@@ -49,65 +61,91 @@
           - pyftpdlib
         powershell: yes
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/MacR6/ftpenum/tarball/master
         install_dir: /tools/ftpenum
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/Lockless/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/Lockless
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/Rubeus/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/Rubeus
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/Seatbelt/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/Seatbelt
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SafetyKatz/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SafetyKatz
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpDPAPI/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpDPAPI
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpDump/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpDump
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpRoast/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpRoast
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpUp/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpUp
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpWMI/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpWMI
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/ChrisTruncer/gnmap-parser/tarball/master
         install_dir: /tools/gnmap-parser
+        unarchive_extra_opts:
+          - --strip-components=1
     # https://github.com/FortyNorthSecurity/Hasher
     - role: assessment_tool
       vars:
         install_dir: /tools/Hasher
         pip_packages:
           - hashes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/HarmJ0y/ImpDump/tarball/master
@@ -115,43 +153,59 @@
         pip_packages:
           - impacket
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/eladshamir/Internal-Monologue/\
         tarball/master"
         csharp: yes
         install_dir: /tools/Internal-Monologue
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/HarmJ0y/KeeThief/tarball/master
         csharp: yes
         install_dir: /tools/KeeThief
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/ChrisTruncer/mikto/tarball/master
         install_dir: /tools/mikto
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/xan7r/Misc/tarball/master
         install_dir: /tools/Misc
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     # https://github.com/fox-it/mitm6
     - role: assessment_tool
       vars:
         install_dir: /tools/mitm6
         pip_packages:
           - mitm6
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/vysecurity/morphHTA/tarball/master
         install_dir: /tools/morphHTA
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/worawit/MS17-010/tarball/master
         install_dir: /tools/MS17-010
         pip_packages:
           - impacket
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/noahpowers/nlzr/tarball/master
@@ -161,27 +215,37 @@
           - requests-toolbelt
           - Sublist3r
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/PowerShellEmpire/PowerTools/\
         tarball/master"
         install_dir: /tools/PowerTools
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/master
         install_dir: /tools/PowerUpSQL
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/xorrior/RandomPS-Scripts/tarball/master
         install_dir: /tools/RandomPS-Scripts
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
         install_dir: /tools/SessionGopher
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
@@ -189,6 +253,8 @@
         csharp: yes
         install_dir: /tools/SharpShooter
         pip_requirements_file: requirements.txt
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/mubix/shellshocker-pocs/tarball/master
@@ -196,6 +262,8 @@
         pip_packages:
           - scapy
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/SimplySecurity/SimplyEmail/\
@@ -205,12 +273,16 @@
         # https://github.com/SimplySecurity/SimplyEmail/blob/master/setup/requirments.txt.
         pip_requirements_file: setup/requirments.txt
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/SimplySecurity/SimplyTemplate/\
         tarball/master"
         install_dir: /tools/SimplyTemplate
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/MacR6/sshenum/tarball/master
@@ -218,17 +290,23 @@
         pip_packages:
           - paramiko
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
         csharp: yes
         install_dir: /tools/TikiTorch
+        unarchive_extra_opts:
+          - --strip-components=1
     # ysoserial requires Java
     - role: openjdk
     - role: assessment_tool
       vars:
         archive_src: https://github.com/frohoff/ysoserial/tarball/master
         install_dir: /tools/ysoserial
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: bloodhound
       vars:
         # The password for Neo4j
@@ -315,3 +393,5 @@
             archive_src: /tmp/dns-profile-randomizer.tar.gz
             install_dir: /tools/dns-profile-randomizer
             pip_requirements_file: requirements.txt
+            unarchive_extra_opts:
+              - --strip-components=1
