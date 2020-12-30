@@ -152,6 +152,7 @@
         install_dir: /tools/ImpDump
         pip_packages:
           - impacket
+          - pycrypto
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
