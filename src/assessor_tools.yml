@@ -48,6 +48,7 @@
         pip_packages:
           - pyftpdlib
         powershell: yes
+        python2: yes
     - role: assessment_tool
       vars:
         archive_src: https://github.com/MacR6/ftpenum/tarball/master
@@ -113,6 +114,7 @@
         install_dir: /tools/ImpDump
         pip_packages:
           - impacket
+        python2: yes
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/eladshamir/Internal-Monologue/\
@@ -193,6 +195,7 @@
         install_dir: /tools/shellshocker-pocs
         pip_packages:
           - scapy
+        python2: yes
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/SimplySecurity/SimplyEmail/\
@@ -201,17 +204,20 @@
         # The misspelling here is intentional.  See
         # https://github.com/SimplySecurity/SimplyEmail/blob/master/setup/requirments.txt.
         pip_requirements_file: setup/requirments.txt
+        python2: yes
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/SimplySecurity/SimplyTemplate/\
         tarball/master"
         install_dir: /tools/SimplyTemplate
+        python2: yes
     - role: assessment_tool
       vars:
         archive_src: https://github.com/MacR6/sshenum/tarball/master
         install_dir: /tools/sshenum
         pip_packages:
           - paramiko
+        python2: yes
     - role: assessment_tool
       vars:
         archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
