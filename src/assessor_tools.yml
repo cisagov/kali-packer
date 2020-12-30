@@ -267,11 +267,12 @@
       block:
         # Chromium is currently removed from Debian Testing (Bullseye)
         # and therefore Kali Linux, so we install Google Chrome
-        # directly from a deb file below.  See #45 for details.
+        # directly from a deb file below.  See this issue for details:
+        # https://github.com/cisagov/ansible-role-kali/issues/45
         #
         # TODO: Revert this change when the chromium package again
         # becomes available.  See this issue:
-        # https://github.com/cisagov/ansible-role-kali/issues/47
+        # https://github.com/cisagov/kali-packer/issues/51
         # - name: Install dependencies for aquatone
         #   ansible.builtin.package:
         #     name:
