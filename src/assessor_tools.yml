@@ -234,6 +234,11 @@
         # The password for Neo4j
         password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
     - role: burp_suite_pro
+      vars:
+        # The name of the AWS S3 bucket where third-party software is
+        # located
+        third_party_bucket_name: "{{ build_bucket }}"
+
 
   tasks:
     - name: Install system packages for tools where possible
