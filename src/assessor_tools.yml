@@ -309,21 +309,3 @@
             archive_src: /tmp/dns-profile-randomizer.tar.gz
             install_dir: /tools/dns-profile-randomizer
             pip_requirements_file: requirements.txt
-
-# - hosts: all
-#   name: Install other Kali tools
-#   become: yes
-#   become_method: sudo
-#   roles:
-#     - role: kali
-#       vars:
-#         # The GitLab PAT used to pull dns-profile-randomizer from a
-#         # private repository.
-#         gitlab_token: "{{ lookup('aws_ssm',
-#         '/gitlab/personal_authorization_token') }}"
-#         # The group that should own the tools installed to /target.
-#         # The VNC user is in this group.
-#         group: kali-trusted
-#         # The name of the AWS S3 bucket where third-party software is
-#         # located
-#         third_party_bucket_name: "{{ build_bucket }}"
