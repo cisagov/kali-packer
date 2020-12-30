@@ -8,9 +8,6 @@
 - name: Import Cobalt Strike and related tools playbook
   import_playbook: cobalt_strike.yml
 
-- name: Import assessor tools playbook
-  import_playbook: assessor_tools.yml
-
 - name: Import VNC playbook
   import_playbook: vnc.yml
 
@@ -19,3 +16,8 @@
 
 - name: Import AWS playbook
   import_playbook: aws.yml
+
+# This playbook may cause Python 2 to be reinstalled, so it must go
+# last
+- name: Import assessor tools playbook
+  import_playbook: assessor_tools.yml
