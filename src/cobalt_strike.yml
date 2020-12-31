@@ -1,0 +1,36 @@
+---
+# The assessors like to use Thunderbird with Cobalt Strike
+- name: Install Thunderbird mail client
+  package:
+    name: thunderbird
+
+- name: Install Cobalt Strike
+  ansible.builtin.import_role:
+    name: cobalt_strike
+  vars:
+    bucket_name: "{{ build_bucket }}"
+
+- name: Install some Cobalt Strike addons
+  block:
+    - name: Install CobaltStrike-Toolkit
+      ansible.builtin.import_role:
+        name: assessment_tool
+      vars:
+        archive_src: "https://github.com/killswitch-GUI/CobaltStrike-Toolkit/\
+        tarball/master"
+        install_dir: /tools/CobaltStrike-Toolkit
+        powershell: yes
+    - name: Install Malleable-C2-Profiles
+      ansible.builtin.import_role:
+        name: assessment_tool
+      vars:
+        archive_src: "https://github.com/rsmudge/Malleable-C2-Profiles/\
+        tarball/master"
+        install_dir: /tools/Malleable-C2-Profiles
+    - name: Install Malleable-C2-Randomizer
+      ansible.builtin.import_role:
+        name: assessment_tool
+      vars:
+        archive_src: "https://github.com/bluscreenofjeff/\
+        Malleable-C2-Randomizer/tarball/master"
+        install_dir: /tools/Malleable-C2-Randomizer

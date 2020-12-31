@@ -335,107 +335,16 @@
 
     # Aquatone requires Google Chromium
     - name: Install aquatone
-      block:
-        # Chromium is currently removed from Debian Testing (Bullseye)
-        # and therefore Kali Linux, so we install Google Chrome
-        # directly from a deb file below.  See this issue for details:
-        # https://github.com/cisagov/ansible-role-kali/issues/45
-        #
-        # TODO: Revert this change when the chromium package again
-        # becomes available.  See this issue:
-        # https://github.com/cisagov/kali-packer/issues/51
-        # - name: Install dependencies for aquatone
-        #   ansible.builtin.package:
-        #     name:
-        #       - chromium
-        - name: Install Google Chrome
-          block:
-            # apt requires this package when installing a deb file
-            - name: Install xz-utils
-              ansible.builtin.package:
-                name:
-                  - xz-utils
-            - name: Install Google Chrome
-              ansible.builtin.apt:
-                deb: "https://dl.google.com/linux/direct/\
-                google-chrome-stable_current_amd64.deb"
-        - name: Install aquatone
-          ansible.builtin.import_role:
-            name: assessment_tool
-          vars:
-            archive_src: "https://github.com/michenriksen/aquatone/\
-            releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip"
-            install_dir: /tools/aquatone
+      ansible.builtin.import_tasks: aquatone.yml
 
     # dns-profile-randomizer lives in a private GitLab repository and
     # hence must be downloaded using a GitLab access token.
     - name: Install dns-profile-randomizer
-      block:
-        - name: Download the dns-profile-randomizer archive
-          get_url:
-            url: https://gitlab.com/api/v4/projects/8989548/repository/archive
-            dest: /tmp/dns-profile-randomizer.tar.gz
-            headers:
-              Authorization: "Bearer {{ lookup('aws_ssm', \
-              '/gitlab/personal_authorization_token', \
-              region='us-east-1') }}"
-        - name: Install dns-profile-randomizer
-          ansible.builtin.import_role:
-            name: assessment_tool
-          vars:
-            archive_src: /tmp/dns-profile-randomizer.tar.gz
-            install_dir: /tools/dns-profile-randomizer
-            pip_requirements_file: requirements.txt
-            unarchive_extra_opts:
-              - --strip-components=1
+      ansible.builtin.import_tasks: dns_profile_randomizer.yml
 
     - name: Install Cobalt Strike
-      block:
-        # The assessors like to use Thunderbird with Cobalt Strike
-        - name: Install Thunderbird mail client
-          package:
-            name: thunderbird
-        - name: Install Cobalt Strike
-          ansible.builtin.import_role:
-            name: cobalt_strike
-            vars:
-              bucket_name: "{{ build_bucket }}"
-        - name: Install some Cobalt Strike addons
-          block:
-            - name: Install CobaltStrike-Toolkit
-              ansible.builtin.import_role:
-                name: assessment_tool
-              vars:
-                archive_src: "https://github.com/killswitch-GUI/\
-                CobaltStrike-Toolkit/tarball/master"
-                install_dir: /tools/CobaltStrike-Toolkit
-                powershell: yes
-            - name: Install Malleable-C2-Profiles
-              ansible.builtin.import_role:
-                name: assessment_tool
-              vars:
-                archive_src: "https://github.com/rsmudge/Malleable-C2-Profiles/\
-                tarball/master"
-                install_dir: /tools/Malleable-C2-Profiles
-            - name: Install Malleable-C2-Randomizer
-              ansible.builtin.import_role:
-                name: assessment_tool
-              vars:
-                archive_src: "https://github.com/bluscreenofjeff/\
-                Malleable-C2-Randomizer/tarball/master"
-                install_dir: /tools/Malleable-C2-Randomizer
+      ansible.builtin.import_tasks: cobalt_strike.yml
 
     # ysoserial requires a Java implementation
     - name: Install ysoserial
-      block:
-        - name: Install OpenJDK
-          ansible.builtin.import_role:
-            name: openjdk
-        - name: Install ysoserial
-          ansible.builtin.import_role:
-            name: assessment_tool
-          vars:
-            archive_src: https://github.com/frohoff/ysoserial/tarball/master
-            install_dir: /tools/ysoserial
-            unarchive_extra_opts:
-              - --strip-components=1
+      ansible.builtin.import_tasks: ysoserial.yml

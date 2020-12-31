@@ -1,0 +1,33 @@
+---
+# Chromium is currently removed from Debian Testing (Bullseye) and
+# therefore Kali Linux, so we install Google Chrome directly from a
+# deb file below.  See this issue for details:
+# https://github.com/cisagov/ansible-role-kali/issues/45
+#
+# TODO: Revert this change when the chromium package again becomes
+# available.  See this issue:
+# https://github.com/cisagov/kali-packer/issues/51
+#
+# - name: Install dependencies for aquatone
+#   ansible.builtin.package:
+#     name:
+#       - chromium
+- name: Install Google Chrome
+  block:
+    # apt requires this package when installing a deb file
+    - name: Install xz-utils
+      ansible.builtin.package:
+        name:
+          - xz-utils
+    - name: Install Google Chrome
+      ansible.builtin.apt:
+        deb: "https://dl.google.com/linux/direct/\
+        google-chrome-stable_current_amd64.deb"
+
+- name: Install aquatone
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    archive_src: "https://github.com/michenriksen/aquatone/\
+    releases/download/v1.7.0/aquatone_linux_amd64_1.7.0.zip"
+    install_dir: /tools/aquatone
