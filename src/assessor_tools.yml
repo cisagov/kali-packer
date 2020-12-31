@@ -300,14 +300,6 @@
         install_dir: /tools/TikiTorch
         unarchive_extra_opts:
           - --strip-components=1
-    # ysoserial requires Java
-    - role: openjdk
-    - role: assessment_tool
-      vars:
-        archive_src: https://github.com/frohoff/ysoserial/tarball/master
-        install_dir: /tools/ysoserial
-        unarchive_extra_opts:
-          - --strip-components=1
     - role: bloodhound
       vars:
         # The password for Neo4j
@@ -432,3 +424,18 @@
                 archive_src: "https://github.com/bluscreenofjeff/\
                 Malleable-C2-Randomizer/tarball/master"
                 install_dir: /tools/Malleable-C2-Randomizer
+
+    # ysoserial requires a Java implementation
+    - name: Install ysoserial
+      block:
+        - name: Install OpenJDK
+          ansible.builtin.import_role:
+            name: openjdk
+        - name: Install ysoserial
+          ansible.builtin.import_role:
+            name: assessment_tool
+          vars:
+            archive_src: https://github.com/frohoff/ysoserial/tarball/master
+            install_dir: /tools/ysoserial
+            unarchive_extra_opts:
+              - --strip-components=1
