@@ -317,7 +317,7 @@
         # The name of the AWS S3 bucket where third-party software is
         # located
         third_party_bucket_name: "{{ build_bucket }}"
-
+    - role: server_setup
 
   tasks:
     - name: Install system packages for tools where possible
