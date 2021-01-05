@@ -77,7 +77,7 @@ data "terraform_remote_state" "ansible_role_cobalt_strike" {
   }
 }
 
-data "terraform_remote_state" "ansible_role_kali" {
+data "terraform_remote_state" "ansible_role_burp_suite_pro" {
   backend = "s3"
 
   config = {
@@ -86,7 +86,7 @@ data "terraform_remote_state" "ansible_role_kali" {
     dynamodb_table = "terraform-state-lock"
     profile        = "cool-terraform-backend"
     region         = "us-east-1"
-    key            = "ansible-role-kali/terraform.tfstate"
+    key            = "ansible-role-burp-suite-pro/terraform.tfstate"
   }
 }
 

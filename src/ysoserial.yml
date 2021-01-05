@@ -1,0 +1,14 @@
+---
+# ysoserial requires a Java implementation
+- name: Install OpenJDK
+  ansible.builtin.import_role:
+    name: openjdk
+
+- name: Install ysoserial
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    archive_src: https://github.com/frohoff/ysoserial/tarball/master
+    install_dir: /tools/ysoserial
+    unarchive_extra_opts:
+      - --strip-components=1
