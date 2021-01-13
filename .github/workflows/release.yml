@@ -89,7 +89,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.BUILD_REGION }}
           role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_PRODUCTION }}
-          role-duration-seconds: 7200 # 2 hours
+          role-duration-seconds: 7200  # 2 hours
       # When called by Packer, Ansible will find /usr/bin/python3 and
       # use it; therefore, we must ensure that /usr/bin/python3 points
       # to the version of Python that we installed in the
