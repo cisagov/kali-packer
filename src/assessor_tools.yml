@@ -1,4 +1,6 @@
 ---
+# Note that this playbook installs Burp Suite Pro for the VNC user,
+# and therefore can only run _after_ the VNC user has been created.
 - hosts: all
   name: Install assessment tools
   become: yes
@@ -309,6 +311,9 @@
         # The name of the AWS S3 bucket where third-party software is
         # located
         third_party_bucket_name: "{{ build_bucket }}"
+        # License Burp Suite Pro for the VNC user
+        users:
+          - "{{ lookup('aws_ssm', '/vnc/username') }}"
     - role: server_setup
 
   tasks:
