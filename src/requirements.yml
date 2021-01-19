@@ -11,7 +11,6 @@
   name: bloodhound
 - src: https://github.com/cisagov/ansible-role-burp-suite-pro
   name: burp_suite_pro
-  version: bugfix/allow-licensing-per-user
 - src: https://github.com/cisagov/ansible-role-chrony-aws
   name: chrony_aws
 - src: https://github.com/cisagov/ansible-role-clamav
