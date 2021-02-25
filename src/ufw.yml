@@ -16,7 +16,7 @@
   become_method: sudo
   tasks:
     - name: Allow incoming traffic through specified TCP ports
-      ufw:
+      community.general.ufw:
         proto: tcp
         rule: allow
         to_port: "{{ item }}"

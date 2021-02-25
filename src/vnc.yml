@@ -18,7 +18,7 @@
   become_method: sudo
   tasks:
     - name: Add VNC user to kali-trusted group
-      user:
+      ansible.builtin.user:
         append: yes
         groups:
           - kali-trusted

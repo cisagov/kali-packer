@@ -1,7 +1,7 @@
 ---
 # The assessors like to use Thunderbird with Cobalt Strike
 - name: Install Thunderbird mail client
-  package:
+  ansible.builtin.package:
     name: thunderbird
 
 - name: Install Cobalt Strike
