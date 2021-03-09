@@ -2,7 +2,7 @@
 # dns-profile-randomizer lives in a private GitLab repository and
 # hence must be downloaded using a GitLab access token.
 - name: Download the dns-profile-randomizer archive
-  get_url:
+  ansible.builtin.get_url:
     url: https://gitlab.com/api/v4/projects/8989548/repository/archive
     dest: /tmp/dns-profile-randomizer.tar.gz
     headers:

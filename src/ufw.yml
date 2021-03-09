@@ -15,27 +15,12 @@
   become: yes
   become_method: sudo
   tasks:
-    - name: Allow incoming traffic through default TCP ports
-      ufw:
+    - name: Allow incoming traffic through specified TCP ports
+      community.general.ufw:
         proto: tcp
         rule: allow
         to_port: "{{ item }}"
       loop:
-        - "22"
-        - "25"
-        - "53"
-        - "80"
-        - "443"
-        - "587"
-        - "993"
-        - "5901"
-        - "8080"
-        - 8000:8999
-    - name: Allow incoming traffic through default UDP ports
-      ufw:
-        proto: udp
-        rule: allow
-        to_port: "{{ item }}"
-      loop:
-        - "53"
-        - "8080"
+        - "22"       # ssh for Guacamole server (internal to assessment env)
+        - "5901"     # vnc for Guacamole (internal to assessment env)
+        - 8000:8999  # Additional listeners, if necessary (external)
