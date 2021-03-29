@@ -45,5 +45,6 @@
   name: upgrade
 - src: https://github.com/cisagov/ansible-role-vnc-server
   name: vnc
+  version: bugfix/pin-for-kali
 - src: https://github.com/cisagov/ansible-role-xfce-cool
   name: xfce_cool
