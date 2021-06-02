@@ -3,6 +3,8 @@
   name: amazon_efs_utils
 - src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   name: amazon_ssm_agent
+- src: https://github.com/cisagov/ansible-role-backports
+  name: backports
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
 - src: https://github.com/cisagov/ansible-role-clamav
