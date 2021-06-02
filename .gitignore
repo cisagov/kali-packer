@@ -1,9 +1,18 @@
+# This file specifies intentionally untracked files that Git should ignore.
+# Files already tracked by Git are not affected.
+# See: https://git-scm.com/docs/gitignore
+
+## Packer ##
+packer_cache
+
+## Python ##
 __pycache__
 .coverage
 .mypy_cache
 .pytest_cache
 .python-version
-.terraform
 *.egg-info
 dist
-packer_cache
+
+## Terraform ##
+.terraform
