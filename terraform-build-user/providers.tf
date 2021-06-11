@@ -24,7 +24,7 @@ locals {
 # must exist for the Terraform backend to work ("cool-terraform-backend").
 provider "aws" {
   alias = "cool-terraform-backend"
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   profile = "cool-terraform-backend"
@@ -37,7 +37,7 @@ provider "aws" {
     role_arn     = data.terraform_remote_state.users.outputs.provisionaccount_role.arn
     session_name = local.caller_user_name
   }
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   region = "us-east-1"
@@ -50,7 +50,7 @@ provider "aws" {
     role_arn     = data.terraform_remote_state.images_production.outputs.provisionec2amicreateroles_role.arn
     session_name = local.caller_user_name
   }
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   region = "us-east-1"
@@ -63,7 +63,7 @@ provider "aws" {
     role_arn     = data.terraform_remote_state.images_parameterstore_production.outputs.provisionparameterstorereadroles_role.arn
     session_name = local.caller_user_name
   }
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   region = "us-east-1"
@@ -76,7 +76,7 @@ provider "aws" {
     role_arn     = data.terraform_remote_state.images_staging.outputs.provisionec2amicreateroles_role.arn
     session_name = local.caller_user_name
   }
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   region = "us-east-1"
@@ -89,7 +89,7 @@ provider "aws" {
     role_arn     = data.terraform_remote_state.images_parameterstore_staging.outputs.provisionparameterstorereadroles_role.arn
     session_name = local.caller_user_name
   }
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   region = "us-east-1"

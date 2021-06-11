@@ -7,7 +7,7 @@ locals {
 
 # Default AWS provider (EC2AMICreate role in the Images account)
 provider "aws" {
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   profile = "cool-images-ec2amicreate"
@@ -17,7 +17,7 @@ provider "aws" {
 # AWS provider for the Master account (OrganizationsReadOnly role)
 provider "aws" {
   alias = "master"
-  default-tags {
+  default_tags {
     tags = local.tags
   }
   profile = "cool-master-organizationsreadonly"
