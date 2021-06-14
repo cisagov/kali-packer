@@ -5,6 +5,8 @@
   become_method: sudo
   roles:
     - amazon_ssm_agent
+    # This is for the python3-botocore task below
+    - backports
     - chrony_aws
     - cloudwatch_agent
     # The instance types used for almost all the instances expose EBS
@@ -22,3 +24,17 @@
     # itself already supports python3.)  Until they change that, this
     # role is the last thing that Ansible installs.
     - amazon_efs_utils
+  tasks:
+    # The version of python3-botocore in Debian Buster is too old to
+    # support IMDSv2.  I was able to get a more recent version
+    # published to buster-backports that does support IMDSv2, so we
+    # should use that.
+    - name: Install python3-botocore from buster-backports for Debian Buster
+      ansible.builtin.apt:
+        default_release: buster-backports
+        name:
+          - python3-botocore
+        state: latest
+      when:
+        - ansible_distribution == "Debian"
+        - ansible_distribution_release == "buster"
