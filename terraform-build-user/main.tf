@@ -23,10 +23,6 @@ module "iam_user" {
     "/vnc/username",
   ]
   user_name = "build-kali-packer"
-  tags = {
-    Team        = "CISA - Development"
-    Application = "kali-packer"
-  }
 }
 
 # Attach 3rd party S3 bucket read-only policy from
