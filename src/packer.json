@@ -27,6 +27,7 @@
       ],
       "region": "{{user `build_region`}}",
       "region_kms_key_ids": {},
+      "skip_create_ami": "{{user `skip_create_ami`}}",
       "source_ami_filter": {
         "filters": {
           "name": "debian-10-amd64-*",
@@ -95,6 +96,7 @@
     "build_region_kms": "{{env `BUILD_REGION_KMS`}}",
     "github_is_prerelease": "{{env `GITHUB_IS_PRERELEASE`}}",
     "github_release_tag": "{{env `GITHUB_RELEASE_TAG`}}",
-    "github_release_url": "{{env `GITHUB_RELEASE_URL`}}"
+    "github_release_url": "{{env `GITHUB_RELEASE_URL`}}",
+    "skip_create_ami": "false"
   }
 }

@@ -8,6 +8,9 @@ on:
     types: [apb]
 
 env:
+  AWS_DEFAULT_REGION: us-east-1
+  BUILD_REGION: us-east-1
+  BUILD_REGION_KMS: alias/cool-amis
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
@@ -130,6 +133,93 @@ jobs:
         env:
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
         run: pytest
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v3
+        if: env.RUN_TMATE
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: cisagov/setup-env-github-action@develop
+      - uses: actions/checkout@v2
+      - id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - uses: actions/cache@v2
+        env:
+          BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
+            py${{ steps.setup-python.outputs.python-version }}-\
+            packer${{ env.PACKER_VERSION }}-\
+            tf-${{ env.TERRAFORM_VERSION }}-"
+        with:
+          path: |
+            ${{ env.PIP_CACHE_DIR }}
+            ${{ env.CURL_CACHE_DIR }}
+          key: "${{ env.BASE_CACHE_KEY }}\
+            ${{ hashFiles('**/requirements.txt') }}"
+          restore-keys: |
+            ${{ env.BASE_CACHE_KEY }}
+      - name: Install Packer
+        run: |
+          mkdir -p ${{ env.CURL_CACHE_DIR }}
+          PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --location \
+            "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
+          sudo unzip -o -d /usr/local/bin \
+            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
+      - name: Install Terraform
+        run: |
+          TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
+            --location \
+            "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
+          sudo unzip -d /opt/terraform \
+            ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
+          sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+          sudo mv /usr/local/bin/terraform /usr/local/bin/terraform-default
+          sudo ln -s /opt/terraform/terraform /usr/local/bin/terraform
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install --upgrade \
+                      --requirement requirements.txt
+      - name: Install ansible roles
+        run: ansible-galaxy install --force --role-file src/requirements.yml
+      - name: Assume AWS build role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.BUILD_REGION }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
+          role-duration-seconds: 3600
+      # When called by Packer, Ansible will find /usr/bin/python3 and
+      # use it; therefore, we must ensure that /usr/bin/python3 points
+      # to the version of Python that we installed in the
+      # actions/setup-python step above.  This can hose other tasks
+      # that are expecting to find the system Python at that location,
+      # though, so we undo this change after running Packer.
+      - name: Create a /usr/bin/python3 symlink to the installed python
+        run: |
+          sudo mv /usr/bin/python3 /usr/bin/python3-default
+          sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
+          /usr/bin/python3
+      - name: Create machine image
+        env:
+          GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
+          GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
+          GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
+        # This runs through the AMI creation process but does not
+        # actually create an AMI
+        run: |
+          packer build --timestamp-ui -var skip_create_ami=true \
+          src/packer.json
+      - name: Remove /usr/bin/python3 symlink to the installed python
+        run: |
+          sudo mv /usr/bin/python3-default /usr/bin/python3
       - name: Setup tmate debug session
         uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
