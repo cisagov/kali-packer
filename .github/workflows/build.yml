@@ -164,9 +164,10 @@ jobs:
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
+      - name: Setup curl cache
+        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
         run: |
-          mkdir -p ${{ env.CURL_CACHE_DIR }}
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
