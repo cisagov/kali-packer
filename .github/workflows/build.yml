@@ -191,7 +191,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade \
                       --requirement requirements.txt
-      - name: Install ansible roles
+      - name: Install Ansible roles
         run: ansible-galaxy install --force --role-file src/requirements.yml
       - name: Assume AWS build role
         uses: aws-actions/configure-aws-credentials@v1
