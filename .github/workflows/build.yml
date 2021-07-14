@@ -139,9 +139,7 @@ jobs:
   build:
     # The AMI build process is an expensive test (in terms of time) so
     # let's not run it unless the other jobs succeed.
-    needs:
-      - lint
-      - test
+    needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
       - uses: cisagov/setup-env-github-action@develop
