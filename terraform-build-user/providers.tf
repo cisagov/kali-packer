@@ -7,6 +7,11 @@ locals {
   # https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html
   # for information about acceptable characters for the session name.
   caller_user_name = replace(data.aws_caller_identity.terraform_backend.user_id, ":", ".")
+
+  tags = {
+    Team        = "CISA - Development"
+    Application = "skeleton-packer"
+  }
 }
 
 # Provider that is only used for obtaining the caller identity.
@@ -18,56 +23,74 @@ locals {
 # Hence, for our caller identity, we use a provider based on a profile that
 # must exist for the Terraform backend to work ("cool-terraform-backend").
 provider "aws" {
-  alias   = "cool-terraform-backend"
-  region  = "us-east-1"
+  alias = "cool-terraform-backend"
+  default_tags {
+    tags = local.tags
+  }
   profile = "cool-terraform-backend"
+  region  = "us-east-1"
 }
 
 # Default AWS provider (ProvisionAccount for the Users account)
 provider "aws" {
-  region = "us-east-1"
   assume_role {
     role_arn     = data.terraform_remote_state.users.outputs.provisionaccount_role.arn
     session_name = local.caller_user_name
   }
+  default_tags {
+    tags = local.tags
+  }
+  region = "us-east-1"
 }
 
 # ProvisionEC2AMICreateRoles AWS provider for the Images Production account
 provider "aws" {
-  alias  = "images-production-ami"
-  region = "us-east-1"
+  alias = "images-production-ami"
   assume_role {
     role_arn     = data.terraform_remote_state.images_production.outputs.provisionec2amicreateroles_role.arn
     session_name = local.caller_user_name
   }
+  default_tags {
+    tags = local.tags
+  }
+  region = "us-east-1"
 }
 
 # ProvisionParameterStoreReadRoles AWS provider for the Images Production account
 provider "aws" {
-  alias  = "images-production-ssm"
-  region = "us-east-1"
+  alias = "images-production-ssm"
   assume_role {
     role_arn     = data.terraform_remote_state.images_parameterstore_production.outputs.provisionparameterstorereadroles_role.arn
     session_name = local.caller_user_name
   }
+  default_tags {
+    tags = local.tags
+  }
+  region = "us-east-1"
 }
 
 # ProvisionEC2AMICreateRoles AWS provider for the Images Staging account
 provider "aws" {
-  alias  = "images-staging-ami"
-  region = "us-east-1"
+  alias = "images-staging-ami"
   assume_role {
     role_arn     = data.terraform_remote_state.images_staging.outputs.provisionec2amicreateroles_role.arn
     session_name = local.caller_user_name
   }
+  default_tags {
+    tags = local.tags
+  }
+  region = "us-east-1"
 }
 
 # ProvisionParameterStoreReadRoles AWS provider for the Images Staging account
 provider "aws" {
-  alias  = "images-staging-ssm"
-  region = "us-east-1"
+  alias = "images-staging-ssm"
   assume_role {
     role_arn     = data.terraform_remote_state.images_parameterstore_staging.outputs.provisionparameterstorereadroles_role.arn
     session_name = local.caller_user_name
   }
+  default_tags {
+    tags = local.tags
+  }
+  region = "us-east-1"
 }

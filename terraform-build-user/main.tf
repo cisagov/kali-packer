@@ -11,8 +11,4 @@ module "iam_user" {
 
   ssm_parameters = ["/cyhy/dev/users", "/ssh/public_keys/*"]
   user_name      = "build-skeleton-packer"
-  tags = {
-    Team        = "CISA - Development"
-    Application = "skeleton-packer"
-  }
 }
