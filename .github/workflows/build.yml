@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.9
+      # GO_VERSION and GOCACHE are used by the cache task, so the Go
+      # installation must happen before that.
       - uses: actions/setup-go@v2
         with:
           go-version: '1.16'
@@ -31,7 +33,7 @@ jobs:
           echo "GO_VERSION="\
           "$(go version | sed 's/^go version go\([0-9.]\+\) .*/\1/')" \
           >> $GITHUB_ENV
-      - name: Lookup go cache directory
+      - name: Lookup Go cache directory
         id: go-cache
         run: |
           echo "::set-output name=dir::$(go env GOCACHE)"
@@ -40,6 +42,7 @@ jobs:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-\
             go${{ env.GO_VERSION }}-\
+            packer${{ env.PACKER_VERSION }}-\
             tf${{ env.TERRAFORM_VERSION }}-"
         with:
           # Note that the .terraform directory IS NOT included in the
@@ -59,9 +62,21 @@ jobs:
             ${{ hashFiles('**/.pre-commit-config.yaml') }}"
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
+      - name: Setup curl cache
+        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
+      - name: Install Packer
+        run: |
+          PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
+          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
+            --location \
+            "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
+          sudo unzip -d /opt/packer \
+            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
+          sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
+          sudo ln -s /opt/packer/packer /usr/local/bin/packer
       - name: Install Terraform
         run: |
-          mkdir -p ${{ env.CURL_CACHE_DIR }}
           TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
             --time-cond ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
@@ -69,11 +84,14 @@ jobs:
             "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
           sudo unzip -d /opt/terraform \
             ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
-          sudo ln -s /opt/terraform/terraform /usr/bin/terraform
           sudo mv /usr/local/bin/terraform /usr/local/bin/terraform-default
           sudo ln -s /opt/terraform/terraform /usr/local/bin/terraform
+      - name: Install shfmt
+        run: go install mvdan.cc/sh/v3/cmd/shfmt@${SHFMT_VERSION}
       - name: Install Terraform-docs
-        run: GO111MODULE=on go get github.com/terraform-docs/terraform-docs
+        run: |
+          go install \
+            github.com/terraform-docs/terraform-docs@${TERRAFORM_DOCS_VERSION}
       - name: Find and initialize Terraform directories
         run: |
           for path in $(find . -not \( -type d -name ".terraform" -prune \) \
@@ -89,6 +107,9 @@ jobs:
         run: pre-commit install-hooks
       - name: Run pre-commit on all files
         run: pre-commit run --all-files
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v3
+        if: env.RUN_TMATE
   test:
     runs-on: ubuntu-latest
     steps:
@@ -112,16 +133,19 @@ jobs:
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
+      - name: Setup curl cache
+        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
         run: |
-          mkdir -p ${{ env.CURL_CACHE_DIR }}
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --location \
             "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -o -d /usr/local/bin \
+          sudo unzip -d /opt/packer \
             ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
+          sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
+          sudo ln -s /opt/packer/packer /usr/local/bin/packer
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
