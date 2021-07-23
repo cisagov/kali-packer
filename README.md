@@ -56,9 +56,9 @@ This project also requires the following data to exist in your [AWS
 Systems Manager parameter
 store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html):
 
-* `/cyhy/dev/users`: A comma-separated list of usernames of users that should
+- `/cyhy/dev/users`: A comma-separated list of usernames of users that should
   be allowed to SSH to the instance based on this image
-* `/ssh/public_keys/<username>`: The public SSH key of each user in the
+- `/ssh/public_keys/<username>`: The public SSH key of each user in the
   `/cyhy/dev/users` list
 
 ## Building the Image ##
