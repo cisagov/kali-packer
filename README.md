@@ -110,7 +110,7 @@ source_profile = build-kali-packer
 role_session_name = example
 ```
 
-The [Packer template](src/packer.json) requires two environment
+The [Packer template](src/packer.json) requires three environment
 variables to be defined:
 
 - `BUILD_BUCKET`: The S3 bucket containing the Cobalt Strike and Burp
