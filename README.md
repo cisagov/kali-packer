@@ -16,7 +16,7 @@ account.  This user will also be used by GitHub Actions.
 Before the build user can be created, the following profile must exist
 in your AWS credentials file:
 
-* `cool-terraform-backend`
+- `cool-terraform-backend`
 
 The easiest way to set up that profile is to use our
 [`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync) utility.
@@ -56,9 +56,9 @@ This project also requires the following data to exist in your [AWS
 Systems Manager parameter
 store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html):
 
-* `/cyhy/dev/users`: A comma-separated list of usernames of users that should
+- `/cyhy/dev/users`: A comma-separated list of usernames of users that should
   be allowed to SSH to the instance based on this image
-* `/ssh/public_keys/<username>`: The public SSH key of each user in the
+- `/ssh/public_keys/<username>`: The public SSH key of each user in the
   `/cyhy/dev/users` list
 
 ## Building the Image ##
@@ -110,18 +110,20 @@ source_profile = build-kali-packer
 role_session_name = example
 ```
 
-The [Packer template](src/packer.json) requires two environment
+The [Packer template](src/packer.json) requires three environment
 variables to be defined:
 
-* `BUILD_REGION`: The region in which to build the image.
-* `BUILD_REGION_KMS`: The KMS key alias to use to encrypt the image.
+- `BUILD_BUCKET`: The S3 bucket containing the Cobalt Strike and Burp
+  Suite Pro installers.
+- `BUILD_REGION`: The region in which to build the image.
+- `BUILD_REGION_KMS`: The KMS key alias to use to encrypt the image.
 
 Additionally, the following optional environment variables can be used
 by the [Packer template](src/packer.json) to tag the final image:
 
-* `GITHUB_IS_PRERELEASE`: Boolean pre-release status.
-* `GITHUB_RELEASE_TAG`: Image version.
-* `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release.
+- `GITHUB_IS_PRERELEASE`: Boolean pre-release status.
+- `GITHUB_RELEASE_TAG`: Image version.
+- `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release.
 
 Here is an example of how to kick off a pre-release build:
 
