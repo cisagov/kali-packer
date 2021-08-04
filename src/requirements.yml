@@ -7,6 +7,8 @@
   name: backports
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
+- src: https://github.com/cisagov/ansible-role-chrony-aws
+  name: chrony_aws
 - src: https://github.com/cisagov/ansible-role-clamav
   name: clamav
 - src: https://github.com/cisagov/ansible-role-cloudwatch-agent
