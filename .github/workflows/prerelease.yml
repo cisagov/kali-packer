@@ -38,28 +38,22 @@ jobs:
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
+      - name: Setup curl cache
+        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
         run: |
-          mkdir -p ${{ env.CURL_CACHE_DIR }}
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --location \
             "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -o -d /usr/local/bin \
+          sudo unzip -d /opt/packer \
             ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
-      - name: Install Terraform
-        run: |
-          TERRAFORM_ZIP="terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
-          curl --output ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
-            --time-cond ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}" \
-            --location \
-            "https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ZIP}"
-          sudo unzip -d /opt/terraform \
-            ${{ env.CURL_CACHE_DIR }}/"${TERRAFORM_ZIP}"
-          sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-          sudo mv /usr/local/bin/terraform /usr/local/bin/terraform-default
-          sudo ln -s /opt/terraform/terraform /usr/local/bin/terraform
+          sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
+          sudo ln -s /opt/packer/packer /usr/local/bin/packer
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
