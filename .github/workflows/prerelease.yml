@@ -37,16 +37,19 @@ jobs:
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
+      - name: Setup curl cache
+        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
         run: |
-          mkdir -p ${{ env.CURL_CACHE_DIR }}
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
             --location \
             "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -o -d /usr/local/bin \
+          sudo unzip -d /opt/packer \
             ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
+          sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
+          sudo ln -s /opt/packer/packer /usr/local/bin/packer
       - uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: ${{ env.TERRAFORM_VERSION }}
