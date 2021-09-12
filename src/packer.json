@@ -30,7 +30,7 @@
       "skip_create_ami": "{{user `skip_create_ami`}}",
       "source_ami_filter": {
         "filters": {
-          "name": "debian-10-amd64-*",
+          "name": "debian-11-amd64-*",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
@@ -49,7 +49,7 @@
         "Application": "Example",
         "Base_AMI_Name": "{{ .SourceAMIName }}",
         "GitHub_Release_URL": "{{user `github_release_url`}}",
-        "OS_Version": "Debian Buster",
+        "OS_Version": "Debian Bullseye",
         "Pre_Release": "{{user `github_is_prerelease`}}",
         "Release": "{{user `github_release_tag`}}",
         "Team": "VM Fusion - Development"
