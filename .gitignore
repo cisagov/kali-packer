@@ -16,3 +16,4 @@ dist
 
 ## Terraform ##
 .terraform
+.terraform.lock.hcl
