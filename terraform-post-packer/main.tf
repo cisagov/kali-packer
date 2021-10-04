@@ -49,13 +49,14 @@ data "aws_ami" "example" {
 
 # Assign launch permissions to the AMI
 module "ami_launch_permission" {
-  source = "github.com/cisagov/ami-launch-permission-tf-module"
+  source = "github.com/cisagov/ami-launch-permission-tf-module?ref=improvement%2Fadd-ability-to-add-launch-permission-by-account-id"
 
   providers = {
     aws        = aws
     aws.master = aws.master
   }
 
-  account_name_regex = local.account_name_regex
-  ami_id             = data.aws_ami.example.id
+  account_name_regex   = local.account_name_regex
+  ami_id               = data.aws_ami.example.id
+  extraorg_account_ids = var.extraorg_account_ids
 }
