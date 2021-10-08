@@ -87,7 +87,7 @@ jobs:
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
-        run: packer build --timestamp-ui src/packer.json
+        run: packer build -timestamp-ui src/packer.json
       - name: Remove /usr/bin/python3 symlink to the installed python
         run: |
           sudo mv /usr/bin/python3-default /usr/bin/python3
