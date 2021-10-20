@@ -4,6 +4,7 @@
   become: yes
   become_method: sudo
   roles:
+    - amazon_efs_utils
     - amazon_ssm_agent
     # This is for the python3-botocore task below
     - backports
@@ -12,18 +13,6 @@
     # The instance types used for almost all the instances expose EBS
     # volumes as NVMe block devices, so that's why we need nvme here.
     - nvme
-    # This role forces the installation of python2, which breaks any
-    # pip modules that are installed afterwards because Ansible will
-    # see that /usr/bin/python exists and use it.  In particular,
-    # Ansible will try to install python-apt during idempotence; since
-    # this package does not exist in Debian 11 (Bullseye) that causes
-    # Ansible to fail.
-    #
-    # I have created aws/efs-utils#57 to encourage the good folks at
-    # aws/efs-utils to support python3 in their packaging.  (The code
-    # itself already supports python3.)  Until they change that, this
-    # role is the last thing that Ansible installs.
-    - amazon_efs_utils
   tasks:
     # The version of python3-botocore in Debian Buster is too old to
     # support IMDSv2.  I was able to get a more recent version
