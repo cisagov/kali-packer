@@ -236,7 +236,7 @@ jobs:
         # This runs through the AMI creation process but does not
         # actually create an AMI
         run: |
-          packer build --timestamp-ui -var skip_create_ami=true \
+          packer build -timestamp-ui -var skip_create_ami=true \
           src/packer.json
       - name: Remove /usr/bin/python3 symlink to the installed Python
         run: |
