@@ -56,6 +56,7 @@ module "ami_launch_permission" {
     aws.master = aws.master
   }
 
-  account_name_regex = local.account_name_regex
-  ami_id             = data.aws_ami.example.id
+  account_name_regex   = local.account_name_regex
+  ami_id               = data.aws_ami.example.id
+  extraorg_account_ids = var.extraorg_account_ids
 }
