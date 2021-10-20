@@ -110,7 +110,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: cisagov/setup-env-github-action@develop
+      - id: setup-env
+        uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
       - id: setup-python
         uses: actions/setup-python@v2
@@ -120,7 +121,7 @@ jobs:
         env:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-\
-            packer${{ env.PACKER_VERSION }}-"
+            packer${{ steps.setup-env.outputs.packer-version }}-"
         with:
           path: |
             ${{ env.PIP_CACHE_DIR }}
@@ -133,6 +134,8 @@ jobs:
       - name: Setup curl cache
         run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
+        env:
+          PACKER_VERSION: ${{ steps.setup-env.outputs.packer-version }}
         run: |
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
