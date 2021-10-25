@@ -18,7 +18,8 @@ jobs:
   prerelease:
     runs-on: ubuntu-latest
     steps:
-      - uses: cisagov/setup-env-github-action@develop
+      - id: setup-env
+        uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v2
       - id: setup-python
         uses: actions/setup-python@v2
@@ -28,8 +29,8 @@ jobs:
         env:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-\
-            packer${{ env.PACKER_VERSION }}-\
-            tf-${{ env.TERRAFORM_VERSION }}-"
+            packer${{ steps.setup-env.outputs.packer-version }}-\
+            tf-${{ steps.setup-env.outputs.terraform-version }}-"
         with:
           path: |
             ${{ env.PIP_CACHE_DIR }}
@@ -41,6 +42,8 @@ jobs:
       - name: Setup curl cache
         run: mkdir -p ${{ env.CURL_CACHE_DIR }}
       - name: Install Packer
+        env:
+          PACKER_VERSION: ${{ steps.setup-env.outputs.packer-version }}
         run: |
           PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
           curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
@@ -53,7 +56,7 @@ jobs:
           sudo ln -s /opt/packer/packer /usr/local/bin/packer
       - uses: hashicorp/setup-terraform@v1
         with:
-          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_version: ${{ steps.setup-env.outputs.terraform-version }}
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -90,7 +93,7 @@ jobs:
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
           GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
           GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
-        run: packer build --timestamp-ui src/packer.json
+        run: packer build -timestamp-ui src/packer.json
       - name: Remove /usr/bin/python3 symlink to the installed python
         run: |
           sudo mv /usr/bin/python3-default /usr/bin/python3
