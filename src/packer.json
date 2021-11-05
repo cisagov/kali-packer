@@ -7,7 +7,7 @@
           "device_name": "/dev/sda1",
           "encrypted": true,
           "volume_size": 30,
-          "volume_type": "gp2"
+          "volume_type": "gp3"
         }
       ],
       "ami_name": "kali-hvm-{{timestamp}}-x86_64-ebs",
@@ -22,7 +22,7 @@
           "device_name": "/dev/sda1",
           "encrypted": true,
           "volume_size": 30,
-          "volume_type": "gp2"
+          "volume_type": "gp3"
         }
       ],
       "region": "{{user `build_region`}}",
