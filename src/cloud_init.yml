@@ -20,6 +20,10 @@
     # The Kali base AMI we are using does not seem to have run this.
     # If we don't do it now then userdata, for instance, will be
     # ignored and not run when our AMI is started.
+    - name: Remove the /var/lib/cloud directory
+      ansible.builtin.file:
+        path: /var/lib/cloud
+        state: absent
     - name: Run cloud-init clean --logs
       ansible.builtin.command:
         argv:
