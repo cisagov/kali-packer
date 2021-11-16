@@ -4,25 +4,20 @@
   become: yes
   become_method: sudo
   roles:
-    - vnc
-  vars:
-    # The username, password, and ssh keys for the VNC user
-    username: "{{ lookup('aws_ssm', '/vnc/username') }}"
-    password: "{{ lookup('aws_ssm', '/vnc/password') }}"
-    public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_public_key') }}"
-    private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_private_key') }}"
-
-- hosts: all
-  name: Add VNC user to kali-trusted group
-  become: yes
-  become_method: sudo
-  tasks:
-    - name: Add VNC user to kali-trusted group
-      ansible.builtin.user:
-        append: yes
-        groups:
+    - role: vnc
+      vars:
+        # The user information and ssh keys for the VNC user
+        password: "{{ lookup('aws_ssm', '/vnc/password') }}"
+        private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_private_key') }}"
+        public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_public_key') }}"
+        user_groups:
+          # Note that this means that the aws.yml playbook _must_ run
+          # before this one, so that the efs_users group has been
+          # created.
+          - efs_users
           - kali-trusted
-        name: "{{ username }}"
-  vars:
-    # The username for the VNC user
-    username: "{{ lookup('aws_ssm', '/vnc/username') }}"
+        # Note that we use the same UID for the VNC and Samba guest
+        # users on all instances.  This helps us avoid UID/GID
+        # collisions with files written to the EFS share.
+        user_uid: 2048
+        username: "{{ lookup('aws_ssm', '/vnc/username') }}"
