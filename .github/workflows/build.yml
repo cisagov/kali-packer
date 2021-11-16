@@ -16,6 +16,11 @@ env:
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
   RUN_TMATE: true
+  TVAR1: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  TVAR2: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  TVAR3: ${{ env.BUILD_REGION }}
+  TVAR4: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
+  TF_LOG: trace
 
 jobs:
   lint:
@@ -215,11 +220,6 @@ jobs:
       - name: Setup tmate debug session
         uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.BUILD_REGION }}
-          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
       - name: Assume AWS build role
         uses: aws-actions/configure-aws-credentials@v1
         with:
