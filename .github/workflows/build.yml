@@ -18,7 +18,6 @@ env:
   RUN_TMATE: true
   TVAR1: ${{ secrets.AWS_ACCESS_KEY_ID }}
   TVAR2: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  TVAR3: ${{ env.BUILD_REGION }}
   TVAR4: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
   TF_LOG: trace
 
