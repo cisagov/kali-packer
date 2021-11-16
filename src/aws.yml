@@ -11,8 +11,6 @@
         # files written to the EFS share.
         efs_users_gid: 2048
     - amazon_ssm_agent
-    # This is for the python3-botocore task below
-    - backports
     - chrony_aws
     - cloudwatch_agent
     # The instance types used for almost all the instances expose EBS
