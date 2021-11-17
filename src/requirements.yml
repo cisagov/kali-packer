@@ -5,8 +5,6 @@
   name: amazon_ssm_agent
 - src: https://github.com/cisagov/ansible-role-assessment-tool
   name: assessment_tool
-- src: https://github.com/cisagov/ansible-role-backports
-  name: backports
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
 - src: https://github.com/cisagov/ansible-role-bloodhound
