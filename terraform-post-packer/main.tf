@@ -50,7 +50,7 @@ data "aws_ami_ids" "historical_amis" {
 module "ami_launch_permission" {
   # Really we only want the var.recent_ami_count most recent AMIs, but
   # we have to cover the case where there are fewer than that many
-  # AMIs in existence.  Hence the max()/length() tomfoolery.
+  # AMIs in existence.  Hence the min()/length() tomfoolery.
   for_each = toset(slice(data.aws_ami_ids.historical_amis.ids, 0, min(var.recent_ami_count, length(data.aws_ami_ids.historical_amis.ids))))
 
   source = "github.com/cisagov/ami-launch-permission-tf-module"
