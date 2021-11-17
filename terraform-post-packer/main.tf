@@ -24,8 +24,8 @@ locals {
   account_name_regex  = format("^env[[:digit:]]+ \\(%s\\)$", local.images_account_type)
 }
 
-# The most-recent AMI created by cisagov/kali-packer
-data "aws_ami" "kali" {
+# The IDs of all cisagov/kali-packer AMIs
+data "aws_ami_ids" "historical_amis" {
   filter {
     name = "name"
     values = [
@@ -43,12 +43,16 @@ data "aws_ami" "kali" {
     values = ["ebs"]
   }
 
-  owners      = [data.aws_caller_identity.images.account_id]
-  most_recent = true
+  owners = [data.aws_caller_identity.images.account_id]
 }
 
 # Assign launch permissions to the AMI
 module "ami_launch_permission" {
+  # Really we only want the var.recent_ami_count most recent AMIs, but
+  # we have to cover the case where there are fewer than that many
+  # AMIs in existence.  Hence the min()/length() tomfoolery.
+  for_each = toset(slice(data.aws_ami_ids.historical_amis.ids, 0, min(var.recent_ami_count, length(data.aws_ami_ids.historical_amis.ids))))
+
   source = "github.com/cisagov/ami-launch-permission-tf-module"
 
   providers = {
@@ -57,6 +61,6 @@ module "ami_launch_permission" {
   }
 
   account_name_regex   = local.account_name_regex
-  ami_id               = data.aws_ami.kali.id
+  ami_id               = each.value
   extraorg_account_ids = var.extraorg_account_ids
 }
