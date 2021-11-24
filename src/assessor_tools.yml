@@ -392,6 +392,7 @@
           - gobuster
           - libreoffice
           - mimikatz
+          - nfs-common
           - nikto
           - powersploit
           - responder
