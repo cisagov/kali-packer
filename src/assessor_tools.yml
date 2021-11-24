@@ -75,6 +75,19 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/TheWover/donut/tarball/master
+        install_dir: /tools/donut
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/tyranid/DotNetToJScript/tarball/master
+        csharp: yes
+        install_dir: /tools/DotNetToJScript
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: "https://github.com/ChrisTruncer/Egress-Assess/\
         tarball/master"
         install_dir: /tools/Egress-Assess
