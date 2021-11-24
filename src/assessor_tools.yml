@@ -307,6 +307,12 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/optiv/ScareCrow/tarball/main
+        install_dir: /tools/ScareCrow
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
         install_dir: /tools/SessionGopher
         powershell: yes
