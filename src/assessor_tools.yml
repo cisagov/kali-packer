@@ -99,6 +99,17 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: "https://github.com/BC-SECURITY/Empire/\
+        tarball/master"
+        csharp: yes
+        install_dir: /tools/Empire
+        pip_packages:
+          - "."
+        powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/MacR6/ftpenum/tarball/master
         install_dir: /tools/ftpenum
         unarchive_extra_opts:
@@ -363,7 +374,6 @@
           - libreoffice
           - mimikatz
           - nikto
-          - powershell-empire
           - powersploit
           - responder
           - seclists
