@@ -228,6 +228,17 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/xan7r/kerberoast/tarball/master
+        install_dir: /tools/kerberoast
+        pip_packages:
+          - pyasn1
+          - scapy
+        powershell: yes
+        python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/ChrisTruncer/mikto/tarball/master
         install_dir: /tools/mikto
         unarchive_extra_opts:
@@ -379,7 +390,6 @@
           - eyewitness
           - flameshot
           - gobuster
-          - kerberoast
           - libreoffice
           - mimikatz
           - nikto
