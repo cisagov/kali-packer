@@ -399,6 +399,7 @@
           - seclists
           - sqlmap
           - sublist3r
+          - terminator
           - veil
 
     # Aquatone requires Google Chromium
