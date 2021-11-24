@@ -12,6 +12,25 @@
   roles:
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/3ndG4me/AutoBlue-MS17-010/tarball/master
+        install_dir: /tools/AutoBlue-MS17-010
+        pip_requirements_file: requirements.txt
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/C-Sto/BananaPhone/tarball/master
+        install_dir: /tools/BananaPhone
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/ajpc500/BOFs/tarball/main
+        install_dir: /tools/BOFs
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: "https://github.com/mdsecactivebreach/CACTUSTORCH/\
         tarball/master"
         csharp: yes
