@@ -99,13 +99,22 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
-        archive_src: "https://github.com/BC-SECURITY/Empire/\
-        tarball/master"
+        archive_src: "https://github.com/BC-SECURITY/Empire/tarball/master"
         csharp: yes
         install_dir: /tools/Empire
         pip_packages:
           - "."
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/FortyNorthSecurity/EXCELntDonut/\
+        tarball/master"
+        csharp: yes
+        install_dir: /tools/EXCELntDonut
+        pip_packages:
+          - "."
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
