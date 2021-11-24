@@ -353,6 +353,7 @@
       ansible.builtin.package:
         name:
           - crackmapexec
+          - cifs-utils
           - dnsutils
           - exploitdb
           - eyewitness
