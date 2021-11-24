@@ -453,39 +453,12 @@
     - name: Install dns-profile-randomizer
       ansible.builtin.import_tasks: dns_profile_randomizer.yml
 
+    - name: Install PCredz
+      ansible.builtin.import_tasks: pcredz.yml
+
     - name: Install Cobalt Strike
       ansible.builtin.import_tasks: cobalt_strike.yml
 
     # ysoserial requires a Java implementation
     - name: Install ysoserial
       ansible.builtin.import_tasks: ysoserial.yml
-
-    # The installation of PCredz is a little finicky.  First off, it
-    # requires that libpcap-dev be installed.  Second, Cython must be
-    # installed _before_ python-libpcap, so I have to set up the
-    # virtual env in two stages.
-    - name: Install PCredz
-      block:
-        - name: Install libpcap-dev
-          ansible.builtin.package:
-            name:
-              - libpcap-dev
-        - name: Create venv and install Cython
-          ansible.builtin.import_role:
-            name: assessment_tool
-          vars:
-            install_dir: /tools/PCredz
-            pip_packages:
-              - Cython
-            unarchive_extra_opts:
-              - --strip-components=1
-        - name: Install PCredz
-          ansible.builtin.import_role:
-            name: assessment_tool
-          vars:
-            archive_src: https://github.com/lgandx/PCredz/tarball/master
-            install_dir: /tools/PCredz
-            pip_packages:
-              - python-libpcap
-            unarchive_extra_opts:
-              - --strip-components=1
