@@ -46,6 +46,14 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/byt3bl33d3r/CrackMapExec/tarball/master
+        install_dir: /tools/CrackMapExec
+        pip_packages:
+          - .
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/bovine/datapipe/tarball/master
         install_dir: /tools/datapipe
         unarchive_extra_opts:
@@ -395,7 +403,6 @@
     - name: Install system packages for tools where possible
       ansible.builtin.package:
         name:
-          - crackmapexec
           - cifs-utils
           - dnsutils
           - exploitdb
