@@ -390,6 +390,13 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: "https://github.com/sqlmapproject/sqlmap/\
+        tarball/master"
+        install_dir: /tools/sqlmap
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/MacR6/sshenum/tarball/master
         install_dir: /tools/sshenum
         pip_packages:
@@ -432,7 +439,6 @@
           - nfs-common
           - nikto
           - powersploit
-          - sqlmap
           - sublist3r
           - terminator
           - testssl.sh
