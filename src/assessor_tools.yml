@@ -400,6 +400,7 @@
           - sqlmap
           - sublist3r
           - terminator
+          - testssl.sh
           - veil
 
     # Aquatone requires Google Chromium
