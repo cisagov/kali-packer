@@ -198,12 +198,12 @@
         install_dir: /tools/gnmap-parser
         unarchive_extra_opts:
           - --strip-components=1
-    # https://github.com/FortyNorthSecurity/Hasher
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/FortyNorthSecurity/Hasher/tarball/master
         install_dir: /tools/Hasher
         pip_packages:
-          - hashes
+          - .
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
