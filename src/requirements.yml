@@ -7,8 +7,6 @@
   name: assessment_tool
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
-- src: https://github.com/cisagov/ansible-role-bloodhound
-  name: bloodhound
 - src: https://github.com/cisagov/ansible-role-burp-suite-pro
   name: burp_suite_pro
 - src: https://github.com/cisagov/ansible-role-chrony-aws

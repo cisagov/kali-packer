@@ -1,0 +1,53 @@
+---
+- name: Install and configure neo4j
+  block:
+    - name: Install neo4j
+      ansible.builtin.package:
+        name:
+          - neo4j
+
+    # BloodHound will not work unless you change the neo4j password
+    # from the default value.
+    - name: Set neo4j password
+      ansible.builtin.command:
+        cmd: >-
+          /usr/share/neo4j/bin/neo4j-admin set-initial-password
+          {{ password }}
+      changed_when: false
+
+- name: Install BloodHound
+  block:
+    - name: Install npm
+      ansible.builtin.package:
+        name:
+          - npm
+    - name: Install electron-packager
+      community.general.npm:
+        global: yes
+        name: electron-packager
+    - name: Download BloodHound tool from GitHub
+      ansible.builtin.import_role:
+        name: assessment_tool
+      vars:
+        archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
+        install_dir: /tools/BloodHound
+        unarchive_extra_opts:
+          - --strip-components=1
+    - name: Install BloodHound dependencies
+      community.general.npm:
+        path: /tools/BloodHound
+    - name: Build BloodHound
+      ansible.builtin.command:
+        chdir: /tools/BloodHound
+        cmd: npm run linuxbuild
+
+- name: Install Python ingestor for Bloodhound
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    archive_src: https://github.com/fox-it/BloodHound.py/tarball/master
+    install_dir: /tools/BloodHound.py
+    pip_packages:
+      - .
+    unarchive_extra_opts:
+      - --strip-components=1

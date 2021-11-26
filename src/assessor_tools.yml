@@ -416,10 +416,6 @@
         install_dir: /tools/TikiTorch
         unarchive_extra_opts:
           - --strip-components=1
-    - role: bloodhound
-      vars:
-        # The password for Neo4j
-        password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
     - role: burp_suite_pro
       vars:
         # The name of the AWS S3 bucket where third-party software is
@@ -455,6 +451,12 @@
     # Aquatone requires Google Chromium
     - name: Install aquatone
       ansible.builtin.import_tasks: aquatone.yml
+
+    - name: Install Bloodhound
+      ansible.builtin.import_tasks: bloodhound.yml
+      vars:
+        # The password for Neo4j
+        password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
 
     - name: Install Cobalt Strike
       ansible.builtin.import_tasks: cobalt_strike.yml
