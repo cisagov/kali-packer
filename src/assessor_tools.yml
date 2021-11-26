@@ -64,6 +64,7 @@
       vars:
         archive_src: https://github.com/nccgroup/demiguise/tarball/master
         install_dir: /tools/demiguise
+        python2: yes
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
