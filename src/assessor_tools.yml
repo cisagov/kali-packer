@@ -384,6 +384,9 @@
         archive_src: "https://github.com/SimplySecurity/SimplyTemplate/\
         tarball/master"
         install_dir: /tools/SimplyTemplate
+        pip_packages:
+          - glob2
+          - configparser
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
