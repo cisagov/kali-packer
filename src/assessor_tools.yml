@@ -425,6 +425,7 @@
           - "{{ lookup('aws_ssm', '/vnc/username') }}"
     - role: metasploit
     - role: server_setup
+    - role: visual_studio_code
 
   tasks:
     - name: Install system packages for tools where possible
