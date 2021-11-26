@@ -449,6 +449,9 @@
     - name: Install aquatone
       ansible.builtin.import_tasks: aquatone.yml
 
+    - name: Install Cobalt Strike
+      ansible.builtin.import_tasks: cobalt_strike.yml
+
     # dns-profile-randomizer lives in a private GitLab repository and
     # hence must be downloaded using a GitLab access token.
     - name: Install dns-profile-randomizer
@@ -456,9 +459,6 @@
 
     - name: Install PCredz
       ansible.builtin.import_tasks: pcredz.yml
-
-    - name: Install Cobalt Strike
-      ansible.builtin.import_tasks: cobalt_strike.yml
 
     # ysoserial requires a Java implementation
     - name: Install ysoserial
