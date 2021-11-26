@@ -423,6 +423,7 @@
         # License Burp Suite Pro for the VNC user
         users:
           - "{{ lookup('aws_ssm', '/vnc/username') }}"
+    - role: metasploit
     - role: server_setup
 
   tasks:
