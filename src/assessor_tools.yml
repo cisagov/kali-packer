@@ -42,6 +42,8 @@
         archive_src: "https://github.com/Techno-Hwizrdry/checkpwnedemails/\
         tarball/master"
         install_dir: /tools/checkpwnedemails
+        pip_packages:
+          - requests
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
