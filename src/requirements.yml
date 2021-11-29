@@ -41,7 +41,6 @@
   name: server_setup
 - src: https://github.com/cisagov/ansible-role-ufw
   name: ufw
-  version: bugfix/fix-broken-ufw-unit-in-kali
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
 - src: https://github.com/cisagov/ansible-role-vnc-server
