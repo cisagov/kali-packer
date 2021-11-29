@@ -9,6 +9,7 @@
     # The group that should own the tools installed to /target.  The
     # VNC user is in this group.
     group: kali-trusted
+    vnc_username: "{{ lookup('aws_ssm', '/vnc/username') }}"
   roles:
     - role: assessment_tool
       vars:
@@ -423,7 +424,7 @@
         third_party_bucket_name: "{{ build_bucket }}"
         # License Burp Suite Pro for the VNC user
         users:
-          - "{{ lookup('aws_ssm', '/vnc/username') }}"
+          - "{{ vnc_username }}"
     - role: metasploit
     - role: server_setup
     - role: visual_studio_code
@@ -447,6 +448,16 @@
           - terminator
           - testssl.sh
           - veil
+
+    # The kaboxer group is created via the
+    # firefox-developer-edition-en-us-kbx package, and the vnc user
+    # must be a member of this group to run FIrefox Developer Edition.
+    - name: Add vnc user to kaboxer group
+      ansible.builtin.user:
+        append: yes
+        groups:
+          - kaboxer
+        name: "{{ vnc_username }}"
 
     # Aquatone requires Google Chromium
     - name: Install aquatone
