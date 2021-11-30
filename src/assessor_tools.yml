@@ -450,9 +450,9 @@
           - veil
 
     # The kaboxer group is created via the
-    # firefox-developer-edition-en-us-kbx package, and the vnc user
-    # must be a member of this group to run FIrefox Developer Edition.
-    - name: Add vnc user to kaboxer group
+    # firefox-developer-edition-en-us-kbx package, and the VNC user
+    # must be a member of this group to run Firefox Developer Edition.
+    - name: Add VNC user to kaboxer group
       ansible.builtin.user:
         append: yes
         groups:
