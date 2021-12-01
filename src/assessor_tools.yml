@@ -324,11 +324,14 @@
         archive_src: https://github.com/lgandx/Responder/tarball/master
         install_dir: /tools/Responder
         pip_packages:
-          - crypto
           - dnspython
           - impacket
           - ldap3
+          - pyasn1
+          - pycryptodome
+          - pycryptodomex
           - readline
+          - six
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
