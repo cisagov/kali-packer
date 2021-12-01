@@ -460,10 +460,10 @@
         name: "{{ vnc_username }}"
 
     # Aquatone requires Google Chromium
-    - name: Install aquatone
+    - name: Install Aquatone
       ansible.builtin.import_tasks: aquatone.yml
 
-    - name: Install Bloodhound
+    - name: Install BloodHound
       ansible.builtin.import_tasks: bloodhound.yml
       vars:
         # The password for Neo4j
@@ -477,7 +477,7 @@
     - name: Install dns-profile-randomizer
       ansible.builtin.import_tasks: dns_profile_randomizer.yml
 
-    - name: Install donut
+    - name: Install Donut
       ansible.builtin.import_tasks: donut.yml
 
     - name: Install PCredz

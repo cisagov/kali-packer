@@ -1,26 +1,26 @@
 ---
-- name: Install and configure neo4j
+- name: Install and configure Neo4j
   block:
-    # The version of neo4j available by default in Kali does not
+    # The version of Neo4j available by default in Kali does not
     # include the SystemD service file, so we need to install the
     # package from a different repo.
     - name: Configure apt to use official neo4j apt repo
       block:
-        - name: Add key for official neo4j apt repo
+        - name: Add key for official Neo4j apt repo
           ansible.builtin.apt_key:
             url: https://debian.neo4j.com/neotechnology.gpg.key
-        - name: Add official apt repo for neo4j
+        - name: Add official apt repo for Neo4j
           ansible.builtin.apt_repository:
             repo: deb https://debian.neo4j.com stable 4.3
 
-    - name: Install neo4j
+    - name: Install Neo4j
       ansible.builtin.package:
         name:
           - neo4j
 
-    # BloodHound will not work unless you change the neo4j password
+    # BloodHound will not work unless you change the Neo4j password
     # from the default value.
-    - name: Set neo4j password
+    - name: Set Neo4j password
       ansible.builtin.command:
         cmd: /usr/bin/neo4j-admin set-initial-password {{ password }}
       changed_when: false
@@ -29,7 +29,7 @@
       ansible.builtin.systemd:
         daemon_reload: true
 
-    - name: Start neo4j service at boot
+    - name: Start Neo4j service at boot
       ansible.builtin.service:
         enabled: yes
         name: neo4j
@@ -40,7 +40,7 @@
       ansible.builtin.package:
         name:
           - npm
-    - name: Install electron-packager
+    - name: Install Electron Packager
       community.general.npm:
         global: yes
         name: electron-packager

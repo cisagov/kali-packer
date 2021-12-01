@@ -1,7 +1,7 @@
 ---
 # We have to grab the code, build the C code, and then we can build
-# the python extension
-- name: Install donut
+# the Python extension
+- name: Install Donut
   ansible.builtin.import_role:
     name: assessment_tool
   vars:
@@ -10,11 +10,11 @@
     unarchive_extra_opts:
       - --strip-components=1
 
-- name: Build donut
+- name: Build Donut
   ansible.builtin.make:
     chdir: /tools/donut
 
-- name: Create venv and build donut python extension
+- name: Create venv and build Donut Python extension
   ansible.builtin.import_role:
     name: assessment_tool
   vars:
