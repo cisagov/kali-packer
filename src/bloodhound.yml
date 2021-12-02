@@ -60,7 +60,7 @@
         chdir: /tools/BloodHound
         cmd: npm run linuxbuild
 
-- name: Install Python ingestor for Bloodhound
+- name: Install Python ingestor for BloodHound
   ansible.builtin.import_role:
     name: assessment_tool
   vars:
