@@ -115,26 +115,6 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
-        archive_src: "https://github.com/FortyNorthSecurity/EXCELntDonut/\
-        tarball/master"
-        csharp: yes
-        install_dir: /tools/EXCELntDonut
-        pip_packages:
-          - .
-        unarchive_extra_opts:
-          - --strip-components=1
-    # EXCELntDonut has a janky dependency on Accenture/CLRvoyance.
-    # The install.sh script that is included with EXCELntDonut clones
-    # Accenture/CLRvoyance into a subdirectory, just as I am doing
-    # here.
-    - role: assessment_tool
-      vars:
-        archive_src: https://github.com/Accenture/CLRvoyance/tarball/master
-        install_dir: /tools/EXCELntDonut/EXCELntDonut/CLRvoyance
-        unarchive_extra_opts:
-          - --strip-components=1
-    - role: assessment_tool
-      vars:
         archive_src: https://github.com/MacR6/ftpenum/tarball/master
         install_dir: /tools/ftpenum
         python2: yes
@@ -491,6 +471,9 @@
 
     - name: Install Donut
       ansible.builtin.import_tasks: donut.yml
+
+    - name: Install EXCELntDonut
+      ansible.builtin.import_tasks: excelntdonut.yml
 
     - name: Install PCredz
       ansible.builtin.import_tasks: pcredz.yml
