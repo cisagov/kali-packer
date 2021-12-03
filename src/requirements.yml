@@ -7,8 +7,6 @@
   name: assessment_tool
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
-- src: https://github.com/cisagov/ansible-role-bloodhound
-  name: bloodhound
 - src: https://github.com/cisagov/ansible-role-burp-suite-pro
   name: burp_suite_pro
 - src: https://github.com/cisagov/ansible-role-chrony-aws
@@ -25,6 +23,8 @@
   name: docker
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
+- src: leesoh.metasploit
+  name: metasploit
 - src: https://github.com/cisagov/ansible-role-nvme
   name: nvme
 - src: https://github.com/cisagov/ansible-role-openjdk
@@ -43,6 +43,8 @@
   name: ufw
 - src: https://github.com/cisagov/ansible-role-upgrade
   name: upgrade
+- src: gantsign.visual-studio-code
+  name: visual_studio_code
 - src: https://github.com/cisagov/ansible-role-vnc-server
   name: vnc
 - src: https://github.com/cisagov/ansible-role-xfce-cool

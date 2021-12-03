@@ -9,7 +9,27 @@
     # The group that should own the tools installed to /target.  The
     # VNC user is in this group.
     group: kali-trusted
+    vnc_username: "{{ lookup('aws_ssm', '/vnc/username') }}"
   roles:
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/3ndG4me/AutoBlue-MS17-010/tarball/master
+        install_dir: /tools/AutoBlue-MS17-010
+        pip_requirements_file: requirements.txt
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/C-Sto/BananaPhone/tarball/master
+        install_dir: /tools/BananaPhone
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/ajpc500/BOFs/tarball/main
+        install_dir: /tools/BOFs
+        unarchive_extra_opts:
+          - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: "https://github.com/mdsecactivebreach/CACTUSTORCH/\
@@ -23,6 +43,16 @@
         archive_src: "https://github.com/Techno-Hwizrdry/checkpwnedemails/\
         tarball/master"
         install_dir: /tools/checkpwnedemails
+        pip_packages:
+          - requests
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/byt3bl33d3r/CrackMapExec/tarball/master
+        install_dir: /tools/CrackMapExec
+        pip_packages:
+          - .
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
@@ -35,6 +65,7 @@
       vars:
         archive_src: https://github.com/nccgroup/demiguise/tarball/master
         install_dir: /tools/demiguise
+        python2: yes
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
@@ -56,6 +87,13 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/tyranid/DotNetToJScript/tarball/master
+        csharp: yes
+        install_dir: /tools/DotNetToJScript
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: "https://github.com/ChrisTruncer/Egress-Assess/\
         tarball/master"
         install_dir: /tools/Egress-Assess
@@ -67,8 +105,19 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: "https://github.com/BC-SECURITY/Empire/tarball/master"
+        csharp: yes
+        install_dir: /tools/Empire
+        pip_packages:
+          - .
+        powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/MacR6/ftpenum/tarball/master
         install_dir: /tools/ftpenum
+        python2: yes
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
@@ -140,12 +189,12 @@
         install_dir: /tools/gnmap-parser
         unarchive_extra_opts:
           - --strip-components=1
-    # https://github.com/FortyNorthSecurity/Hasher
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/FortyNorthSecurity/Hasher/tarball/master
         install_dir: /tools/Hasher
         pip_packages:
-          - hashes
+          - .
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
@@ -176,6 +225,23 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/xan7r/kerberoast/tarball/master
+        install_dir: /tools/kerberoast
+        pip_packages:
+          - pyasn1
+          - scapy
+        powershell: yes
+        python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/gentilkiwi/mimikatz/tarball/master
+        install_dir: /tools/mimikatz
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/ChrisTruncer/mikto/tarball/master
         install_dir: /tools/mikto
         unarchive_extra_opts:
@@ -187,18 +253,19 @@
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    # https://github.com/fox-it/mitm6
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/fox-it/mitm6/tarball/master
         install_dir: /tools/mitm6
         pip_packages:
-          - mitm6
+          - .
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
       vars:
         archive_src: https://github.com/vysecurity/morphHTA/tarball/master
         install_dir: /tools/morphHTA
+        python2: yes
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
@@ -244,6 +311,33 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/lgandx/Responder/tarball/master
+        install_dir: /tools/Responder
+        pip_packages:
+          - dnspython
+          - impacket
+          - ldap3
+          - pyasn1
+          - pycryptodome
+          - pycryptodomex
+          - readline
+          - six
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/optiv/ScareCrow/tarball/main
+        install_dir: /tools/ScareCrow
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/danielmiessler/SecLists/tarball/master
+        install_dir: /tools/SecLists
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
         install_dir: /tools/SessionGopher
         powershell: yes
@@ -283,7 +377,22 @@
         archive_src: "https://github.com/SimplySecurity/SimplyTemplate/\
         tarball/master"
         install_dir: /tools/SimplyTemplate
+        pip_packages:
+          - glob2
+          - configparser
+          - Pillow
+          - pmw
         python2: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/sqlmapproject/sqlmap/\
+        tarball/master"
+        install_dir: /tools/sqlmap
+        # This forces the creation of a Python 3 venv
+        pip_packages:
+          - pip
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
@@ -302,10 +411,6 @@
         install_dir: /tools/TikiTorch
         unarchive_extra_opts:
           - --strip-components=1
-    - role: bloodhound
-      vars:
-        # The password for Neo4j
-        password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
     - role: burp_suite_pro
       vars:
         # The name of the AWS S3 bucket where third-party software is
@@ -313,42 +418,67 @@
         third_party_bucket_name: "{{ build_bucket }}"
         # License Burp Suite Pro for the VNC user
         users:
-          - "{{ lookup('aws_ssm', '/vnc/username') }}"
+          - "{{ vnc_username }}"
+    - role: metasploit
     - role: server_setup
+    - role: visual_studio_code
 
   tasks:
     - name: Install system packages for tools where possible
       ansible.builtin.package:
         name:
-          - crackmapexec
+          - cifs-utils
           - dnsutils
           - exploitdb
           - eyewitness
+          - firefox-developer-edition-en-us-kbx
           - flameshot
           - gobuster
-          - kerberoast
           - libreoffice
-          - mimikatz
+          - nfs-common
           - nikto
-          - powershell-empire
           - powersploit
-          - responder
-          - seclists
-          - sqlmap
           - sublist3r
+          - terminator
+          - testssl.sh
           - veil
 
+    # The kaboxer group is created via the
+    # firefox-developer-edition-en-us-kbx package, and the VNC user
+    # must be a member of this group to run Firefox Developer Edition.
+    - name: Add VNC user to kaboxer group
+      ansible.builtin.user:
+        append: yes
+        groups:
+          - kaboxer
+        name: "{{ vnc_username }}"
+
     # Aquatone requires Google Chromium
-    - name: Install aquatone
+    - name: Install Aquatone
       ansible.builtin.import_tasks: aquatone.yml
+
+    - name: Install BloodHound
+      ansible.builtin.import_tasks: bloodhound.yml
+      vars:
+        # The password for Neo4j
+        password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
+
+    - name: Install Cobalt Strike
+      ansible.builtin.import_tasks: cobalt_strike.yml
 
     # dns-profile-randomizer lives in a private GitLab repository and
     # hence must be downloaded using a GitLab access token.
     - name: Install dns-profile-randomizer
       ansible.builtin.import_tasks: dns_profile_randomizer.yml
 
-    - name: Install Cobalt Strike
-      ansible.builtin.import_tasks: cobalt_strike.yml
+    - name: Install Donut
+      ansible.builtin.import_tasks: donut.yml
+
+    - name: Install EXCELntDonut
+      ansible.builtin.import_tasks: excelntdonut.yml
+
+    - name: Install PCredz
+      ansible.builtin.import_tasks: pcredz.yml
 
     # ysoserial requires a Java implementation
     - name: Install ysoserial

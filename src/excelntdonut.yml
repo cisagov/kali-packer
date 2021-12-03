@@ -1,0 +1,27 @@
+---
+- name: Install EXCELntDonut
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    archive_src: "https://github.com/FortyNorthSecurity/EXCELntDonut/\
+    tarball/master"
+    csharp: yes
+    install_dir: /tools/EXCELntDonut
+    pip_packages:
+      - .
+    unarchive_extra_opts:
+      - --strip-components=1
+
+# EXCELntDonut has a janky dependency on Accenture/CLRvoyance.  The
+# install.sh script that is included with EXCELntDonut clones
+# Accenture/CLRvoyance into a subdirectory and then keeps only the
+# CLRvoyance subdirectory, just as I am doing here.
+- name: Install Accenture/CLRvoyance as a submodule of EXCELntDonut
+  ansible.builtin.unarchive:
+    dest: /tools/EXCELntDonut/EXCELntDonut/CLRvoyance
+    exclude: ExampleAssembly
+    extra_opts:
+      - --strip-components=2
+    group: "{{ group }}"
+    remote_src: yes
+    src: https://github.com/Accenture/CLRvoyance/tarball/master
