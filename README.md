@@ -3,8 +3,8 @@
 [![GitHub Build Status](https://github.com/cisagov/kali-packer/workflows/build/badge.svg)](https://github.com/cisagov/kali-packer/actions)
 
 This project can be used to create machine images based on [Kali
-Linux](https://www.kali.org), a Linux Penetration Testing
-Distribution.
+Linux](https://www.kali.org), a Linux penetration testing
+distribution.
 
 ## Pre-requisites ##
 
