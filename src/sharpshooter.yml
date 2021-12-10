@@ -12,6 +12,7 @@
     csharp: yes
     install_dir: /tools/SharpShooter
     pip_requirements_file: requirements.txt
+    python2: yes
     unarchive_extra_opts:
       - --strip-components=1
 
