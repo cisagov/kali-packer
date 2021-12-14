@@ -1,0 +1,35 @@
+---
+# The installation of SharpShooter is a little finicky.  The project
+# is no longer supported, but it mixes spaces and tabs in its Python
+# source code, so we need to run autopep8 on it.
+- name: Install SharpShooter
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    vars:
+    archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
+    tarball/master"
+    csharp: yes
+    install_dir: /tools/SharpShooter
+    pip_requirements_file: requirements.txt
+    python2: yes
+    unarchive_extra_opts:
+      - --strip-components=1
+
+- name: Install python3-autopep8
+  ansible.builtin.package:
+    name:
+      # This additional dependency is here because SharpShooter's
+      # Python source code mixes spaces and tabs, so we need to run
+      # autopep8 against it.  See cisagov/cool-system-internal#73 for
+      # more details.
+      - python3-autopep8
+
+- name: Run autopep8 on the SharpShooter source code
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/autopep8
+      - --recursive
+      - --in-place
+      - .
+    chdir: /tools/SharpShooter
