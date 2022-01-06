@@ -1,0 +1,12 @@
+---
+- hosts: all
+  name: Install Xfce
+  become: yes
+  become_method: sudo
+  roles:
+    - role: xfce_cool
+      vars:
+        # The users for whom a symlink to the COOL file share should
+        # be created
+        usernames:
+          - "{{ lookup('aws_ssm', '/vnc/username') }}"

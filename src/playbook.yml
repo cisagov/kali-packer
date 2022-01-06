@@ -13,6 +13,11 @@
 - name: Import VNC playbook
   ansible.builtin.import_playbook: vnc.yml
 
+# The VNC playbook must run before this one, since this playbook uses
+# a user created in the VNC playbook.
+- name: Import Xfce playbook
+  ansible.builtin.import_playbook: xfce.yml
+
 - name: Import cloud-init playbook
   ansible.builtin.import_playbook: cloud_init.yml
 
