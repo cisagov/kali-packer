@@ -49,3 +49,4 @@
   name: vnc
 - src: https://github.com/cisagov/ansible-role-xfce-cool
   name: xfce_cool
+  version: improvement/start-systemd-symlink-service
