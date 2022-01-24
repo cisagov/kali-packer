@@ -218,6 +218,8 @@ jobs:
           aws-region: ${{ env.BUILD_REGION }}
           role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
           role-duration-seconds: 3600
+      - name: Setup tmate debug session
+        uses: mxschmitt/action-tmate@v3
       # When called by Packer, Ansible will find /usr/bin/python3 and
       # use it; therefore, we must ensure that /usr/bin/python3 points
       # to the version of Python that we installed in the
