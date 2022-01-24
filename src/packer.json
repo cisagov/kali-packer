@@ -30,7 +30,7 @@
       "skip_create_ami": "{{user `skip_create_ami`}}",
       "source_ami_filter": {
         "filters": {
-          "name": "kali-linux-2020.3-*",
+          "name": "kali-linux-2021.4-*",
           "root-device-type": "ebs",
           "virtualization-type": "hvm"
         },
