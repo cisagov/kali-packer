@@ -23,4 +23,12 @@
       loop:
         - "22"       # ssh for Guacamole server (internal to assessment env)
         - "5901"     # vnc for Guacamole (internal to assessment env)
+    - name: Deny incoming traffic to specified TCP ports
+      # These rules may be manually modified by assessors as needed, but we
+      # want to default to a minimal set of allowed ports.
+      community.general.ufw:
+        proto: tcp
+        rule: deny
+        to_port: "{{ item }}"
+      loop:
         - 8000:8999  # Additional listeners, if necessary (external)
