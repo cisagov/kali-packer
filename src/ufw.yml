@@ -6,9 +6,8 @@
   roles:
     - ufw
   vars:
-    # Do not actually enforce firewall rules.  The assessors will turn
-    # UFW on if they want it.
-    state: disabled
+    # Enable ufw and enforce firewall rules by default.
+    state: enabled
 
 - hosts: all
   name: Basic configuration for UFW
