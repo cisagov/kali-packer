@@ -22,6 +22,10 @@
     - name: Deny incoming traffic to specified TCP ports
       # These rules may be manually modified by assessors as needed, but we
       # want to default to a minimal set of allowed ports.
+      #
+      # Note that these "deny" rules were explicitly requested in
+      # cisagov/cool-system-internal#80.  For additional context, see:
+      # https://github.com/cisagov/kali-packer/pull/92#discussion_r796234923
       community.general.ufw:
         proto: tcp
         rule: deny
