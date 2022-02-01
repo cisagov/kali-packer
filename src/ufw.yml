@@ -5,9 +5,6 @@
   become_method: sudo
   roles:
     - ufw
-  vars:
-    # Enable ufw and enforce firewall rules by default.
-    state: enabled
 
 - hosts: all
   name: Basic configuration for UFW
