@@ -18,6 +18,7 @@
         to_port: "{{ item }}"
       loop:
         - "22"       # ssh for Guacamole server (internal to assessment env)
+        - 5000:5999  # Additional listeners, if necessary (external)
         - "5901"     # vnc for Guacamole (internal to assessment env)
     - name: Deny incoming traffic to specified TCP ports
       # These rules may be manually modified by assessors as needed, but we
