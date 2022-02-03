@@ -5,10 +5,6 @@
   become_method: sudo
   roles:
     - ufw
-  vars:
-    # Do not actually enforce firewall rules.  The assessors will turn
-    # UFW on if they want it.
-    state: disabled
 
 - hosts: all
   name: Basic configuration for UFW
@@ -22,5 +18,5 @@
         to_port: "{{ item }}"
       loop:
         - "22"       # ssh for Guacamole server (internal to assessment env)
+        - 5000:5999  # Additional listeners, if necessary (external)
         - "5901"     # vnc for Guacamole (internal to assessment env)
-        - 8000:8999  # Additional listeners, if necessary (external)
