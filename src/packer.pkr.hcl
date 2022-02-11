@@ -71,7 +71,7 @@ source "amazon-ebs" "example" {
   region             = var.build_region
   region_kms_key_ids = {}
   skip_create_ami    = var.skip_create_ami
-  source_ami         = "${data.amazon-ami.debian_bullseye.id}"
+  source_ami         = data.amazon-ami.debian_bullseye.id
   ssh_username       = "admin"
   subnet_filter {
     filters = {
@@ -80,7 +80,7 @@ source "amazon-ebs" "example" {
   }
   tags = {
     Application        = "Example"
-    Base_AMI_Name      = "{{ .SourceAMIName }}"
+    Base_AMI_Name      = data.amazon-ami.debian_bullseye.name
     GitHub_Release_URL = var.release_url
     OS_Version         = "Debian Bullseye"
     Pre_Release        = var.is_prerelease
