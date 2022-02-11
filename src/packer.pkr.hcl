@@ -1,31 +1,37 @@
 variable "build_region" {
-  type    = string
-  default = "us-east-1"
+  default     = "us-east-1"
+  description = "The region in which to retrieve the base AMI from and build the new AMI."
+  type        = string
 }
 
 variable "build_region_kms" {
-  type    = string
-  default = "alias/cool-amis"
+  default     = "alias/cool-amis"
+  description = "The ID or ARN of the KMS key to use for AMI encryption."
+  type        = string
 }
 
 variable "is_prerelease" {
-  type    = string
-  default = "false"
+  default     = "false"
+  description = "Indicate whether or not the built AMI is a prerelease."
+  type        = string
 }
 
 variable "release_tag" {
-  type    = string
-  default = ""
+  default     = ""
+  description = "The release tag to apply to the built AMI."
+  type        = string
 }
 
 variable "release_url" {
-  type    = string
-  default = ""
+  default     = ""
+  description = "The URL for the release that defines the built AMI."
+  type        = string
 }
 
 variable "skip_create_ami" {
-  type    = string
-  default = "false"
+  default     = "false"
+  description = "Indicate if Packer should not create the AMI."
+  type        = string
 }
 
 data "amazon-ami" "debian_bullseye" {
