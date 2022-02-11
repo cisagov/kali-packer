@@ -1,26 +1,26 @@
 variable "build_region" {
   type    = string
-  default = "${env("BUILD_REGION")}"
+  default = "us-east-1"
 }
 
 variable "build_region_kms" {
   type    = string
-  default = "${env("BUILD_REGION_KMS")}"
+  default = "alias/cool-amis"
 }
 
-variable "github_is_prerelease" {
+variable "is_prerelease" {
   type    = string
-  default = "${env("GITHUB_IS_PRERELEASE")}"
+  default = "false"
 }
 
-variable "github_release_tag" {
+variable "release_tag" {
   type    = string
-  default = "${env("GITHUB_RELEASE_TAG")}"
+  default = ""
 }
 
-variable "github_release_url" {
+variable "release_url" {
   type    = string
-  default = "${env("GITHUB_RELEASE_URL")}"
+  default = ""
 }
 
 variable "skip_create_ami" {
@@ -75,10 +75,10 @@ source "amazon-ebs" "example" {
   tags = {
     Application        = "Example"
     Base_AMI_Name      = "{{ .SourceAMIName }}"
-    GitHub_Release_URL = var.github_release_url
+    GitHub_Release_URL = var.release_url
     OS_Version         = "Debian Bullseye"
-    Pre_Release        = var.github_is_prerelease
-    Release            = var.github_release_tag
+    Pre_Release        = var.is_prerelease
+    Release            = var.release_tag
     Team               = "VM Fusion - Development"
   }
   vpc_filter {
