@@ -104,13 +104,13 @@ source_profile = build-skeleton-packer
 role_session_name = example
 ```
 
-The [Packer template](src/packer.json) requires two environment variables to be defined:
+The [Packer template](src/packer.pkr.hcl) requires two environment variables to be defined:
 
 - `BUILD_REGION`: The region in which to build the image.
 - `BUILD_REGION_KMS`: The KMS key alias to use to encrypt the image.
 
 Additionally, the following optional environment variables can be used
-by the [Packer template](src/packer.json) to tag the final image:
+by the [Packer template](src/packer.pkr.hcl) to tag the final image:
 
 - `GITHUB_IS_PRERELEASE`: Boolean pre-release status.
 - `GITHUB_RELEASE_TAG`: Image version.
@@ -124,7 +124,7 @@ ansible-galaxy install --force --force-with-deps --role-file src/requirements.ym
 export BUILD_REGION="us-east-1"
 export BUILD_REGION_KMS="alias/cool-amis"
 export GITHUB_RELEASE_TAG=$(./bump_version.sh show)
-AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer packer build --timestamp-ui src/packer.json
+AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer packer build --timestamp-ui src/packer.pkr.hcl
 ```
 
 If you are satisfied with your pre-release image, you can easily create a release
@@ -135,8 +135,8 @@ and rerunning packer:
 
 ```console
 echo "us-east-2:alias/cool-amis,us-west-1:alias/cool-amis,\
-us-west-2:alias/cool-amis" | ./patch_packer_config.py src/packer.json
-AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer packer build --timestamp-ui src/packer.json
+us-west-2:alias/cool-amis" | ./patch_packer_config.py src/packer.pkr.hcl
+AWS_PROFILE=cool-images-ec2amicreate-skeleton-packer packer build --timestamp-ui src/packer.pkr.hcl
 ```
 
 See the patcher script's help for more information about its options and
