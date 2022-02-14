@@ -18,7 +18,7 @@ variable "build_region_kms" {
 
 variable "is_prerelease" {
   default     = "false"
-  description = "Indicate whether or not the built AMI is a prerelease."
+  description = "The pre-release status to use for the tags applied to the created AMI."
   type        = string
 }
 
@@ -30,20 +30,20 @@ variable "region_kms_keys" {
 
 variable "release_tag" {
   default     = ""
-  description = "The release tag to apply to the built AMI."
+  description = "The GitHub release tag to use for the tags applied to the created AMI."
   type        = string
 }
 
 variable "release_url" {
   default     = ""
-  description = "The URL for the release that defines the built AMI."
+  description = "The GitHub release URL to use for the tags applied to the created AMI."
   type        = string
 }
 
 variable "skip_create_ami" {
-  default     = "false"
+  default     = false
   description = "Indicate if Packer should not create the AMI."
-  type        = string
+  type        = bool
 }
 
 data "amazon-ami" "debian_bullseye" {
