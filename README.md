@@ -111,7 +111,7 @@ The [Packer template](src/packer.pkr.hcl) defines a number of variables:
 | ami\_regions | The list of AWS regions to copy the AMI to once it has been created. Example: ["us-east-1"] | `list(string)` | `[]` | no |
 | build\_region | The region in which to retrieve the base AMI from and build the new AMI. | `string` | `"us-east-1"` | no |
 | build\_region\_kms | The ID or ARN of the KMS key to use for AMI encryption. | `string` | `"alias/cool-amis"` | no |
-| is\_prerelease | The pre-release status to use for the tags applied to the created AMI. | `string` | `"false"` | no |
+| is\_prerelease | The pre-release status to use for the tags applied to the created AMI. | `bool` | `false` | no |
 | region\_kms\_keys | A map of regions to copy the created AMI to and the KMS keys to use for encryption in that region. The keys for this map must match the values provided to the aws\_regions variable. Example: {"us-east-1": "alias/example-kms"} | `map(string)` | `{}` | no |
 | release\_tag | The GitHub release tag to use for the tags applied to the created AMI. | `string` | `""` | no |
 | release\_url | The GitHub release URL to use for the tags applied to the created AMI. | `string` | `""` | no |

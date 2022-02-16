@@ -17,9 +17,9 @@ variable "build_region_kms" {
 }
 
 variable "is_prerelease" {
-  default     = "false"
+  default     = false
   description = "The pre-release status to use for the tags applied to the created AMI."
-  type        = string
+  type        = bool
 }
 
 variable "region_kms_keys" {

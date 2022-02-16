@@ -231,9 +231,6 @@ jobs:
         # actually create an AMI
         run: |
           packer build -timestamp-ui \
-            -var is_prerelease=${{ github.event.release.prerelease }} \
-            -var release_tag=${{ github.event.release.tag_name }} \
-            -var release_url=${{ github.event.release.html_url }} \
             -var skip_create_ami=true \
             src/packer.pkr.hcl
       - name: Remove /usr/bin/python3 symlink to the installed Python
