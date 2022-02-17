@@ -429,6 +429,9 @@
           - libreoffice
           - nfs-common
           - nikto
+          # This package is required for additional functionality in
+          # Scarecrow
+          - osslsigncode
           - powersploit
           - sublist3r
           - terminator
