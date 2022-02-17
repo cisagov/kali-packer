@@ -1,0 +1,16 @@
+---
+# ScareCrow requires the osslsigncode package for full functionality
+- name: Install ScareCrow dependencies
+  ansible.builtin.package:
+    name:
+      - osslsigncode
+
+- name: Install ScareCrow
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    archive_src: https://github.com/optiv/ScareCrow/tarball/main
+    go: yes
+    install_dir: /tools/ScareCrow
+    unarchive_extra_opts:
+      - --strip-components=1

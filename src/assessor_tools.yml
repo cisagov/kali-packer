@@ -326,13 +326,6 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
-        archive_src: https://github.com/optiv/ScareCrow/tarball/main
-        go: yes
-        install_dir: /tools/ScareCrow
-        unarchive_extra_opts:
-          - --strip-components=1
-    - role: assessment_tool
-      vars:
         archive_src: https://github.com/danielmiessler/SecLists/tarball/master
         install_dir: /tools/SecLists
         unarchive_extra_opts:
@@ -471,6 +464,9 @@
 
     - name: Install PCredz
       ansible.builtin.import_tasks: pcredz.yml
+
+    - name: Install ScareCrow
+      ansible.builtin.import_tasks: scarecrow.yml
 
     - name: Install SharpShooter
       ansible.builtin.import_tasks: sharpshooter.yml
