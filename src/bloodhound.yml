@@ -58,7 +58,7 @@
     - name: Build BloodHound
       ansible.builtin.command:
         chdir: /tools/BloodHound
-        cmd: npm run linuxbuild
+        cmd: npm run build
 
 - name: Install Python ingestor for BloodHound
   ansible.builtin.import_role:
