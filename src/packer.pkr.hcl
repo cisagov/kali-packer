@@ -100,7 +100,7 @@ source "amazon-ebs" "example" {
     Team               = "VM Fusion - Development"
   }
   # Many Linux distributions are now disallowing the use of RSA keys,
-  # so it makes sense to use anED25519 key instead.
+  # so it makes sense to use an ED25519 key instead.
   temporary_key_pair_type = "ed25519"
   vpc_filter {
     filters = {
