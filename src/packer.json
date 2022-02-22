@@ -55,6 +55,7 @@
         "Team": "VM Fusion - Development"
       },
       "type": "amazon-ebs",
+      "user_data_file": "src/user_data.sh",
       "vpc_filter": {
         "filters": {
           "tag:Name": "AMI Build"
