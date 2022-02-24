@@ -7,5 +7,5 @@
 
 cat > /etc/ssh/sshd_config.d/99-allow-rsakeys.conf << ENDOFFILE
 HostKeyAlgorithms +ssh-rsa
-PubkeyAcceptedKeyTypes +ssh-rsa
+PubkeyAcceptedAlgorithms +ssh-rsa
 ENDOFFILE
