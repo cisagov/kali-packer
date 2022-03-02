@@ -21,12 +21,12 @@ updates:
     directory: "/terraform-build-user"
     schedule:
       interval: "weekly"
-    # ignore:
-    #   - dependency-name: "hashicorp/aws"
+    ignore:
+      - dependency-name: "hashicorp/aws"
 
   - package-ecosystem: "terraform"
     directory: "/terraform-post-packer"
     schedule:
       interval: "weekly"
-    # ignore:
-    #   - dependency-name: "hashicorp/aws"
+    ignore:
+      - dependency-name: "hashicorp/aws"
