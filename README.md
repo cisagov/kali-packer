@@ -69,7 +69,7 @@ how the build was triggered from GitHub.
 
 1. **Non-release test**: After a normal commit or pull request GitHub Actions
    will build the project, and run tests and validation on the
-   packer configuration. It will __not__ build an image.
+   packer configuration. It will **not** build an image.
 1. **Pre-release deploy**: Publish a GitHub release
    with the "This is a pre-release" checkbox checked. An image will be built
    and deployed using the [`prerelease`](.github/workflows/prerelease.yml)
