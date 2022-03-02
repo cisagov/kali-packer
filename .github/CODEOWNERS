@@ -6,9 +6,9 @@
 * @dav3r @jsf9k
 
 # Let jsf9k own the sometimes-touchy AWS and Python playbooks, as well
-# as the packer.json file.
+# as the packer.pkr.hcl file.
 /src/aws.yml @jsf9k
-/src/packer.json @jsf9k
+/src/packer.pkr.hcl @jsf9k
 /src/python.yml @jsf9k
 
 # These folks own any files in the .github directory at the root of

@@ -9,9 +9,6 @@ on:
 
 env:
   AWS_DEFAULT_REGION: us-east-1
-  BUILD_BUCKET: ${{ secrets.THIRD_PARTY_BUCKET_STAGING }}
-  BUILD_REGION: us-east-1
-  BUILD_REGION_KMS: alias/cool-amis
   CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   PRE_COMMIT_CACHE_DIR: ~/.cache/pre-commit
@@ -215,7 +212,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.BUILD_REGION }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
           role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
           role-duration-seconds: 3600
       # When called by Packer, Ansible will find /usr/bin/python3 and
@@ -230,15 +227,13 @@ jobs:
           sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
           /usr/bin/python3
       - name: Create machine image
-        env:
-          GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
-          GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
-          GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
         # This runs through the AMI creation process but does not
         # actually create an AMI
         run: |
-          packer build -timestamp-ui -var skip_create_ami=true \
-          src/packer.json
+          packer build -timestamp-ui \
+            -var build_bucket=${{ secrets.THIRD_PARTY_BUCKET_STAGING }} \
+            -var skip_create_ami=true \
+            src/packer.pkr.hcl
       - name: Remove /usr/bin/python3 symlink to the installed Python
         run: |
           sudo mv /usr/bin/python3-default /usr/bin/python3
