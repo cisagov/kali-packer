@@ -99,6 +99,9 @@ source "amazon-ebs" "example" {
     Release            = var.release_tag
     Team               = "VM Fusion - Development"
   }
+  # Many Linux distributions are now disallowing the use of RSA keys,
+  # so it makes sense to use an ED25519 key instead.
+  temporary_key_pair_type = "ed25519"
   vpc_filter {
     filters = {
       "tag:Name" = "AMI Build"
