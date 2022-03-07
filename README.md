@@ -75,7 +75,7 @@ depending on how the build was triggered from GitHub.
 
 1. **Non-release test**: After a normal commit or pull request GitHub Actions
    will build the project, and run tests and validation on the
-   packer configuration. It will __not__ build an image.
+   packer configuration. It will **not** build an image.
 1. **Pre-release deploy**: Publish a GitHub release
    with the "This is a pre-release" checkbox checked. An image will be built
    and deployed using the [`prerelease`](.github/workflows/prerelease.yml)
@@ -110,50 +110,53 @@ source_profile = build-kali-packer
 role_session_name = example
 ```
 
-The [Packer template](src/packer.json) requires three environment
-variables to be defined:
+The [Packer template](src/packer.pkr.hcl) defines a number of variables:
 
-- `BUILD_BUCKET`: The S3 bucket containing the Cobalt Strike and Burp
-  Suite Pro installers.
-- `BUILD_REGION`: The region in which to build the image.
-- `BUILD_REGION_KMS`: The KMS key alias to use to encrypt the image.
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| ami\_regions | The list of AWS regions to copy the AMI to once it has been created. Example: ["us-east-1"] | `list(string)` | `[]` | no |
+| build\_bucket | The S3 bucket containing the Cobalt Strike and Burp Suite Pro installers. | `string` | `""` | no |
+| build\_region | The region in which to retrieve the base AMI from and build the new AMI. | `string` | `"us-east-1"` | no |
+| build\_region\_kms | The ID or ARN of the KMS key to use for AMI encryption. | `string` | `"alias/cool-amis"` | no |
+| is\_prerelease | The pre-release status to use for the tags applied to the created AMI. | `bool` | `false` | no |
+| region\_kms\_keys | A map of regions to copy the created AMI to and the KMS keys to use for encryption in that region. The keys for this map must match the values provided to the aws\_regions variable. Example: {"us-east-1": "alias/example-kms"} | `map(string)` | `{}` | no |
+| release\_tag | The GitHub release tag to use for the tags applied to the created AMI. | `string` | `""` | no |
+| release\_url | The GitHub release URL to use for the tags applied to the created AMI. | `string` | `""` | no |
+| skip\_create\_ami | Indicate if Packer should not create the AMI. | `bool` | `false` | no |
 
-Additionally, the following optional environment variables can be used
-by the [Packer template](src/packer.json) to tag the final image:
+Changing these defaults can be done through a `.pkrvars.hcl` file:
 
-- `GITHUB_IS_PRERELEASE`: Boolean pre-release status.
-- `GITHUB_RELEASE_TAG`: Image version.
-- `GITHUB_RELEASE_URL`: URL pointing to the related GitHub release.
+```hcl
+build_bucket = "installers-bucket"
+build_region = "us-east-2"
+build_region_kms = "alias/example-kms"
+is_prerelease = "true"
+```
 
 Here is an example of how to kick off a pre-release build:
 
 ```console
 pip install --requirement requirements-dev.txt
 ansible-galaxy install --force --force-with-deps --role-file src/requirements.yml
-export BUILD_REGION="us-east-1"
-export BUILD_REGION_KMS="alias/cool-amis"
-export GITHUB_RELEASE_TAG=$(./bump_version.sh show)
-AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui src/packer.json
+AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui -var release_tag=$(./bump_version.sh show) -var build_bucket="installers-bucket" -var is_prerelease=true src/packer.pkr.hcl
 ```
 
-If you are satisfied with your pre-release image, you can easily
-create a release that deploys to all regions by adding additional
-regions to the packer configuration.  This can be done with the
-`patch_packer_config.py` helper script.  Echo in a comma-separated
-regions:kms_keys list to `patch_packer_config.py` and rerunning
-packer:
+If you are satisfied with your pre-release image, you can easily create a release
+that deploys to all regions by adding additional regions to the packer configuration.
+This can be done by using a `.pkrvars.hcl` for example with `release.pkrvars.hcl`:
 
-```console
-echo "us-east-2:alias/cool-amis,us-west-1:alias/cool-amis,\
-us-west-2:alias/cool-amis" | ./patch_packer_config.py src/packer.json
-AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui src/packer.json
+```hcl
+build_bucket = "installers-bucket"
+ami_regions = ["us-east-2", "us-west-1", "us-west-2"]
+region_kms_keys = {
+  "us-east-2": "alias/cool-amis",
+  "us-west-1": "alias/cool-amis",
+  "us-west-2": "alias/cool-amis",
+}
 ```
 
-See the patcher script's help for more information about its options
-and inner workings:
-
 ```console
-./patch_packer_config.py --help
+AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui -var-file release.pkrvars.hcl src/packer.pkr.hcl
 ```
 
 ### Giving Other AWS Accounts Permission to Launch the Image ###
