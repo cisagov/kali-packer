@@ -54,7 +54,9 @@
           - --strip-components=1
     - name: Install BloodHound dependencies
       community.general.npm:
+        ci: yes
         path: /tools/BloodHound
+        production: yes
     - name: Build BloodHound
       ansible.builtin.command:
         chdir: /tools/BloodHound
