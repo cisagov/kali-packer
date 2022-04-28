@@ -68,7 +68,7 @@
     - name: Install BloodHound dependencies
       ansible.builtin.command:
         chdir: /tools/BloodHound
-        cmd: npm ci --legacy-peer-deps --production
+        cmd: npm ci --legacy-peer-deps
     - name: Build BloodHound
       ansible.builtin.command:
         chdir: /tools/BloodHound
