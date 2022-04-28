@@ -17,6 +17,7 @@
   name: cloudwatch_agent
 - src: https://github.com/cisagov/ansible-role-cobalt-strike
   name: cobalt_strike
+  version: lineage/skeleton
 - src: https://github.com/cisagov/ansible-role-dev-ssh-access
   name: dev_ssh_access
 - src: https://github.com/cisagov/ansible-role-docker
