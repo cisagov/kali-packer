@@ -52,9 +52,23 @@
         install_dir: /tools/BloodHound
         unarchive_extra_opts:
           - --strip-components=1
+    # Kali uses a very new version of npm, which now generates errors
+    # as described here:
+    # https://stackoverflow.com/questions/66239691/what-does-npm-install-legacy-peer-deps-do-exactly-when-is-it-recommended-wh
+    # The solution is to run npm with the --legacy-peer-deps flag,
+    # which forces npm to handle peer dependencies like it used to do.
+    # Unfortunately I can't do that with the community.general.npm
+    # module, so I have to use ansible.builtin.command.
+
+    # - name: Install BloodHound dependencies
+    #   community.general.npm:
+    #     ci: yes
+    #     path: /tools/BloodHound
+    #     production: yes
     - name: Install BloodHound dependencies
-      community.general.npm:
-        path: /tools/BloodHound
+      ansible.builtin.command:
+        chdir: /tools/BloodHound
+        cmd: npm ci --legacy-peer-deps
     - name: Build BloodHound
       ansible.builtin.command:
         chdir: /tools/BloodHound
