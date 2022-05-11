@@ -16,7 +16,7 @@ env:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - id: setup-env
         uses: cisagov/setup-env-github-action@develop
@@ -106,7 +106,7 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - id: setup-env
         uses: cisagov/setup-env-github-action@develop
@@ -159,7 +159,7 @@ jobs:
     # The AMI build process is an expensive test (in terms of time) so
     # let's not run it unless the other jobs succeed.
     needs: [lint, test]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - id: setup-env
         uses: cisagov/setup-env-github-action@develop
