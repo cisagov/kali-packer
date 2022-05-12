@@ -84,9 +84,9 @@ jobs:
         env:
           # Since we are using the default value of 15 seconds for
           # AWS_POLL_DELAY_SECONDS, this corresponds to a timeout of
-          # one hour.  We need such a long timeout because it can
-          # take almost an hour to create this AMI.
-          AWS_MAX_ATTEMPTS: 240
+          # two hours.  We need such a long timeout because it can
+          # take over an hour to create this AMI.
+          AWS_MAX_ATTEMPTS: 480
         run: |
           packer build -timestamp-ui \
             -var build_bucket=${{ secrets.THIRD_PARTY_BUCKET_STAGING }} \
