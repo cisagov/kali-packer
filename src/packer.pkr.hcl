@@ -58,7 +58,7 @@ variable "skip_create_ami" {
 
 data "amazon-ami" "kali_linux" {
   filters = {
-    name                = "kali-linux-2020.3-*"
+    name                = "kali-linux-2022.1-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
@@ -112,7 +112,6 @@ source "amazon-ebs" "kali" {
   # Many Linux distributions are now disallowing the use of RSA keys,
   # so it makes sense to use an ED25519 key instead.
   temporary_key_pair_type = "ed25519"
-  user_data_file          = "src/user_data.sh"
   vpc_filter {
     filters = {
       "tag:Name" = "AMI Build"
@@ -124,19 +123,20 @@ build {
   sources = ["source.amazon-ebs.kali"]
 
   provisioner "ansible" {
-    extra_arguments = ["--extra-vars", "ansible_python_interpreter=/usr/bin/python3"]
-    playbook_file   = "src/upgrade.yml"
+    playbook_file = "src/upgrade.yml"
+    use_sftp      = true
   }
 
   provisioner "ansible" {
-    extra_arguments = ["--extra-vars", "ansible_python_interpreter=/usr/bin/python3"]
-    playbook_file   = "src/python.yml"
+    playbook_file = "src/python.yml"
+    use_sftp      = true
   }
 
   provisioner "ansible" {
     ansible_env_vars = ["ANSIBLE_PRIVATE_ROLE_VARS=True", "AWS_DEFAULT_REGION=${var.build_region}"]
-    extra_arguments  = ["--extra-vars", "{ansible_python_interpreter: /usr/bin/python3, build_bucket: ${var.build_bucket}}"]
+    extra_arguments  = ["--extra-vars", "{build_bucket: ${var.build_bucket}}"]
     playbook_file    = "src/playbook.yml"
+    use_sftp         = true
   }
 
   provisioner "shell" {

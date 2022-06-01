@@ -10,3 +10,4 @@
     - docker
     - htop
     - persist_journald
+    - sshd_allow_rsa
