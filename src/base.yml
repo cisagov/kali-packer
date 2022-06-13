@@ -7,6 +7,5 @@
     - automated_security_updates
     - banner
     - clamav
-    - dev_ssh_access
     - htop
     - persist_journald
