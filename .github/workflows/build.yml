@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: setup-env
-        uses: cisagov/setup-env-github-action@develop
+        uses: cisagov/setup-env-github-action@maintenance/update_versions
       - uses: actions/checkout@v3
       - id: setup-python
         uses: actions/setup-python@v3
@@ -109,7 +109,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: setup-env
-        uses: cisagov/setup-env-github-action@develop
+        uses: cisagov/setup-env-github-action@maintenance/update_versions
       - uses: actions/checkout@v3
       - id: setup-python
         uses: actions/setup-python@v3
@@ -162,7 +162,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: setup-env
-        uses: cisagov/setup-env-github-action@develop
+        uses: cisagov/setup-env-github-action@maintenance/update_versions
       - uses: actions/checkout@v3
       - id: setup-python
         uses: actions/setup-python@v3
