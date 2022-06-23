@@ -23,7 +23,7 @@
   name: docker
 - src: https://github.com/cisagov/ansible-role-htop
   name: htop
-- src: leesoh.metasploit
+- src: leesoh.ansible_role_metasploit
   name: metasploit
 - src: https://github.com/cisagov/ansible-role-nvme
   name: nvme
