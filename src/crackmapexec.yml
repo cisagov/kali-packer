@@ -1,0 +1,18 @@
+---
+# The CrackMapExec dependency impacket now requires the krb5-config
+# executable from the libkrb5-dev package.
+- name: Install ScareCrow dependencies
+  ansible.builtin.package:
+    name:
+      - libkrb5-dev
+
+- name: Install CrackMapExec
+  ansible.builtin.import_role:
+    name: assessment_tool
+  vars:
+    archive_src: https://github.com/byt3bl33d3r/CrackMapExec/tarball/master
+    install_dir: /tools/CrackMapExec
+    pip_packages:
+      - .
+    unarchive_extra_opts:
+      - --strip-components=1
