@@ -49,14 +49,6 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
-        archive_src: https://github.com/byt3bl33d3r/CrackMapExec/tarball/master
-        install_dir: /tools/CrackMapExec
-        pip_packages:
-          - .
-        unarchive_extra_opts:
-          - --strip-components=1
-    - role: assessment_tool
-      vars:
         archive_src: https://github.com/bovine/datapipe/tarball/master
         install_dir: /tools/datapipe
         unarchive_extra_opts:
@@ -450,6 +442,9 @@
 
     - name: Install Cobalt Strike
       ansible.builtin.import_tasks: cobalt_strike.yml
+
+    - name: Install CrackMapExec
+      ansible.builtin.import_tasks: crackmapexec.yml
 
     # dns-profile-randomizer lives in a private GitLab repository and
     # hence must be downloaded using a GitLab access token.
