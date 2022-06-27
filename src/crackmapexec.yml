@@ -1,5 +1,5 @@
 ---
-# The CrackMapExec dependency impacket now requires the krb5-config
+# The CrackMapExec dependency gssapi requires the krb5-config
 # executable from the libkrb5-dev package.
 - name: Install CrackMapExec dependencies
   ansible.builtin.package:
