@@ -72,7 +72,13 @@
     - name: Build BloodHound
       ansible.builtin.command:
         chdir: /tools/BloodHound
-        cmd: npm run build
+        cmd: npm run build:linux
+      environment:
+        # This is necessary to avoid errors caused by the fact that
+        # the BloodHound build process uses some now-disallowed (as of
+        # OpenSSL 3.0) encryption functions.  This is again because
+        # Kali is running a very new version of Node.
+        NODE_OPTIONS: --openssl-legacy-provider
 
 - name: Install Python ingestor for BloodHound
   ansible.builtin.import_role:
