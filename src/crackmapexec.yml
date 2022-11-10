@@ -16,7 +16,8 @@
   ansible.builtin.import_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/byt3bl33d3r/CrackMapExec/tarball/master
+    archive_src: >
+      https://github.com/Porchetta-Industries/CrackMapExec/tarball/master
     install_dir: /tools/CrackMapExec
     pip_packages:
       - .
