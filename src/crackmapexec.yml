@@ -1,10 +1,16 @@
 ---
-# The CrackMapExec dependency gssapi requires the krb5-config
-# executable from the libkrb5-dev package.
+# The following CrackMapExec dependencies require the specified
+# packages be installed:
+# * gssapi requires the krb5-config executable from the libkrb5-dev
+#   package
+# * aardwolf requires a Rust compiler, as the Python package is only
+#   available from PyPI.org as a source distribution (i.e., there is
+#   no wheel available for download)
 - name: Install CrackMapExec dependencies
   ansible.builtin.package:
     name:
       - libkrb5-dev
+      - rustc
 
 - name: Install CrackMapExec
   ansible.builtin.import_role:
