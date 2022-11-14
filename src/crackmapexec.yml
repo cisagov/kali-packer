@@ -3,14 +3,10 @@
 # packages be installed:
 # * gssapi requires the krb5-config executable from the libkrb5-dev
 #   package
-# * aardwolf requires a Rust compiler, as the Python package is only
-#   available from PyPI.org as a source distribution (i.e., there is
-#   no wheel available for download)
 - name: Install CrackMapExec dependencies
   ansible.builtin.package:
     name:
       - libkrb5-dev
-      - rustc
 
 - name: Install CrackMapExec
   ansible.builtin.import_role:
@@ -18,8 +14,14 @@
   vars:
     archive_src: >
       https://github.com/Porchetta-Industries/CrackMapExec/tarball/master
+    # This is not a cargo project, although it requires a Rust
+    # compiler.
+    cargo_build: no
     install_dir: /tools/CrackMapExec
     pip_packages:
       - .
+    # Although this is a Python project, the dependency aardwolf
+    # requires a Rust compiler to build its native code.
+    rust: yes
     unarchive_extra_opts:
       - --strip-components=1
