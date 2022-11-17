@@ -4,9 +4,11 @@
   become: yes
   become_method: sudo
   roles:
+    # The assessments folks specifically asked us _not_ to patch the
+    # Kali instances while they are running.
+    # - automated_security_updates
     - banner
     - clamav
-    - dev_ssh_access
     - docker
     - htop
     - persist_journald

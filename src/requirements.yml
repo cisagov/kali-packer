@@ -5,6 +5,10 @@
   name: amazon_ssm_agent
 - src: https://github.com/cisagov/ansible-role-assessment-tool
   name: assessment_tool
+# The assessments folks specifically asked us _not_ to patch the Kali
+# instances while they are running.
+# - src: https://github.com/cisagov/ansible-role-automated-security-updates
+#   name: automated_security_updates
 - src: https://github.com/cisagov/ansible-role-banner
   name: banner
 - src: https://github.com/cisagov/ansible-role-burp-suite-pro
@@ -17,8 +21,6 @@
   name: cloudwatch_agent
 - src: https://github.com/cisagov/ansible-role-cobalt-strike
   name: cobalt_strike
-- src: https://github.com/cisagov/ansible-role-dev-ssh-access
-  name: dev_ssh_access
 - src: https://github.com/cisagov/ansible-role-docker
   name: docker
 - src: https://github.com/cisagov/ansible-role-htop
