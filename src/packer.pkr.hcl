@@ -129,6 +129,12 @@ build {
   }
 
   provisioner "ansible" {
+    playbook_file = "src/fix_growroot.yml"
+    use_proxy     = false
+    use_sftp      = true
+  }
+
+  provisioner "ansible" {
     playbook_file = "src/python.yml"
     use_proxy     = false
     use_sftp      = true

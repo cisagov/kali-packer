@@ -1,0 +1,16 @@
+---
+- hosts: all
+  name: Add growroot dependency to initramfs
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Add flock to initramfs
+      ansible.builtin.lineinfile:
+        group: root
+        line: copy_exec /bin/flock /bin
+        mode: 0755
+        owner: root
+        path: /usr/share/initramfs-tools/hooks/growroot
+    - name: Regenerate initramfs
+      ansible.builtin.command:
+        cmd: /usr/sbin/update-initramfs -u -v
