@@ -3,5 +3,28 @@
   name: Upgrade base image
   become: yes
   become_method: sudo
-  roles:
-    - upgrade
+  tasks:
+    # There is currently a bug in the 6.x kernel that prevents ext4
+    # filesystems from being online resized.
+    #
+    # Also note that dpkg/apt and aptitude use different mechanisms to
+    # mark packages as held, so the safest thing to do is to mark it
+    # both ways.
+    - name: Prevent Linux kernel from being updated
+      block:
+        - name: Prevent Linux kernel from being updated via dpkg/apt
+          ansible.builtin.dpkg_selections:
+            name: linux-image-cloud-amd64
+            selection: hold
+        - name: Install aptitude
+          ansible.builtin.package:
+            force_apt_get: yes
+            name:
+              - aptitude
+            update_cache: yes
+        - name: Prevent Linux kernel from being updated via aptitude
+          ansible.builtin.command:
+            cmd: /usr/bin/aptitude hold linux-image-cloud-amd64
+    - name: Upgrade
+      ansible.builtin.import_role:
+        name: upgrade
