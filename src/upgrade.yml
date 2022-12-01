@@ -4,6 +4,10 @@
   become: yes
   become_method: sudo
   tasks:
+    # TODO: Remove this block once the upstream kernel bug is fixed.
+    # See https://github.com/cisagov/kali-packer/issues/131 for more
+    # details.
+    #
     # There is currently a bug in the 6.x kernel that prevents ext4
     # filesystems from being online resized.
     #

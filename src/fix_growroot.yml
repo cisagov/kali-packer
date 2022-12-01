@@ -1,4 +1,6 @@
 ---
+# TODO: Remove this code once the upstream bug is fixed.  See
+# https://github.com/cisagov/kali-packer/issues/130 for more details.
 - hosts: all
   name: Add growroot dependency to initramfs
   become: yes
