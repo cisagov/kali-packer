@@ -21,9 +21,33 @@
     # BloodHound will not work unless you change the Neo4j password
     # from the default value.
     - name: Set Neo4j password
-      ansible.builtin.command:
-        cmd: /usr/bin/neo4j-admin set-initial-password {{ password }}
-      changed_when: false
+      block:
+        - name: Gather the package facts
+          ansible.builtin.package_facts:
+
+        - name: Get version of the installed neo4j package
+          ansible.builtin.set_fact:
+            installed_neo4j_version: >
+              "{{ ansible_facts.packages['neo4j'] |
+              map(attribute='version') | first }}"
+
+        - name: Set neo4j password on version < 5
+          ansible.builtin.command:
+            cmd: >
+              /usr/share/neo4j/bin/neo4j-admin
+              set-initial-password {{ password }}
+          changed_when: false
+          no_log: true
+          when: "installed_neo4j_version is version('5.0', '<')"
+
+        - name: Set neo4j password on version >= 5
+          ansible.builtin.command:
+            cmd: >
+              /usr/share/neo4j/bin/neo4j-admin dbms
+              set-initial-password {{ password }}
+          changed_when: false
+          no_log: true
+          when: "installed_neo4j_version is version('5.0', '>=')"
 
     - name: Systemd daemon-reload
       ansible.builtin.systemd:
