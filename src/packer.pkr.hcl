@@ -58,7 +58,7 @@ variable "skip_create_ami" {
 
 data "amazon-ami" "kali_linux" {
   filters = {
-    name                = "kali-linux-2022.3b-*"
+    name                = "kali-rolling-amd64-2022.4.1-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
