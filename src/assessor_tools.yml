@@ -303,21 +303,6 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
-        archive_src: https://github.com/lgandx/Responder/tarball/master
-        install_dir: /tools/Responder
-        pip_packages:
-          - dnspython
-          - impacket
-          - ldap3
-          - pyasn1
-          - pycryptodome
-          - pycryptodomex
-          - readline
-          - six
-        unarchive_extra_opts:
-          - --strip-components=1
-    - role: assessment_tool
-      vars:
         archive_src: https://github.com/danielmiessler/SecLists/tarball/master
         install_dir: /tools/SecLists
         unarchive_extra_opts:
@@ -459,6 +444,9 @@
 
     - name: Install PCredz
       ansible.builtin.import_tasks: pcredz.yml
+
+    - name: Install Responder
+      ansible.builtin.import_tasks: responder.yml
 
     - name: Install ScareCrow
       ansible.builtin.import_tasks: scarecrow.yml
