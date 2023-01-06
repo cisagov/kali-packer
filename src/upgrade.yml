@@ -10,8 +10,8 @@
     # The base AMI currently ships with a 6.0.0 kernel, which as
     # described in #131 has a bug that does not allow ext4 filesystems
     # to be resized; therefore, it makes sense to go ahead and boot
-    # into >=6.0.8 kernel installed in the previous upgrade step since
-    # it does not have the bug.
+    # into the >=6.0.8 kernel installed in the previous upgrade step
+    # since it does not have the bug.
     - name: Boot into the updated (>=6.0.8) kernel
       block:
         - name: Install kexec
