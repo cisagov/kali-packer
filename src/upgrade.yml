@@ -47,3 +47,9 @@
             # This number should agree with the value of the async
             # attribute in the previous task.
             timeout: 600
+    - name: Resize the root filesystem
+      ansible.builtin.command:
+        argv:
+          - /usr/bin/growpart
+          - /dev/nvme0n1
+          - 1
