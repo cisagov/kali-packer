@@ -18,6 +18,18 @@
           ansible.builtin.package:
             name:
               kexec-tools
+        # Our base AMI still uses grub instead of systemd-boot, and
+        # systemd kexec does not parse grub configs, so kexec cannot
+        # function without first manually loading the updated kernel
+        # into the current kernel.
+        - name: Load the updated (>=6.0.8) kernel into the current kernel
+          ansible.builtin.command:
+            argv:
+              - /sbin/kexec
+              - --load
+              - /boot/vmlinuz-6.0.0-kali6-cloud-amd64
+              - --initrd=/boot/initrd.img-6.0.0-kali6-cloud-amd64
+              - --reuse-cmdline
         - name: Boot into the updated (>=6.0.8) kernel
           ansible.builtin.command:
             cmd: /usr/bin/systemctl kexec
