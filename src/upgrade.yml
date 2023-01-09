@@ -33,17 +33,3 @@
         - name: Boot into the updated (>=6.0.8) kernel
           ansible.builtin.command:
             cmd: /usr/bin/systemctl kexec
-          # Give the system ten minutes to come back online
-          async: 600
-          # Do not poll, but immediately go on to the next task
-          poll: 0
-        - name: Wait for the system to come back online
-          ansible.builtin.wait_for_connection:
-            # Wait a minute before starting to poll
-            delay: 60
-            # Sleep for one minute between checks
-            sleep: 60
-            # Wait ten minutes for the connection to come back online.
-            # This number should agree with the value of the async
-            # attribute in the previous task.
-            timeout: 600
