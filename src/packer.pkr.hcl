@@ -58,7 +58,7 @@ variable "skip_create_ami" {
 
 data "amazon-ami" "kali_linux" {
   filters = {
-    name                = "kali-linux-2022.3b-*"
+    name                = "kali-rolling-amd64-2022.4.1-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
@@ -70,13 +70,6 @@ data "amazon-ami" "kali_linux" {
 locals { timestamp = regex_replace(timestamp(), "[- TZ:]", "") }
 
 source "amazon-ebs" "kali" {
-  ami_block_device_mappings {
-    delete_on_termination = true
-    device_name           = "/dev/sda1"
-    encrypted             = true
-    volume_size           = 30
-    volume_type           = "gp3"
-  }
   ami_name                    = "kali-hvm-${local.timestamp}-x86_64-ebs"
   ami_regions                 = var.ami_regions
   associate_public_ip_address = true
@@ -85,7 +78,7 @@ source "amazon-ebs" "kali" {
   kms_key_id                  = var.build_region_kms
   launch_block_device_mappings {
     delete_on_termination = true
-    device_name           = "/dev/sda1"
+    device_name           = "/dev/xvda"
     encrypted             = true
     volume_size           = 30
     volume_type           = "gp3"
