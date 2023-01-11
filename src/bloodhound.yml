@@ -34,7 +34,7 @@
         - name: Set neo4j password on version < 5
           ansible.builtin.command:
             cmd: >
-              /usr/share/neo4j/bin/neo4j-admin
+              /usr/bin/neo4j-admin
               set-initial-password {{ password }}
           changed_when: false
           no_log: true
@@ -43,7 +43,7 @@
         - name: Set neo4j password on version >= 5
           ansible.builtin.command:
             cmd: >
-              /usr/share/neo4j/bin/neo4j-admin dbms
+              /usr/bin/neo4j-admin dbms
               set-initial-password {{ password }}
           changed_when: false
           no_log: true
