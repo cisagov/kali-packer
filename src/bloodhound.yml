@@ -38,7 +38,7 @@
               set-initial-password {{ password }}
           changed_when: false
           no_log: true
-          when: "installed_neo4j_version is version('5.0', '<')"
+          when: installed_neo4j_version is version("5.0", "<")
 
         - name: Set neo4j password on version >= 5
           ansible.builtin.command:
@@ -47,7 +47,7 @@
               set-initial-password {{ password }}
           changed_when: false
           no_log: true
-          when: "installed_neo4j_version is version('5.0', '>=')"
+          when: installed_neo4j_version is version("5.0", ">=")
 
     - name: Systemd daemon-reload
       ansible.builtin.systemd:
