@@ -4,7 +4,7 @@
     # The version of Neo4j available by default in Kali does not
     # include the SystemD service file, so we need to install the
     # package from a different repo.
-    - name: Configure apt to use official neo4j apt repo
+    - name: Configure apt to use official Neo4j apt repo
       block:
         - name: Add key for official Neo4j apt repo
           ansible.builtin.apt_key:
@@ -25,7 +25,7 @@
         - name: Gather the package facts
           ansible.builtin.package_facts:
 
-        - name: Get version of the installed neo4j package
+        - name: Get version of the installed Neo4j package
           ansible.builtin.set_fact:
             installed_neo4j_version: >
               "{{ ansible_facts.packages['neo4j'] |
