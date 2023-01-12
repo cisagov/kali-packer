@@ -20,6 +20,17 @@
 
     # BloodHound will not work unless you change the Neo4j password
     # from the default value.
+    #
+    # Note that the version of the official Neo4j package includes an
+    # epoch prefix in the version, followed by a colon character.
+    # This can be seen here:
+    # https://debian.neo4j.com/
+    #
+    # If we replace the colon by an exclamation point, then the
+    # resulting version is consistent with the pep440 version_type
+    # parameter, as described in these links:
+    # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tests.html#comparing-versions
+    # https://peps.python.org/pep-0440/
     - name: Set Neo4j password
       block:
         - name: Gather the package facts
@@ -27,9 +38,10 @@
 
         - name: Get version of the installed Neo4j package
           ansible.builtin.set_fact:
-            installed_neo4j_version: >
+            installed_neo4j_version: >-
               "{{ ansible_facts.packages['neo4j'] |
-              map(attribute='version') | first }}"
+              map(attribute='version') | first |
+              replace(':', '!') | replace('"', '') | trim }}"
 
         - name: Set neo4j password on version < 5
           ansible.builtin.command:
@@ -38,7 +50,8 @@
               set-initial-password {{ password }}
           changed_when: false
           no_log: true
-          when: installed_neo4j_version is version("5.0", "<")
+          when:
+            - installed_neo4j_version is version("1!5.0", "<", version_type="pep440")
 
         - name: Set neo4j password on version >= 5
           ansible.builtin.command:
@@ -47,7 +60,8 @@
               set-initial-password {{ password }}
           changed_when: false
           no_log: true
-          when: installed_neo4j_version is version("5.0", ">=")
+          when:
+            - installed_neo4j_version is version("1!5.0", ">=", version_type="pep440")
 
     - name: Systemd daemon-reload
       ansible.builtin.systemd:
