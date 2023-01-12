@@ -39,9 +39,9 @@
         - name: Get version of the installed Neo4j package
           ansible.builtin.set_fact:
             installed_neo4j_version: >-
-              "{{ ansible_facts.packages['neo4j'] |
+              {{ ansible_facts.packages['neo4j'] |
               map(attribute='version') | first |
-              replace(':', '!') | replace('"', '') | trim }}"
+              replace(':', '!') | replace('"', '') | trim }}
 
         - name: Set neo4j password on version < 5
           ansible.builtin.command:
