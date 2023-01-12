@@ -41,7 +41,7 @@
             installed_neo4j_version: >-
               {{ ansible_facts.packages['neo4j'] |
               map(attribute='version') | first |
-              replace(':', '!') | replace('"', '') | trim }}
+              replace(':', '!') | replace('"', '') }}
 
         - name: Set neo4j password on version < 5
           ansible.builtin.command:
