@@ -1,15 +1,20 @@
 ---
 - name: Install and configure Neo4j
   block:
-    # By default OpenJDK 17 is being used on Kali Linux, although
-    # OpenJDK 11 is also installed.  Neo4j <5 requires OpenJDK 11.
+    # By default OpenJDK 17 is being used on Kali Linux.  Neo4j <5
+    # requires OpenJDK 11.
     #
-    # TODO: This task can be removed once we upgrade to Neo4j version
+    # TODO: This block can be removed once we upgrade to Neo4j version
     # 5, as discussed in #136.
-    - name: Configure Debian to use OpenJDK 11
-      community.general.alternatives:
-        name: java
-        path: /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+    - name: Install and configure Debian to use OpenJDK 11
+      block:
+        - name: Install OpenJDK 11
+          ansible.builtin.import_role:
+            name: openjdk
+        - name: Configure Debian to use OpenJDK 11
+          community.general.alternatives:
+            name: java
+            path: /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
     # The version of Neo4j available by default in Kali does not
     # include the SystemD service file, so we need to install the
