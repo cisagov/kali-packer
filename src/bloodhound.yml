@@ -11,7 +11,7 @@
             url: https://debian.neo4j.com/neotechnology.gpg.key
         - name: Add official apt repo for Neo4j
           ansible.builtin.apt_repository:
-            repo: deb https://debian.neo4j.com stable 4.3
+            repo: deb https://debian.neo4j.com stable 4.4
 
     - name: Install Neo4j
       ansible.builtin.package:
