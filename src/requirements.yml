@@ -31,7 +31,6 @@
   name: nvme
 - src: https://github.com/cisagov/ansible-role-openjdk
   name: openjdk
-  version: improvement/configure-alternatives-for-debian
 - src: https://github.com/cisagov/ansible-role-persist-journald
   name: persist_journald
 - src: https://github.com/cisagov/ansible-role-pip
