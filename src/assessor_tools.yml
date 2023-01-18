@@ -414,6 +414,7 @@
           - flameshot
           - getallurls
           - gobuster
+          - golang
           - jq
           - libreoffice
           - nfs-common
