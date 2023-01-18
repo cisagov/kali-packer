@@ -389,21 +389,29 @@
     - name: Install system packages for tools where possible
       ansible.builtin.package:
         name:
+          - assetfinder
+          - cargo
           - cifs-utils
           - dnsutils
           - exploitdb
           - eyewitness
+          - feroxbuster
           - firefox-developer-edition-en-us-kbx
           - flameshot
+          - getallurls
           - gobuster
+          - jq
           - libreoffice
           - nfs-common
           - nikto
+          - nmap
           - powersploit
+          - subfinder
           - sublist3r
           - terminator
           - testssl.sh
           - veil
+          - vim
 
     # The kaboxer group is created via the
     # firefox-developer-edition-en-us-kbx package, and the VNC user
