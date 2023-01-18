@@ -1,9 +1,20 @@
 ---
 - name: Install and configure Neo4j
   block:
+    # By default OpenJDK 17 is being used on Kali Linux.  Neo4j <5
+    # requires OpenJDK 11.
+    #
+    # TODO: This block can be removed once we upgrade to Neo4j version
+    # 5, as discussed in #136.
+    - name: Install OpenJDK 11
+      ansible.builtin.import_role:
+        name: openjdk
+
     # The version of Neo4j available by default in Kali does not
     # include the SystemD service file, so we need to install the
     # package from a different repo.
+    #
+    # TODO: Upgrade to Neo4j 5 when possible, as described in #136.
     - name: Configure apt to use official Neo4j apt repo
       block:
         - name: Add key for official Neo4j apt repo
@@ -11,7 +22,7 @@
             url: https://debian.neo4j.com/neotechnology.gpg.key
         - name: Add official apt repo for Neo4j
           ansible.builtin.apt_repository:
-            repo: deb https://debian.neo4j.com stable 4.3
+            repo: deb https://debian.neo4j.com stable 4.4
 
     - name: Install Neo4j
       ansible.builtin.package:
