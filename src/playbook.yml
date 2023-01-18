@@ -21,7 +21,7 @@
 - name: Import Xfce playbook
   ansible.builtin.import_playbook: xfce.yml
 
-# This playbook may cause Python 2 to be reinstalled, so it must go
-# last
+# This playbook must be run after the VNC playbook, since it makes
+# changes to the vnc user.
 - name: Import assessor tools playbook
   ansible.builtin.import_playbook: assessor_tools.yml
