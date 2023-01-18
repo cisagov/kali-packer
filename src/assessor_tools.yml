@@ -303,6 +303,13 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/resyncgg/ripgen/tarball/main
+        install_dir: /tools/ripgen
+        rust: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/danielmiessler/SecLists/tarball/master
         install_dir: /tools/SecLists
         unarchive_extra_opts:
@@ -371,6 +378,13 @@
         archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
         csharp: yes
         install_dir: /tools/TikiTorch
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/tomnomnom/waybackurls/tarball/master
+        go: yes
+        install_dir: /tools/waybackurls
         unarchive_extra_opts:
           - --strip-components=1
     - role: burp_suite_pro
