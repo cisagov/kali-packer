@@ -428,6 +428,50 @@
           - veil
           - vim
 
+    # In order for the VNC user to make full use of Go, we need to add
+    # $p/bin to the PATH for all paths p in $GOPATH.
+    #
+    # See #137 for more details.
+    - name: Add GOPATH binary paths to PATH for VNC user
+      ansible.builtin.blockinfile:
+        # The jinja2 comment below changes the Jinja2 templating to
+        # look for square braces instead of curly braces for comments;
+        # otherwise, Jinja2 thinks the "{#" character combinations
+        # below are for it and that causes an error.
+        block: |
+          #jinja2:comment_start_string:'[#' , comment_end_string:'#]'
+          #####
+          # Grab the Go environment variables
+          #####
+          eval "$(go env)"
+
+          #####
+          # Add $p/bin to the PATH for all paths p in $GOPATH.
+          #####
+
+          # Try to remove a :* substring from the end of GOPATH.  This
+          # will tell us if GOPATH is a single path or a
+          # colon-delimited list of paths.
+          dummy=${GOPATH%%:*}
+          if [ ${#GOPATH} -eq ${#dummy} ]
+          then
+              # We were _unable_ to remove a :* substring from the end
+              # of GOPATH, so it must be the case that GOPATH contains
+              # only a single path with no colon delimiter.
+              PATH=$GOPATH/bin:$PATH
+          else
+              # We were _able_ to remove a :* substring from the end
+              # of GOPATH, so it must be the case that GOPATH contains
+              # multiple paths separated by colon delimiters.
+              PATH=${GOPATH//://bin:}:$PATH
+          fi
+          unset dummy
+          export PATH
+        group: vnc
+        mode: 0644
+        owner: vnc
+        path: /home/{{ vnc_username }}/.bashrc
+
     # The kaboxer group is created via the
     # firefox-developer-edition-en-us-kbx package, and the VNC user
     # must be a member of this group to run Firefox Developer Edition.
