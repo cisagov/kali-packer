@@ -86,13 +86,13 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
-        archive_src: "https://github.com/ChrisTruncer/Egress-Assess/\
-        tarball/master"
+        # TODO: Switch to master branch after Forked branch is merged
+        # See https://github.com/cisagov/egress-assess-packer/issues/13
+        archive_src: "https://github.com/tarrell13/Egress-Assess/\
+        tarball/Forked"
         install_dir: /tools/Egress-Assess
-        pip_packages:
-          - pyftpdlib
+        pip_requirements_file: requirements.txt
         powershell: yes
-        python2: yes
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
