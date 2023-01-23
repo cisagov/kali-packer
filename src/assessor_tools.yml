@@ -407,6 +407,7 @@
           - cargo
           - cifs-utils
           - dnsutils
+          - dos2unix
           - exploitdb
           - eyewitness
           - feroxbuster
@@ -420,7 +421,10 @@
           - nfs-common
           - nikto
           - nmap
+          - php
           - powersploit
+          - python3-shodan
+          - screen
           - subfinder
           - sublist3r
           - terminator
