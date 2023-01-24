@@ -424,6 +424,7 @@
           - php
           - powersploit
           - python3-shodan
+          - python3-venv
           - screen
           - subfinder
           - sublist3r
@@ -431,6 +432,8 @@
           - testssl.sh
           - veil
           - vim
+          - whois
+          - wpscan
 
     # In order for the VNC user to make full use of Go, we need to add
     # $p/bin to the PATH for all paths p in $GOPATH.
