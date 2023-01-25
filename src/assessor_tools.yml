@@ -49,6 +49,20 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: "https://github.com/trustedsec/CS-Remote-OPs-BOF\
+        /tarball/main"
+        install_dir: /tools/CS-Remote-Ops-BOF
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: "https://github.com/trustedsec/CS-Situational-Awareness-BOF\
+        /tarball/master"
+        install_dir: /tools/CS-Situational-Awareness-BOF
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/bovine/datapipe/tarball/master
         install_dir: /tools/datapipe
         unarchive_extra_opts:
@@ -228,6 +242,14 @@
           - --strip-components=1
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/Hackndo/lsassy/tarball/master
+        install_dir: /tools/lsassy
+        pip_packages:
+          - lsassy
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/gentilkiwi/mimikatz/tarball/master
         install_dir: /tools/mimikatz
         unarchive_extra_opts:
@@ -292,6 +314,19 @@
         archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/master
         install_dir: /tools/PowerUpSQL
         powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
+        archive_src: https://github.com/skelsec/pypykatz/tarball/master
+        install_dir: /tools/pypykatz
+        pip_packages:
+          - pypykatz
+          - minidump
+          - minikerberos
+          - aiowinreg
+          - msldap
+          - winacl
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
