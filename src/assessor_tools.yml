@@ -423,6 +423,7 @@
           - nmap
           - php
           - powersploit
+          - proxychains
           - python3-shodan
           - python3-venv
           - screen
