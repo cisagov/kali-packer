@@ -535,6 +535,9 @@
         # The password for Neo4j
         password: "{{ lookup('aws_ssm', '/neo4j/password') }}"
 
+    - name: Install C2 Tool Collection
+      ansible.builtin.import_tasks: c2_tool_collection.yml
+
     - name: Install Cobalt Strike
       ansible.builtin.import_tasks: cobalt_strike.yml
 
