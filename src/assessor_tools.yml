@@ -446,6 +446,7 @@
           - exploitdb
           - eyewitness
           - feroxbuster
+          - fierce
           - firefox-developer-edition-en-us-kbx
           - flameshot
           - getallurls
@@ -466,6 +467,7 @@
           - sublist3r
           - terminator
           - testssl.sh
+          - theharvester
           - veil
           - vim
           - whois
