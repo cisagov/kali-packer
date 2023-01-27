@@ -321,11 +321,11 @@
         archive_src: https://github.com/skelsec/pypykatz/tarball/master
         install_dir: /tools/pypykatz
         pip_packages:
-          - pypykatz
+          - aiowinreg
           - minidump
           - minikerberos
-          - aiowinreg
           - msldap
+          - pypykatz
           - winacl
         unarchive_extra_opts:
           - --strip-components=1
