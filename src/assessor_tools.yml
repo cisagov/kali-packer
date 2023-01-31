@@ -13,6 +13,14 @@
   roles:
     - role: assessment_tool
       vars:
+        archive_src: https://github.com/tarrell13/Auto-Egress-Assess/tarball/main
+        install_dir: /tools/Auto-Egress-Assess
+        pip_requirements_file: requirements.txt
+        powershell: yes
+        unarchive_extra_opts:
+          - --strip-components=1
+    - role: assessment_tool
+      vars:
         archive_src: https://github.com/3ndG4me/AutoBlue-MS17-010/tarball/master
         install_dir: /tools/AutoBlue-MS17-010
         pip_requirements_file: requirements.txt
@@ -96,17 +104,6 @@
         archive_src: https://github.com/tyranid/DotNetToJScript/tarball/master
         csharp: yes
         install_dir: /tools/DotNetToJScript
-        unarchive_extra_opts:
-          - --strip-components=1
-    - role: assessment_tool
-      vars:
-        # TODO: Switch to master branch after Forked branch is merged
-        # See https://github.com/cisagov/kali-packer/issues/139
-        archive_src: "https://github.com/tarrell13/Egress-Assess/\
-        tarball/Forked"
-        install_dir: /tools/Egress-Assess
-        pip_requirements_file: requirements.txt
-        powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
     - role: assessment_tool
