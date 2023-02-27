@@ -4,12 +4,12 @@
   become: yes
   become_method: sudo
   tasks:
-    - name: Install pip3
-      ansible.builtin.include_role:
-        name: pip
     - name: Install Python 3
       ansible.builtin.include_role:
         name: python
+    - name: Install pip3
+      ansible.builtin.include_role:
+        name: pip
     - name: Uninstall Python 2
       ansible.builtin.include_role:
         name: remove_python2
