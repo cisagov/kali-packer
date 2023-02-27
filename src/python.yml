@@ -4,6 +4,10 @@
   become: yes
   become_method: sudo
   tasks:
+    # If pip were to be installed first, then the OS _could_ pull
+    # different Python packages than what would be installed via the
+    # cisagov/ansible-role-python role; hence, the ordering below is
+    # more controlled.
     - name: Install Python 3
       ansible.builtin.include_role:
         name: python
