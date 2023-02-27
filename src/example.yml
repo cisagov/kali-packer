@@ -3,5 +3,7 @@
   name: Project-specific roles
   become: yes
   become_method: sudo
-  roles:
-    - example
+  tasks:
+    - name: Install cisagov/example
+      ansible.builtin.include_role:
+        name: example

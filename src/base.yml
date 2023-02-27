@@ -3,9 +3,19 @@
   name: Setup base image
   become: yes
   become_method: sudo
-  roles:
-    - automated_security_updates
-    - banner
-    - clamav
-    - htop
-    - persist_journald
+  tasks:
+    - name: Install and configure automated security updates
+      ansible.builtin.include_role:
+        name: automated_security_updates
+    - name: Install and configure login banner
+      ansible.builtin.include_role:
+        name: banner
+    - name: Install and configure ClamAV
+      ansible.builtin.include_role:
+        name: clamav
+    - name: Install and configure htop
+      ansible.builtin.include_role:
+        name: htop
+    - name: Configure JournalD to preserve logs across reboots
+      ansible.builtin.include_role:
+        name: persist_journald
