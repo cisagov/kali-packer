@@ -77,7 +77,7 @@ jobs:
       #     echo $COPY_REGIONS_KMS_MAP | \
       #       ./patch_packer_config.py src/packer.pkr.hcl
       - name: Assume AWS build role
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
