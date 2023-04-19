@@ -16,8 +16,8 @@ module "iam_user" {
     "/gitlab/personal_authorization_token",
     "/neo4j/password",
     "/vnc/password",
-    "/vnc/ssh/rsa_private_key",
-    "/vnc/ssh/rsa_public_key",
+    "/vnc/ssh/ed25519_private_key",
+    "/vnc/ssh/ed25519_public_key",
     "/vnc/username",
   ]
   user_name = "build-kali-packer"
