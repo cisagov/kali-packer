@@ -51,5 +51,6 @@
   name: visual_studio_code
 - src: https://github.com/cisagov/ansible-role-vnc-server
   name: vnc
+  version: improvement/update-name-of-ssh-key-files
 - src: https://github.com/cisagov/ansible-role-xfce-cool
   name: xfce_cool
