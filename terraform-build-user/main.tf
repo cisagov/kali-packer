@@ -13,13 +13,11 @@ module "iam_user" {
   # duration to 2 hours.
   ec2amicreate_role_max_session_duration = 2 * 60 * 60
   ssm_parameters = [
-    "/cyhy/dev/users",
     "/gitlab/personal_authorization_token",
     "/neo4j/password",
-    "/ssh/public_keys/*",
     "/vnc/password",
-    "/vnc/ssh/rsa_private_key",
-    "/vnc/ssh/rsa_public_key",
+    "/vnc/ssh/ed25519_private_key",
+    "/vnc/ssh/ed25519_public_key",
     "/vnc/username",
   ]
   user_name = "build-kali-packer"

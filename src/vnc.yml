@@ -8,8 +8,8 @@
       vars:
         # The user information and ssh keys for the VNC user
         password: "{{ lookup('aws_ssm', '/vnc/password') }}"
-        private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_private_key') }}"
-        public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/rsa_public_key') }}"
+        private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/ed25519_private_key') }}"
+        public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/ed25519_public_key') }}"
         user_groups:
           # Note that this means that the aws.yml playbook _must_ run
           # before this one, so that the efs_users group has been
