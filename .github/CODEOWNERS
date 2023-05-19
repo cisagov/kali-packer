@@ -3,11 +3,11 @@
 # These owners will be the default owners for everything in the
 # repo. Unless a later match takes precedence, these owners will be
 # requested for review when someone opens a pull request.
-* @dav3r @felddy @jsf9k @mcdonnnj
+* @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
 
 # These folks own any files in the .github directory at the root of
 # the repository and any of its subdirectories.
-/.github/ @dav3r @felddy @jsf9k @mcdonnnj
+/.github/ @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
 
 # Let jsf9k own the sometimes-touchy AWS and Python playbooks, as well
 # as the packer.pkr.hcl file.
