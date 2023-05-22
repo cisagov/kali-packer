@@ -3,5 +3,9 @@
   name: Project-specific roles
   become: yes
   become_method: sudo
-  roles:
-    - example
+  tasks:
+    # The cisagov/ansible-role-example Ansible role is just a no-op,
+    # but we include it here as an example/placeholder.
+    - name: Apply the cisagov/ansible-role-example role
+      ansible.builtin.include_role:
+        name: example
