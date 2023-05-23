@@ -3,8 +3,10 @@
   name: Install VNC
   become: yes
   become_method: sudo
-  roles:
-    - role: vnc
+  tasks:
+    - name: Install VNC
+      ansible.builtin.include_role:
+        name: vnc
       vars:
         # The user information and ssh keys for the VNC user
         password: "{{ lookup('aws_ssm', '/vnc/password') }}"

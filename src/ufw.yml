@@ -1,16 +1,12 @@
 ---
 - hosts: all
-  name: Install ufw
-  become: yes
-  become_method: sudo
-  roles:
-    - ufw
-
-- hosts: all
-  name: Basic configuration for UFW
+  name: Install and configure UFW
   become: yes
   become_method: sudo
   tasks:
+    - name: Install UFW
+      ansible.builtin.include_role:
+        name: ufw
     - name: Allow incoming traffic through specified TCP ports
       community.general.ufw:
         proto: tcp

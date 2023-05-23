@@ -10,8 +10,10 @@
     # VNC user is in this group.
     group: kali-trusted
     vnc_username: "{{ lookup('aws_ssm', '/vnc/username') }}"
-  roles:
-    - role: assessment_tool
+  tasks:
+    - name: Install tarrell13/AutoEgressAssess
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/tarrell13/Auto-Egress-Assess/tarball/main
         install_dir: /tools/Auto-Egress-Assess
@@ -19,26 +21,38 @@
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install 3ndG4me/AutoBlue-MS17-010
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/3ndG4me/AutoBlue-MS17-010/tarball/master
         install_dir: /tools/AutoBlue-MS17-010
         pip_requirements_file: requirements.txt
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install C-Sto/BananaPhone
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/C-Sto/BananaPhone/tarball/master
         install_dir: /tools/BananaPhone
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install ajpc500/BOFs
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/ajpc500/BOFs/tarball/main
         install_dir: /tools/BOFs
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install mdsecactivebreach/CACTUSTORCH
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/mdsecactivebreach/CACTUSTORCH/\
         tarball/master"
@@ -46,7 +60,10 @@
         install_dir: /tools/CACTUSTORCH
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install Techno-Hwizrdry/checkpwnedemails
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/Techno-Hwizrdry/checkpwnedemails/\
         tarball/master"
@@ -55,41 +72,59 @@
           - requests
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install trustedsec/CS-Remote-OPs-BOF
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/trustedsec/CS-Remote-OPs-BOF\
         /tarball/main"
         install_dir: /tools/CS-Remote-Ops-BOF
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install trustedsec/CS-Situational-Awareness-BOF
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/trustedsec/CS-Situational-Awareness-BOF\
         /tarball/master"
         install_dir: /tools/CS-Situational-Awareness-BOF
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install bovine/datapipe
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/bovine/datapipe/tarball/master
         install_dir: /tools/datapipe
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install nccgroup/demiguise
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/nccgroup/demiguise/tarball/master
         install_dir: /tools/demiguise
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install maurosoria/dirsearch
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/maurosoria/dirsearch/tarball/master
         install_dir: /tools/dirsearch
         pip_requirements_file: requirements.txt
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install sixdub/DomainTrustExplorer
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/sixdub/DomainTrustExplorer/\
         tarball/master"
@@ -99,90 +134,129 @@
           - networkx
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install tyranid/DotNetToJScript
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/tyranid/DotNetToJScript/tarball/master
         csharp: yes
         install_dir: /tools/DotNetToJScript
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install MacR6/ftpenum
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/MacR6/ftpenum/tarball/master
         install_dir: /tools/ftpenum
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/Lockless
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/Lockless/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/Lockless
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/Rubeus
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/Rubeus/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/Rubeus
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/Seatbelt
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/Seatbelt/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/Seatbelt
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/SafetyKatz
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SafetyKatz/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SafetyKatz
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/SharpDPAPI
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpDPAPI/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpDPAPI
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/SharpDump
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpDump/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpDump
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/SharpRoast
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpRoast/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpRoast
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/SharpUp
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpUp/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpUp
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install GhostPack/SharpWMI
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/GhostPack/SharpWMI/tarball/master
         csharp: yes
         install_dir: /tools/GhostPack/SharpWMI
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install ChrisTruncer/gnmap-parser
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/ChrisTruncer/gnmap-parser/tarball/master
         install_dir: /tools/gnmap-parser
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install FortyNorthSecurity/Hasher
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/FortyNorthSecurity/Hasher/tarball/master
         install_dir: /tools/Hasher
@@ -190,7 +264,10 @@
           - .
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install HarmJ0y/ImpDump
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/HarmJ0y/ImpDump/tarball/master
         install_dir: /tools/ImpDump
@@ -200,7 +277,10 @@
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install eladshamir/Internal-Monologue
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/eladshamir/Internal-Monologue/\
         tarball/master"
@@ -208,7 +288,10 @@
         install_dir: /tools/Internal-Monologue
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install HarmJ0y/KeeThief
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/HarmJ0y/KeeThief/tarball/master
         csharp: yes
@@ -216,7 +299,10 @@
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install xan7r/kerberoast
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/xan7r/kerberoast/tarball/master
         install_dir: /tools/kerberoast
@@ -227,7 +313,10 @@
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install Hackndo/lsassy
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/Hackndo/lsassy/tarball/master
         install_dir: /tools/lsassy
@@ -235,26 +324,38 @@
           - .
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install gentilkiwi/mimikatz
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/gentilkiwi/mimikatz/tarball/master
         install_dir: /tools/mimikatz
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install ChrisTruncer/mikto
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/ChrisTruncer/mikto/tarball/master
         install_dir: /tools/mikto
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install xan7r/Misc
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/xan7r/Misc/tarball/master
         install_dir: /tools/Misc
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install fox-it/mitm6
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/fox-it/mitm6/tarball/master
         install_dir: /tools/mitm6
@@ -262,14 +363,20 @@
           - .
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install vysecurity/morphHTA
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/vysecurity/morphHTA/tarball/master
         install_dir: /tools/morphHTA
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install worawit/MS17-010
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/worawit/MS17-010/tarball/master
         install_dir: /tools/MS17-010
@@ -277,7 +384,10 @@
           - impacket
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install noahpowers/nlzr
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/noahpowers/nlzr/tarball/master
         install_dir: /tools/nlzr
@@ -288,7 +398,10 @@
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install PowerShellEmpire/PowerTools
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/PowerShellEmpire/PowerTools/\
         tarball/master"
@@ -296,14 +409,20 @@
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install NetSPI/PowerUpSQL
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/master
         install_dir: /tools/PowerUpSQL
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install skelsec/pypykatz
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/skelsec/pypykatz/tarball/master
         install_dir: /tools/pypykatz
@@ -311,34 +430,49 @@
           - .
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install xorrior/RandomPS-Scripts
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/xorrior/RandomPS-Scripts/tarball/master
         install_dir: /tools/RandomPS-Scripts
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install resyncgg/ripgen
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/resyncgg/ripgen/tarball/main
         install_dir: /tools/ripgen
         rust: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install danielmiessler/SecLists
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/danielmiessler/SecLists/tarball/master
         install_dir: /tools/SecLists
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install Arvanaghi/SessionGopher
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
         install_dir: /tools/SessionGopher
         powershell: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install mubix/shellshocker-pocs
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/mubix/shellshocker-pocs/tarball/master
         install_dir: /tools/shellshocker-pocs
@@ -347,7 +481,10 @@
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install SimplySecurity/SimplyEmail
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/SimplySecurity/SimplyEmail/\
         tarball/master"
@@ -358,7 +495,10 @@
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install SimplySecurity/SimplyTemplate
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/SimplySecurity/SimplyTemplate/\
         tarball/master"
@@ -371,7 +511,10 @@
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install sqlmapproject/sqlmap
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: "https://github.com/sqlmapproject/sqlmap/\
         tarball/master"
@@ -381,7 +524,10 @@
           - pip
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install MacR6/sshenum
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/MacR6/sshenum/tarball/master
         install_dir: /tools/sshenum
@@ -390,21 +536,30 @@
         python2: yes
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install rasta-mouse/TikiTorch
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
         csharp: yes
         install_dir: /tools/TikiTorch
         unarchive_extra_opts:
           - --strip-components=1
-    - role: assessment_tool
+
+    - name: Install tomnomnom/waybackurls
+      ansible.builtin.include_role:
+        name: assessment_tool
       vars:
         archive_src: https://github.com/tomnomnom/waybackurls/tarball/master
         go: yes
         install_dir: /tools/waybackurls
         unarchive_extra_opts:
           - --strip-components=1
-    - role: burp_suite_pro
+
+    - name: Install Burp Suite Pro
+      ansible.builtin.include_role:
+        name: burp_suite_pro
       vars:
         # The name of the AWS S3 bucket where third-party software is
         # located
@@ -412,11 +567,19 @@
         # License Burp Suite Pro for the VNC user
         users:
           - "{{ vnc_username }}"
-    - role: metasploit
-    - role: server_setup
-    - role: visual_studio_code
 
-  tasks:
+    - name: Install Metasploit
+      ansible.builtin.include_role:
+        name: metasploit
+
+    - name: Install Server Setup
+      ansible.builtin.include_role:
+        name: server_setup
+
+    - name: Install Visual Studio Code
+      ansible.builtin.include_role:
+        name: visual_studio_code
+
     - name: Install system packages for tools where possible
       ansible.builtin.package:
         name:
