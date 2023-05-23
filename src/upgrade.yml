@@ -4,6 +4,6 @@
   become: yes
   become_method: sudo
   tasks:
-    - name: Upgrade
-      ansible.builtin.import_role:
+    - name: Upgrade all packages
+      ansible.builtin.include_role:
         name: upgrade

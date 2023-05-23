@@ -3,7 +3,17 @@
   name: Install pip3/python3 and remove pip2/python2
   become: yes
   become_method: sudo
-  roles:
-    - pip
-    - python
-    - remove_python2
+  tasks:
+    # If pip were to be installed first, then the OS _could_ pull
+    # different Python packages than what would be installed via the
+    # cisagov/ansible-role-python role; hence, the ordering below is
+    # more controlled.
+    - name: Install Python 3
+      ansible.builtin.include_role:
+        name: python
+    - name: Install pip3
+      ansible.builtin.include_role:
+        name: pip
+    - name: Uninstall Python 2
+      ansible.builtin.include_role:
+        name: remove_python2

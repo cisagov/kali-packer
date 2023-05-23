@@ -3,16 +3,26 @@
   name: AWS-specific roles
   become: yes
   become_method: sudo
-  roles:
-    - role: amazon_efs_utils
+  tasks:
+    - name: Install Amazon EFS utilities
+      ansible.builtin.include_role:
+        name: amazon_efs_utils
       vars:
         # Note that we use the same GID for the efs_users group on all
         # instances.  This helps us avoid UID/GID collisions with
         # files written to the EFS share.
         efs_users_gid: 2048
-    - amazon_ssm_agent
-    - chrony_aws
-    - cloudwatch_agent
+    - name: Install Amazon SSM Agent
+      ansible.builtin.include_role:
+        name: amazon_ssm_agent
+    - name: Install chrony and configure it for use within AWS
+      ansible.builtin.include_role:
+        name: chrony_aws
+    - name: Install and configure Amazon CloudWatch Agent
+      ansible.builtin.include_role:
+        name: cloudwatch_agent
     # The instance types used for almost all the instances expose EBS
     # volumes as NVMe block devices, so that's why we need nvme here.
-    - nvme
+    - name: Install prerequisites for working with NVMe block devices
+      ansible.builtin.include_role:
+        name: nvme
