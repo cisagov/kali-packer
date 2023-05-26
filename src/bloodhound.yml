@@ -7,7 +7,7 @@
     # TODO: This block can be removed once we upgrade to Neo4j version
     # 5, as discussed in #136.
     - name: Install OpenJDK 11
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: openjdk
 
     # The version of Neo4j available by default in Kali does not
@@ -94,7 +94,7 @@
         global: yes
         name: electron-packager
     - name: Download BloodHound tool from GitHub
-      ansible.builtin.import_role:
+      ansible.builtin.include_role:
         name: assessment_tool
       vars:
         archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
@@ -130,7 +130,7 @@
         NODE_OPTIONS: --openssl-legacy-provider
 
 - name: Install Python ingestor for BloodHound
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: https://github.com/fox-it/BloodHound.py/tarball/master

@@ -3,7 +3,7 @@
 # is no longer supported, but it mixes spaces and tabs in its Python
 # source code, so we need to run autopep8 on it.
 - name: Install SharpShooter
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     vars:

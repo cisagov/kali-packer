@@ -1,6 +1,6 @@
 ---
 - name: Install C2 Tool Collection
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: https://github.com/outflanknl/C2-Tool-Collection/tarball/main
