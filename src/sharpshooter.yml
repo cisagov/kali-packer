@@ -6,7 +6,6 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    vars:
     archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
     tarball/master"
     csharp: yes
