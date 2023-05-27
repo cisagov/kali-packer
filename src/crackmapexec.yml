@@ -9,7 +9,7 @@
       - libkrb5-dev
 
 - name: Install CrackMapExec
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: >

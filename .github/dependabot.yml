@@ -19,6 +19,8 @@ updates:
       - dependency-name: actions/setup-python
       - dependency-name: hashicorp/setup-terraform
       - dependency-name: mxschmitt/action-tmate
+      # Managed by cisagov/skeleton-packer
+      - dependency-name: aws-actions/configure-aws-credentials
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -29,6 +31,7 @@ updates:
     directory: "/terraform-build-user"
     schedule:
       interval: "weekly"
+    # Managed by cisagov/skeleton-packer
     ignore:
       - dependency-name: "hashicorp/aws"
 
@@ -36,5 +39,6 @@ updates:
     directory: "/terraform-post-packer"
     schedule:
       interval: "weekly"
+    # Managed by cisagov/skeleton-packer
     ignore:
       - dependency-name: "hashicorp/aws"

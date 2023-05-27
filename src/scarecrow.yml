@@ -6,7 +6,7 @@
       - osslsigncode
 
 - name: Install ScareCrow
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: https://github.com/optiv/ScareCrow/tarball/main

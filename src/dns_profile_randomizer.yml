@@ -11,7 +11,7 @@
       region='us-east-1') }}"
 
 - name: Install dns-profile-randomizer
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: /tmp/dns-profile-randomizer.tar.gz

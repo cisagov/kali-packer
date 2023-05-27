@@ -3,8 +3,10 @@
   name: Install Xfce
   become: yes
   become_method: sudo
-  roles:
-    - role: xfce_cool
+  tasks:
+    - name: Install Xfce for the COOL
+      ansible.builtin.include_role:
+        name: xfce_cool
       vars:
         # The users for whom a symlink to the COOL file share should
         # be created

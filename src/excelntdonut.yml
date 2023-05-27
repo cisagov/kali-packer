@@ -1,6 +1,6 @@
 ---
 - name: Install EXCELntDonut
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: "https://github.com/FortyNorthSecurity/EXCELntDonut/\

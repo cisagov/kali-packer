@@ -7,7 +7,7 @@
       - libncurses6
 
 - name: Install Responder
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: https://github.com/lgandx/Responder/tarball/master

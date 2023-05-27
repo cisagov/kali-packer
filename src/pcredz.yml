@@ -8,7 +8,7 @@
     name:
       - libpcap-dev
 - name: Create venv and install Cython
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     install_dir: /tools/PCredz
@@ -17,7 +17,7 @@
     unarchive_extra_opts:
       - --strip-components=1
 - name: Install PCredz
-  ansible.builtin.import_role:
+  ansible.builtin.include_role:
     name: assessment_tool
   vars:
     archive_src: https://github.com/lgandx/PCredz/tarball/master
