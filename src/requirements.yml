@@ -19,6 +19,7 @@
   src: https://github.com/cisagov/ansible-role-clamav
 - name: cloudwatch_agent
   src: https://github.com/cisagov/ansible-role-cloudwatch-agent
+  version: improvement/delay-start-until-after-hostname-is-set
 - name: cobalt_strike
   src: https://github.com/cisagov/ansible-role-cobalt-strike
 - name: docker
