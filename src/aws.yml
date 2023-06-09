@@ -2,7 +2,7 @@
 - hosts: all
   name: AWS-specific roles
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     - name: Install Amazon EFS utilities
       ansible.builtin.include_role:
