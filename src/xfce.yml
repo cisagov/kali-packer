@@ -2,7 +2,7 @@
 - hosts: all
   name: Install Xfce
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     - name: Install Xfce for the COOL
       ansible.builtin.include_role:

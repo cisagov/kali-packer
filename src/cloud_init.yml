@@ -5,7 +5,7 @@
 - hosts: all
   name: Enable all cloud-init services
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     - name: Enable all cloud-init services
       ansible.builtin.service:

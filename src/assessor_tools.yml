@@ -4,7 +4,7 @@
 - hosts: all
   name: Install assessment tools
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   vars:
     # The group that should own the tools installed to /target.  The
     # VNC user is in this group.

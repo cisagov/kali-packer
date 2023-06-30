@@ -4,7 +4,7 @@
 - hosts: all
   name: Add growroot dependency to initramfs
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     - name: Add flock to initramfs
       ansible.builtin.lineinfile:
