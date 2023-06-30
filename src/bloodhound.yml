@@ -97,9 +97,9 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
-        install_dir: /tools/BloodHound
-        unarchive_extra_opts:
+        assessment_tool_archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
+        assessment_tool_install_dir: /tools/BloodHound
+        assessment_tool_unarchive_extra_opts:
           - --strip-components=1
     # Kali uses a very new version of npm, which now generates errors
     # as described here:
@@ -133,9 +133,9 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/fox-it/BloodHound.py/tarball/master
-    install_dir: /tools/BloodHound.py
-    pip_packages:
+    assessment_tool_archive_src: https://github.com/fox-it/BloodHound.py/tarball/master
+    assessment_tool_install_dir: /tools/BloodHound.py
+    assessment_tool_pip_packages:
       - .
-    unarchive_extra_opts:
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1

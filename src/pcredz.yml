@@ -11,18 +11,18 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    install_dir: /tools/PCredz
-    pip_packages:
+    assessment_tool_install_dir: /tools/PCredz
+    assessment_tool_pip_packages:
       - Cython
-    unarchive_extra_opts:
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1
 - name: Install PCredz
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/lgandx/PCredz/tarball/master
-    install_dir: /tools/PCredz
-    pip_packages:
+    assessment_tool_archive_src: https://github.com/lgandx/PCredz/tarball/master
+    assessment_tool_install_dir: /tools/PCredz
+    assessment_tool_pip_packages:
       - python-libpcap
-    unarchive_extra_opts:
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1

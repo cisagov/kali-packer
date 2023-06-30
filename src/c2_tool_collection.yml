@@ -3,9 +3,9 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/outflanknl/C2-Tool-Collection/tarball/main
-    install_dir: /tools/C2-Tool-Collection
-    unarchive_extra_opts:
+    assessment_tool_archive_src: https://github.com/outflanknl/C2-Tool-Collection/tarball/main
+    assessment_tool_install_dir: /tools/C2-Tool-Collection
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1
 
 - name: Build Beacon Object Files

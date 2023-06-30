@@ -11,7 +11,7 @@
         # Note that we use the same GID for the efs_users group on all
         # instances.  This helps us avoid UID/GID collisions with
         # files written to the EFS share.
-        efs_users_gid: 2048
+        amazon_efs_utils_efs_users_gid: 2048
     - name: Install Amazon SSM Agent
       ansible.builtin.include_role:
         name: amazon_ssm_agent

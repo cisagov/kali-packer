@@ -10,5 +10,5 @@
       vars:
         # The users for whom a symlink to the COOL file share should
         # be created
-        usernames:
+        xfce_cool_usernames:
           - "{{ lookup('aws_ssm', '/vnc/username') }}"

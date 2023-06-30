@@ -9,8 +9,8 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/optiv/ScareCrow/tarball/main
-    go: yes
-    install_dir: /tools/ScareCrow
-    unarchive_extra_opts:
+    assessment_tool_archive_src: https://github.com/optiv/ScareCrow/tarball/main
+    assessment_tool_go: yes
+    assessment_tool_install_dir: /tools/ScareCrow
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1
