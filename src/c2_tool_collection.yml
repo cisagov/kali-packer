@@ -9,5 +9,5 @@
       - --strip-components=1
 
 - name: Build Beacon Object Files
-  ansible.builtin.make:
+  community.general.make:
     chdir: /tools/C2-Tool-Collection/BOF

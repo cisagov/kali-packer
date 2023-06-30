@@ -11,7 +11,7 @@
       - --strip-components=1
 
 - name: Build Donut
-  ansible.builtin.make:
+  community.general.make:
     chdir: /tools/donut
 
 - name: Create venv and build Donut Python extension
