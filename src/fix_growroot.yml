@@ -16,3 +16,6 @@
     - name: Regenerate initramfs
       ansible.builtin.command:
         cmd: /usr/sbin/update-initramfs -u -v
+      changed_when: update_initramfs.rc == 0
+      failed_when: update_initramfs.rc != 0
+      register: update_initramfs

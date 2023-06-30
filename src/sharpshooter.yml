@@ -32,3 +32,6 @@
       - --in-place
       - .
     chdir: /tools/SharpShooter
+  changed_when: autopep8.rc == 0
+  failed_when: autopep8.rc != 0
+  register: autopep8
