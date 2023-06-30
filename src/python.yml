@@ -2,7 +2,7 @@
 - hosts: all
   name: Install pip3/python3 and remove pip2/python2
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     # If pip were to be installed first, then the OS _could_ pull
     # different Python packages than what would be installed via the
