@@ -6,13 +6,15 @@
   tasks:
     - name: Install VNC
       ansible.builtin.include_role:
-        name: vnc
+        name: vnc_server
       vars:
         # The user information and ssh keys for the VNC user
-        vnc_password: "{{ lookup('aws_ssm', '/vnc/password') }}"
-        vnc_private_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/ed25519_private_key') }}"
-        vnc_public_ssh_key: "{{ lookup('aws_ssm', '/vnc/ssh/ed25519_public_key') }}"
-        vnc_user_groups:
+        vnc_server_password: "{{ lookup('aws_ssm', '/vnc/password') }}"
+        vnc_server_private_ssh_key: |-
+          {{ lookup('aws_ssm', '/vnc/ssh/ed25519_private_key') }}
+        vnc_server_public_ssh_key: |-
+          {{ lookup('aws_ssm', '/vnc/ssh/ed25519_public_key') }}
+        vnc_server_user_groups:
           # Note that this means that the aws.yml playbook _must_ run
           # before this one, so that the efs_users group has been
           # created.
@@ -21,5 +23,5 @@
         # Note that we use the same UID for the VNC and Samba guest
         # users on all instances.  This helps us avoid UID/GID
         # collisions with files written to the EFS share.
-        vnc_user_uid: 2048
-        vnc_username: "{{ lookup('aws_ssm', '/vnc/username') }}"
+        vnc_server_user_uid: 2048
+        vnc_server_username: "{{ lookup('aws_ssm', '/vnc/username') }}"

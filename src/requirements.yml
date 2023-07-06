@@ -51,7 +51,7 @@ roles:
     src: https://github.com/cisagov/ansible-role-upgrade
   - name: visual_studio_code
     src: gantsign.visual-studio-code
-  - name: vnc
+  - name: vnc_server
     src: https://github.com/cisagov/ansible-role-vnc-server
   - name: xfce_cool
     src: https://github.com/cisagov/ansible-role-xfce-cool
