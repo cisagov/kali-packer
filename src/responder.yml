@@ -10,9 +10,9 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/lgandx/Responder/tarball/master
-    install_dir: /tools/Responder
-    pip_packages:
+    assessment_tool_archive_src: https://github.com/lgandx/Responder/tarball/master
+    assessment_tool_install_dir: /tools/Responder
+    assessment_tool_pip_packages:
       - dnspython
       - impacket
       - ldap3
@@ -21,5 +21,5 @@
       - pycryptodomex
       - readline
       - six
-    unarchive_extra_opts:
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1

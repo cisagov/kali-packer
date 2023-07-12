@@ -2,7 +2,7 @@
 - hosts: all
   name: Setup base image
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     # The assessments folks specifically asked us _not_ to patch the
     # Kali instances while they are running.

@@ -59,8 +59,10 @@
             cmd: >
               /usr/bin/neo4j-admin
               set-initial-password {{ password }}
-          changed_when: false
+          changed_when: set_initial_password.rc == 0
+          failed_when: set_initial_password.rc != 0
           no_log: true
+          register: set_initial_password
           when:
             - installed_neo4j_version is version("1!5.0", "<", version_type="pep440")
 
@@ -69,8 +71,10 @@
             cmd: >
               /usr/bin/neo4j-admin dbms
               set-initial-password {{ password }}
-          changed_when: false
+          changed_when: set_initial_password.rc == 0
+          failed_when: set_initial_password.rc != 0
           no_log: true
+          register: set_initial_password
           when:
             - installed_neo4j_version is version("1!5.0", ">=", version_type="pep440")
 
@@ -97,9 +101,9 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
-        install_dir: /tools/BloodHound
-        unarchive_extra_opts:
+        assessment_tool_archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
+        assessment_tool_install_dir: /tools/BloodHound
+        assessment_tool_unarchive_extra_opts:
           - --strip-components=1
     # Kali uses a very new version of npm, which now generates errors
     # as described here:
@@ -118,24 +122,30 @@
       ansible.builtin.command:
         chdir: /tools/BloodHound
         cmd: npm ci --legacy-peer-deps
+      changed_when: npm_ci.rc == 0
+      failed_when: npm_ci.rc != 0
+      register: npm_ci
     - name: Build BloodHound
       ansible.builtin.command:
         chdir: /tools/BloodHound
         cmd: npm run build:linux
+      changed_when: npm_run.rc == 0
       environment:
         # This is necessary to avoid errors caused by the fact that
         # the BloodHound build process uses some now-disallowed (as of
         # OpenSSL 3.0) encryption functions.  This is again because
         # Kali is running a very new version of Node.
         NODE_OPTIONS: --openssl-legacy-provider
+      failed_when: npm_run.rc != 0
+      register: npm_run
 
 - name: Install Python ingestor for BloodHound
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: https://github.com/fox-it/BloodHound.py/tarball/master
-    install_dir: /tools/BloodHound.py
-    pip_packages:
+    assessment_tool_archive_src: https://github.com/fox-it/BloodHound.py/tarball/master
+    assessment_tool_install_dir: /tools/BloodHound.py
+    assessment_tool_pip_packages:
       - .
-    unarchive_extra_opts:
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1

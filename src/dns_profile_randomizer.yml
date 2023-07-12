@@ -3,19 +3,20 @@
 # hence must be downloaded using a GitLab access token.
 - name: Download the dns-profile-randomizer archive
   ansible.builtin.get_url:
-    url: https://gitlab.com/api/v4/projects/8989548/repository/archive
     dest: /tmp/dns-profile-randomizer.tar.gz
     headers:
       Authorization: "Bearer {{ lookup('aws_ssm', \
       '/gitlab/personal_authorization_token', \
       region='us-east-1') }}"
+    mode: 0644
+    url: https://gitlab.com/api/v4/projects/8989548/repository/archive
 
 - name: Install dns-profile-randomizer
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: /tmp/dns-profile-randomizer.tar.gz
-    install_dir: /tools/dns-profile-randomizer
-    pip_requirements_file: requirements.txt
-    unarchive_extra_opts:
+    assessment_tool_archive_src: /tmp/dns-profile-randomizer.tar.gz
+    assessment_tool_install_dir: /tools/dns-profile-randomizer
+    assessment_tool_pip_requirements_file: requirements.txt
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1

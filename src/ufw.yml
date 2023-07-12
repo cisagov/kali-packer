@@ -2,7 +2,7 @@
 - hosts: all
   name: Install and configure UFW
   become: yes
-  become_method: sudo
+  become_method: ansible.builtin.sudo
   tasks:
     - name: Install UFW
       ansible.builtin.include_role:

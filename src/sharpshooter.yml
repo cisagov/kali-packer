@@ -6,13 +6,13 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
+    assessment_tool_archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
     tarball/master"
-    csharp: yes
-    install_dir: /tools/SharpShooter
-    pip_requirements_file: requirements.txt
-    python2: yes
-    unarchive_extra_opts:
+    assessment_tool_csharp: yes
+    assessment_tool_install_dir: /tools/SharpShooter
+    assessment_tool_pip_requirements_file: requirements.txt
+    assessment_tool_python2: yes
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1
 
 - name: Install python3-autopep8
@@ -32,3 +32,6 @@
       - --in-place
       - .
     chdir: /tools/SharpShooter
+  changed_when: autopep8.rc == 0
+  failed_when: autopep8.rc != 0
+  register: autopep8

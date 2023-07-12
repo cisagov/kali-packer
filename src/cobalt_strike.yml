@@ -8,7 +8,7 @@
   ansible.builtin.include_role:
     name: cobalt_strike
   vars:
-    bucket_name: "{{ build_bucket }}"
+    cobalt_strike_bucket_name: "{{ build_bucket }}"
 
 - name: Install some Cobalt Strike addons
   block:
@@ -16,21 +16,21 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        archive_src: "https://github.com/killswitch-GUI/CobaltStrike-Toolkit/\
-        tarball/master"
-        install_dir: /tools/CobaltStrike-Toolkit
-        powershell: yes
+        assessment_tool_archive_src: "https://github.com/killswitch-GUI/\
+        CobaltStrike-Toolkit/tarball/master"
+        assessment_tool_install_dir: /tools/CobaltStrike-Toolkit
+        assessment_tool_powershell: yes
     - name: Install Malleable-C2-Profiles
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        archive_src: "https://github.com/rsmudge/Malleable-C2-Profiles/\
-        tarball/master"
-        install_dir: /tools/Malleable-C2-Profiles
+        assessment_tool_archive_src: "https://github.com/rsmudge/\
+        Malleable-C2-Profiles/tarball/master"
+        assessment_tool_install_dir: /tools/Malleable-C2-Profiles
     - name: Install Malleable-C2-Randomizer
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        archive_src: "https://github.com/bluscreenofjeff/\
-        Malleable-C2-Randomizer/tarball/master"
-        install_dir: /tools/Malleable-C2-Randomizer
+        assessment_tool_archive_src: "https://github.com/\
+        bluscreenofjeff/Malleable-C2-Randomizer/tarball/master"
+        assessment_tool_install_dir: /tools/Malleable-C2-Randomizer

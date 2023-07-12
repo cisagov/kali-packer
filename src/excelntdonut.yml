@@ -3,13 +3,13 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    archive_src: "https://github.com/FortyNorthSecurity/EXCELntDonut/\
-    tarball/master"
-    csharp: yes
-    install_dir: /tools/EXCELntDonut
-    pip_packages:
+    assessment_tool_archive_src: "https://github.com/FortyNorthSecurity/\
+    EXCELntDonut/tarball/master"
+    assessment_tool_csharp: yes
+    assessment_tool_install_dir: /tools/EXCELntDonut
+    assessment_tool_pip_packages:
       - .
-    unarchive_extra_opts:
+    assessment_tool_unarchive_extra_opts:
       - --strip-components=1
 
 # EXCELntDonut has a janky dependency on Accenture/CLRvoyance.  The

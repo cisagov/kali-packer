@@ -1,53 +1,56 @@
 ---
-- name: amazon_efs_utils
-  src: https://github.com/cisagov/ansible-role-amazon-efs-utils
-- name: amazon_ssm_agent
-  src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
-- name: assessment_tool
-  src: https://github.com/cisagov/ansible-role-assessment-tool
-# The assessments folks specifically asked us _not_ to patch the Kali
-# instances while they are running.
-# - name: automated_security_updates
-#   src: https://github.com/cisagov/ansible-role-automated-security-updates
-- name: banner
-  src: https://github.com/cisagov/ansible-role-banner
-- name: burp_suite_pro
-  src: https://github.com/cisagov/ansible-role-burp-suite-pro
-- name: chrony_aws
-  src: https://github.com/cisagov/ansible-role-chrony-aws
-- name: clamav
-  src: https://github.com/cisagov/ansible-role-clamav
-- name: cloudwatch_agent
-  src: https://github.com/cisagov/ansible-role-cloudwatch-agent
-- name: cobalt_strike
-  src: https://github.com/cisagov/ansible-role-cobalt-strike
-- name: docker
-  src: https://github.com/cisagov/ansible-role-docker
-- name: htop
-  src: https://github.com/cisagov/ansible-role-htop
-- name: metasploit
-  src: https://github.com/cisagov/ansible-role-metasploit
-- name: nvme
-  src: https://github.com/cisagov/ansible-role-nvme
-- name: openjdk
-  src: https://github.com/cisagov/ansible-role-openjdk
-- name: persist_journald
-  src: https://github.com/cisagov/ansible-role-persist-journald
-- name: pip
-  src: https://github.com/cisagov/ansible-role-pip
-- name: python
-  src: https://github.com/cisagov/ansible-role-python
-- name: remove_python2
-  src: https://github.com/cisagov/ansible-role-remove-python2
-- name: server_setup
-  src: https://github.com/cisagov/ansible-role-server-setup
-- name: ufw
-  src: https://github.com/cisagov/ansible-role-ufw
-- name: upgrade
-  src: https://github.com/cisagov/ansible-role-upgrade
-- name: visual_studio_code
-  src: gantsign.visual-studio-code
-- name: vnc
-  src: https://github.com/cisagov/ansible-role-vnc-server
-- name: xfce_cool
-  src: https://github.com/cisagov/ansible-role-xfce-cool
+collections:
+  - community.general
+roles:
+  - name: amazon_efs_utils
+    src: https://github.com/cisagov/ansible-role-amazon-efs-utils
+  - name: amazon_ssm_agent
+    src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
+  - name: assessment_tool
+    src: https://github.com/cisagov/ansible-role-assessment-tool
+  # The assessments folks specifically asked us _not_ to patch the Kali
+  # instances while they are running.
+  # - name: automated_security_updates
+  #   src: https://github.com/cisagov/ansible-role-automated-security-updates
+  - name: banner
+    src: https://github.com/cisagov/ansible-role-banner
+  - name: burp_suite_pro
+    src: https://github.com/cisagov/ansible-role-burp-suite-pro
+  - name: chrony_aws
+    src: https://github.com/cisagov/ansible-role-chrony-aws
+  - name: clamav
+    src: https://github.com/cisagov/ansible-role-clamav
+  - name: cloudwatch_agent
+    src: https://github.com/cisagov/ansible-role-cloudwatch-agent
+  - name: cobalt_strike
+    src: https://github.com/cisagov/ansible-role-cobalt-strike
+  - name: docker
+    src: https://github.com/cisagov/ansible-role-docker
+  - name: htop
+    src: https://github.com/cisagov/ansible-role-htop
+  - name: metasploit
+    src: https://github.com/cisagov/ansible-role-metasploit
+  - name: nvme
+    src: https://github.com/cisagov/ansible-role-nvme
+  - name: openjdk
+    src: https://github.com/cisagov/ansible-role-openjdk
+  - name: persist_journald
+    src: https://github.com/cisagov/ansible-role-persist-journald
+  - name: pip
+    src: https://github.com/cisagov/ansible-role-pip
+  - name: python
+    src: https://github.com/cisagov/ansible-role-python
+  - name: remove_python2
+    src: https://github.com/cisagov/ansible-role-remove-python2
+  - name: server_setup
+    src: https://github.com/cisagov/ansible-role-server-setup
+  - name: ufw
+    src: https://github.com/cisagov/ansible-role-ufw
+  - name: upgrade
+    src: https://github.com/cisagov/ansible-role-upgrade
+  - name: visual_studio_code
+    src: gantsign.visual-studio-code
+  - name: vnc_server
+    src: https://github.com/cisagov/ansible-role-vnc-server
+  - name: xfce_cool
+    src: https://github.com/cisagov/ansible-role-xfce-cool
