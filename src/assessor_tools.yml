@@ -275,6 +275,7 @@
           - impacket
           - pycrypto
         assessment_tool_python2: yes
+        assessment_tool_python_install_development_dependencies: yes
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
