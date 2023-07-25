@@ -520,7 +520,6 @@
         assessment_tool_archive_src: "https://github.com/sqlmapproject/\
         sqlmap/tarball/master"
         assessment_tool_install_dir: /tools/sqlmap
-        # This forces the creation of a Python 3 venv
         assessment_tool_python: yes
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
