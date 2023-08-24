@@ -49,7 +49,12 @@ roles:
   - name: upgrade
     src: https://github.com/cisagov/ansible-role-upgrade
   - name: visual_studio_code
-    src: gantsign.visual-studio-code
+    # TODO: We can revert to gantsign.visual-studio-code (and remove
+    # the version entry) once
+    # gantsign/ansible-role-visual-studio-code#244 is merged.  See
+    # #153 for more information.  src: gantsign.visual-studio-code
+    src: https://github.com/1337-42/ansible-role-visual-studio-code
+    version: update-apt-dep
   - name: vnc_server
     src: https://github.com/cisagov/ansible-role-vnc-server
   - name: xfce_cool

@@ -272,7 +272,9 @@
         assessment_tool_archive_src: https://github.com/HarmJ0y/ImpDump/tarball/master
         assessment_tool_install_dir: /tools/ImpDump
         assessment_tool_pip_packages:
-          - impacket
+          # impacket>=0.11.0 has a dependency that only supports
+          # Python 3.
+          - impacket<0.11.0
           - pycrypto
         assessment_tool_python2: yes
         assessment_tool_python_install_development_dependencies: yes
