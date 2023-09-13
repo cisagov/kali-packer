@@ -5,27 +5,30 @@
 # these updates when the pull request(s) in the appropriate skeleton are merged
 # and Lineage processes these changes.
 
-version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+  - directory: /
     ignore:
       # Managed by cisagov/skeleton-generic
       - dependency-name: actions/cache
       - dependency-name: actions/checkout
       - dependency-name: actions/setup-go
       - dependency-name: actions/setup-python
+    #   - dependency-name: crazy-max/ghaction-dump-context
+    #   - dependency-name: crazy-max/ghaction-github-labeler
+    #   - dependency-name: crazy-max/ghaction-github-status
       - dependency-name: hashicorp/setup-terraform
       - dependency-name: mxschmitt/action-tmate
+    #   - dependency-name: step-security/harden-runner
       # # Managed by cisagov/skeleton-packer
       # - dependency-name: aws-actions/configure-aws-credentials
-
-  - package-ecosystem: "pip"
-    directory: "/"
+    package-ecosystem: github-actions
     schedule:
-      interval: "weekly"
+      interval: weekly
+
+  - directory: /
+    package-ecosystem: pip
+    schedule:
+      interval: weekly
 
   - package-ecosystem: "terraform"
     directory: "/terraform-build-user"
@@ -42,3 +45,4 @@ updates:
     # # Managed by cisagov/skeleton-packer
     # ignore:
     #   - dependency-name: "hashicorp/aws"
+version: 2
