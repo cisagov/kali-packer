@@ -30,19 +30,19 @@ updates:
     schedule:
       interval: weekly
 
-  - package-ecosystem: terraform
-    directory: /terraform-build-user
+  - directory: /terraform-build-user
+    # ignore:
+    #   # Managed by cisagov/skeleton-packer
+    #   - dependency-name: hashicorp/aws
+    package-ecosystem: terraform
     schedule:
       interval: weekly
-    # # Managed by cisagov/skeleton-packer
-    # ignore:
-    #   - dependency-name: hashicorp/aws
 
-  - package-ecosystem: terraform
-    directory: /terraform-post-packer
+  - directory: /terraform-post-packer
+    # ignore:
+    #   # Managed by cisagov/skeleton-packer
+    #   - dependency-name: hashicorp/aws
+    package-ecosystem: terraform
     schedule:
       interval: weekly
-    # # Managed by cisagov/skeleton-packer
-    # ignore:
-    #   - dependency-name: hashicorp/aws
 version: 2
