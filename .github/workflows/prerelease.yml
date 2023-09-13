@@ -12,7 +12,26 @@ env:
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
 
 jobs:
+  diagnostics:
+    name: Run diagnostics
+    runs-on: ubuntu-latest
+    steps:
+      # Note that a duplicate of this step must be added at the top of
+      # each job.
+      - id: harden-runner
+        name: Harden the runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+      - id: github-status
+        name: Check GitHub status
+        uses: crazy-max/ghaction-github-status@v3
+      - id: dump-context
+        name: Dump context
+        uses: crazy-max/ghaction-dump-context@v2
   prerelease:
+    needs:
+      - diagnostics
     runs-on: ubuntu-latest
     steps:
       - id: setup-env
