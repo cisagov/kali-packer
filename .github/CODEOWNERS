@@ -14,3 +14,12 @@
 /src/aws.yml @jsf9k
 /src/packer.pkr.hcl @jsf9k
 /src/python.yml @jsf9k
+
+# These folks own all linting configuration files.
+/.*.cfg @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
+/.*.yaml @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
+/.*.yml @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
+/.ansible-lint @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
+/.flake8 @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
+/.prettierignore @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
+/.yamllint @dav3r @felddy @jasonodoom @jsf9k @mcdonnnj
