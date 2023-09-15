@@ -104,6 +104,8 @@ jobs:
           sudo mv /usr/bin/python3 /usr/bin/python3-default
           sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
           /usr/bin/python3
+      - name: Install Packer plugins
+        run: packer init src/packer.pkr.hcl
       - name: Create machine image
         env:
           GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
