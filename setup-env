@@ -155,11 +155,7 @@ for req_file in "requirements-dev.txt" "requirements-test.txt" "requirements.txt
 done
 
 # Install Packer plugin dependencies
-for packer_template_file in src/*.pkr.hcl; do
-  if [[ -f src/packer.pkr.hcl ]]; then
-    packer init -upgrade "$packer_template_file"
-  fi
-done
+packer init -upgrade src
 
 # Install git pre-commit hooks now or later.
 pre-commit install ${INSTALL_HOOKS:+"--install-hooks"}

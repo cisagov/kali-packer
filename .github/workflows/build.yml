@@ -139,7 +139,7 @@ jobs:
       # This must happen before pre-commit is run or the Packer format
       # linter will throw an error.
       - name: Install Packer plugins
-        run: packer init src/packer.pkr.hcl
+        run: packer init src
       - name: Set up pre-commit hook environments
         run: pre-commit install-hooks
       - name: Run pre-commit on all files
@@ -283,7 +283,7 @@ jobs:
           sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
           /usr/bin/python3
       - name: Install Packer plugins
-        run: packer init src/packer.pkr.hcl
+        run: packer init src
       - name: Create machine image
         # This runs through the AMI creation process but does not
         # actually create an AMI

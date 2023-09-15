@@ -120,7 +120,7 @@ jobs:
           sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
           /usr/bin/python3
       - name: Install Packer plugins
-        run: packer init src/packer.pkr.hcl
+        run: packer init src
       - name: Create machine image
         run: |
           packer build -timestamp-ui \
