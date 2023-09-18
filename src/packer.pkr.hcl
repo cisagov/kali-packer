@@ -12,7 +12,7 @@ packer {
   # The required_plugins section is only supported in Packer 1.7.0 and
   # later.  We also want to avoid jumping to Packer v2 until we are
   # ready.
-  required_version = ">=1.7.0,<2"
+  required_version = "~> 1.7"
 }
 
 variable "ami_regions" {
