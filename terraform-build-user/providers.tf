@@ -9,8 +9,8 @@ locals {
   caller_user_name = replace(data.aws_caller_identity.terraform_backend.user_id, ":", ".")
 
   tags = {
-    Team        = "CISA - Development"
     Application = "skeleton-packer"
+    Team        = "CISA - Development"
   }
 }
 
