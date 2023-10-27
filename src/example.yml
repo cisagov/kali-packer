@@ -1,7 +1,7 @@
 ---
 - hosts: all
   name: Project-specific roles
-  become: yes
+  become: true
   become_method: ansible.builtin.sudo
   tasks:
     # The cisagov/ansible-role-example Ansible role is just a no-op,
