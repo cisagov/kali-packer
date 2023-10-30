@@ -3,7 +3,7 @@
 # and therefore can only run _after_ the VNC user has been created.
 - hosts: all
   name: Install assessment tools
-  become: yes
+  become: true
   become_method: ansible.builtin.sudo
   vars:
     # The group that should own the tools installed to /target.  The
@@ -18,7 +18,7 @@
         assessment_tool_archive_src: https://github.com/tarrell13/Auto-Egress-Assess/tarball/main
         assessment_tool_install_dir: /tools/Auto-Egress-Assess
         assessment_tool_pip_requirements_file: requirements.txt
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -56,7 +56,7 @@
       vars:
         assessment_tool_archive_src: "https://github.com/mdsecactivebreach/\
         CACTUSTORCH/tarball/master"
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/CACTUSTORCH
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -108,7 +108,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/nccgroup/demiguise/tarball/master
         assessment_tool_install_dir: /tools/demiguise
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -140,7 +140,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/tyranid/DotNetToJScript/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/DotNetToJScript
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -151,7 +151,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/MacR6/ftpenum/tarball/master
         assessment_tool_install_dir: /tools/ftpenum
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -160,7 +160,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/Lockless/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/Lockless
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -170,7 +170,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/Rubeus/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/Rubeus
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -180,7 +180,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/Seatbelt/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/Seatbelt
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -190,7 +190,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/SafetyKatz/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SafetyKatz
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -200,7 +200,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/SharpDPAPI/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SharpDPAPI
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -210,7 +210,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/SharpDump/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SharpDump
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -220,7 +220,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/SharpRoast/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SharpRoast
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -230,7 +230,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/SharpUp/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SharpUp
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -240,7 +240,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/GhostPack/SharpWMI/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SharpWMI
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -276,8 +276,8 @@
           # Python 3.
           - impacket<0.11.0
           - pycrypto
-        assessment_tool_python2: yes
-        assessment_tool_python_install_development_dependencies: yes
+        assessment_tool_python2: true
+        assessment_tool_python_install_development_dependencies: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -287,7 +287,7 @@
       vars:
         assessment_tool_archive_src: "https://github.com/eladshamir/\
         Internal-Monologue/tarball/master"
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/Internal-Monologue
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -297,9 +297,9 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/HarmJ0y/KeeThief/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/KeeThief
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -312,8 +312,8 @@
         assessment_tool_pip_packages:
           - pyasn1
           - scapy
-        assessment_tool_powershell: yes
-        assessment_tool_python2: yes
+        assessment_tool_powershell: true
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -352,7 +352,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/xan7r/Misc/tarball/master
         assessment_tool_install_dir: /tools/Misc
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -373,7 +373,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/vysecurity/morphHTA/tarball/master
         assessment_tool_install_dir: /tools/morphHTA
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -398,7 +398,7 @@
           - requests
           - requests-toolbelt
           - Sublist3r
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -409,7 +409,7 @@
         assessment_tool_archive_src: "https://github.com/PowerShellEmpire/\
         PowerTools/tarball/master"
         assessment_tool_install_dir: /tools/PowerTools
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -419,7 +419,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/master
         assessment_tool_install_dir: /tools/PowerUpSQL
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -440,7 +440,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/xorrior/RandomPS-Scripts/tarball/master
         assessment_tool_install_dir: /tools/RandomPS-Scripts
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -450,7 +450,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/resyncgg/ripgen/tarball/main
         assessment_tool_install_dir: /tools/ripgen
-        assessment_tool_rust: yes
+        assessment_tool_rust: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -469,7 +469,7 @@
       vars:
         assessment_tool_archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
         assessment_tool_install_dir: /tools/SessionGopher
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -481,7 +481,7 @@
         assessment_tool_install_dir: /tools/shellshocker-pocs
         assessment_tool_pip_packages:
           - scapy
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -495,7 +495,7 @@
         # The misspelling here is intentional.  See
         # https://github.com/SimplySecurity/SimplyEmail/blob/master/setup/requirments.txt.
         assessment_tool_pip_requirements_file: setup/requirments.txt
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -511,7 +511,7 @@
           - configparser
           - Pillow
           - pmw
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -522,7 +522,7 @@
         assessment_tool_archive_src: "https://github.com/sqlmapproject/\
         sqlmap/tarball/master"
         assessment_tool_install_dir: /tools/sqlmap
-        assessment_tool_python: yes
+        assessment_tool_python: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -534,7 +534,7 @@
         assessment_tool_install_dir: /tools/sshenum
         assessment_tool_pip_packages:
           - paramiko
-        assessment_tool_python2: yes
+        assessment_tool_python2: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
@@ -543,7 +543,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
-        assessment_tool_csharp: yes
+        assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/TikiTorch
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -553,7 +553,7 @@
         name: assessment_tool
       vars:
         assessment_tool_archive_src: https://github.com/tomnomnom/waybackurls/tarball/master
-        assessment_tool_go: yes
+        assessment_tool_go: true
         assessment_tool_install_dir: /tools/waybackurls
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -668,7 +668,7 @@
     # must be a member of this group to run Firefox Developer Edition.
     - name: Add VNC user to kaboxer group
       ansible.builtin.user:
-        append: yes
+        append: true
         groups:
           - kaboxer
         name: "{{ vnc_username }}"
