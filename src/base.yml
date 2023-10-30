@@ -1,7 +1,7 @@
 ---
 - hosts: all
   name: Setup base image
-  become: yes
+  become: true
   become_method: ansible.builtin.sudo
   tasks:
     # The assessments folks specifically asked us _not_ to patch the
