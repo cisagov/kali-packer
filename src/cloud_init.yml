@@ -4,13 +4,13 @@
 # we may as well enable the others while we're at it.
 - hosts: all
   name: Enable all cloud-init services
-  become: yes
+  become: true
   become_method: ansible.builtin.sudo
   tasks:
     - name: Enable all cloud-init services
       ansible.builtin.service:
         name: "{{ item }}"
-        enabled: yes
+        enabled: true
       loop:
         - cloud-init-local
         - cloud-init

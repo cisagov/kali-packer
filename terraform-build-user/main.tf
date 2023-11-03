@@ -4,8 +4,8 @@ module "iam_user" {
   providers = {
     aws                       = aws
     aws.images-production-ami = aws.images-production-ami
-    aws.images-staging-ami    = aws.images-staging-ami
     aws.images-production-ssm = aws.images-production-ssm
+    aws.images-staging-ami    = aws.images-staging-ami
     aws.images-staging-ssm    = aws.images-staging-ssm
   }
 

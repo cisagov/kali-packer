@@ -84,7 +84,7 @@
 
     - name: Start Neo4j service at boot
       ansible.builtin.service:
-        enabled: yes
+        enabled: true
         name: neo4j
 
 - name: Install BloodHound
@@ -95,7 +95,7 @@
           - npm
     - name: Install Electron Packager
       community.general.npm:
-        global: yes
+        global: true
         name: electron-packager
     - name: Download BloodHound tool from GitHub
       ansible.builtin.include_role:
@@ -115,9 +115,9 @@
 
     # - name: Install BloodHound dependencies
     #   community.general.npm:
-    #     ci: yes
+    #     ci: true
     #     path: /tools/BloodHound
-    #     production: yes
+    #     production: true
     - name: Install BloodHound dependencies
       ansible.builtin.command:
         chdir: /tools/BloodHound

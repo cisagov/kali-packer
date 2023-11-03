@@ -10,7 +10,7 @@
     name: assessment_tool
   vars:
     assessment_tool_archive_src: https://github.com/optiv/ScareCrow/tarball/main
-    assessment_tool_go: yes
+    assessment_tool_go: true
     assessment_tool_install_dir: /tools/ScareCrow
     assessment_tool_unarchive_extra_opts:
       - --strip-components=1

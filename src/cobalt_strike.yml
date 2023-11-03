@@ -19,7 +19,7 @@
         assessment_tool_archive_src: "https://github.com/killswitch-GUI/\
         CobaltStrike-Toolkit/tarball/master"
         assessment_tool_install_dir: /tools/CobaltStrike-Toolkit
-        assessment_tool_powershell: yes
+        assessment_tool_powershell: true
     - name: Install Malleable-C2-Profiles
       ansible.builtin.include_role:
         name: assessment_tool

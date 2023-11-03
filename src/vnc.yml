@@ -1,7 +1,7 @@
 ---
 - hosts: all
   name: Install VNC
-  become: yes
+  become: true
   become_method: ansible.builtin.sudo
   tasks:
     - name: Install VNC
