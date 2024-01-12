@@ -2,8 +2,10 @@
 - name: Import base image playbook
   ansible.builtin.import_playbook: base.yml
 
-- name: Import playbook to fix Netplan configuration
-  ansible.builtin.import_playbook: fix-netplan-configuration.yml
+- name: >-
+    Import playbook to install prerequisites for the Netplan
+    configuration fix
+  ansible.builtin.import_playbook: install-prerequisites-for-netplan-configuration-fix.yml
 
 - name: Import AWS playbook
   ansible.builtin.import_playbook: aws.yml
