@@ -2,6 +2,8 @@
 - name: Import base image playbook
   ansible.builtin.import_playbook: base.yml
 
+# TODO: Remove this when and if that becomes possible.  See
+# cisagov/skeleton-packer#301.
 - name: >-
     Import playbook to install prerequisites for the Netplan
     configuration fix

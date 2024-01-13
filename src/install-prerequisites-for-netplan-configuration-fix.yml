@@ -5,6 +5,9 @@
 # See these issues for more details:
 # - cisagov/skeleton-packer#300
 # - canonical/cloud-init#4764
+#
+# TODO: Remove this playbook when and if that becomes possible.  See
+# cisagov/skeleton-packer#301 for more details.
 - hosts: all
   name: >-
     Install prerequisites for the script that fixes the Netplan
