@@ -1,6 +1,6 @@
 ---
-- hosts: all
-  name: Setup base image
+- name: Setup base image
+  hosts: all
   become: true
   become_method: ansible.builtin.sudo
   tasks:
