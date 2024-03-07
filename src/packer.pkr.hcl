@@ -63,9 +63,9 @@ variable "skip_create_ami" {
   type        = bool
 }
 
-data "amazon-ami" "debian_bullseye" {
+data "amazon-ami" "debian_bookworm" {
   filters = {
-    name                = "debian-11-amd64-*"
+    name                = "debian-12-amd64-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
@@ -93,7 +93,7 @@ source "amazon-ebs" "example" {
   region             = var.build_region
   region_kms_key_ids = var.region_kms_keys
   skip_create_ami    = var.skip_create_ami
-  source_ami         = data.amazon-ami.debian_bullseye.id
+  source_ami         = data.amazon-ami.debian_bookworm.id
   ssh_username       = "admin"
   subnet_filter {
     filters = {
@@ -102,9 +102,9 @@ source "amazon-ebs" "example" {
   }
   tags = {
     Application        = "Example"
-    Base_AMI_Name      = data.amazon-ami.debian_bullseye.name
+    Base_AMI_Name      = data.amazon-ami.debian_bookworm.name
     GitHub_Release_URL = var.release_url
-    OS_Version         = "Debian Bullseye"
+    OS_Version         = "Debian Bookworm"
     Pre_Release        = var.is_prerelease
     Release            = var.release_tag
     Team               = "VM Fusion - Development"
