@@ -1,4 +1,18 @@
-ansible
+# With the release of version 2.10, Ansible finally correctly
+# identifies Kali Linux as being the Kali distribution of the Debian
+# OS family.  This simplifies a lot of things for roles that support
+# Kali Linux, so it makes sense to force the installation of Ansible
+# 2.10 or newer.
+#
+# We need at least version 6 to correctly identify Amazon Linux 2023
+# as using the dnf package manager, and version 8 is currently the
+# oldest supported version.
+#
+# We have tested against version 9.  We want to avoid automatically
+# jumping to another major version without testing, since there are
+# often breaking changes across major versions.  This is the reason
+# for the upper bound.
+ansible>=8,<10
 boto3
 docopt
 semver
