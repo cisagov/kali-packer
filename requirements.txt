@@ -14,7 +14,7 @@
 # for the upper bound.
 ansible>=8,<10
 # TODO: Remove this pin when possible.  See
-# cisagov/skeleton-packer##312 for more details.
+# cisagov/skeleton-packer#312 for more details.
 #
 # ansible-core 2.16.3 and later suffer from the bug discussed in
 # ansible/ansible#82702, which breaks any symlinked files in vars,
