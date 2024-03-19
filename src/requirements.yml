@@ -8,7 +8,6 @@ roles:
     src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   - name: assessment_tool
     src: https://github.com/cisagov/ansible-role-assessment-tool
-    version: bugfix/system-package-must-be-removed-before-installing-via-pip
   # The assessments folks specifically asked us _not_ to patch the Kali
   # instances while they are running.
   # - name: automated_security_updates
