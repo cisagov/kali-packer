@@ -17,7 +17,6 @@ roles:
     src: https://github.com/cisagov/ansible-role-banner
   - name: burp_suite_pro
     src: https://github.com/cisagov/ansible-role-burp-suite-pro
-    version: feature/stop-licensing
   - name: chrony_aws
     src: https://github.com/cisagov/ansible-role-chrony-aws
   - name: clamav
