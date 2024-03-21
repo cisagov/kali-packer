@@ -1,8 +1,8 @@
 ---
 # Note that this playbook installs Burp Suite Pro for the VNC user,
 # and therefore can only run _after_ the VNC user has been created.
-- hosts: all
-  name: Install assessment tools
+- name: Install assessment tools
+  hosts: all
   become: true
   become_method: ansible.builtin.sudo
   vars:

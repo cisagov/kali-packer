@@ -25,7 +25,7 @@ jobs:
           egress-policy: audit
       - id: github-status
         name: Check GitHub status
-        uses: crazy-max/ghaction-github-status@v3
+        uses: crazy-max/ghaction-github-status@v4
       - id: dump-context
         name: Dump context
         uses: crazy-max/ghaction-dump-context@v2
@@ -43,9 +43,9 @@ jobs:
         uses: cisagov/setup-env-github-action@develop
       - uses: actions/checkout@v4
       - id: setup-python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: ${{ steps.setup-env.outputs.python-version }}
       - uses: actions/cache@v3
         env:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
@@ -75,7 +75,7 @@ jobs:
             ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
           sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
           sudo ln -s /opt/packer/packer /usr/local/bin/packer
-      - uses: hashicorp/setup-terraform@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ steps.setup-env.outputs.terraform-version }}
       - name: Install dependencies

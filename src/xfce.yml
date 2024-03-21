@@ -1,6 +1,6 @@
 ---
-- hosts: all
-  name: Install Xfce
+- name: Install Xfce
+  hosts: all
   become: true
   become_method: ansible.builtin.sudo
   tasks:

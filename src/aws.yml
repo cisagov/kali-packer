@@ -1,6 +1,6 @@
 ---
-- hosts: all
-  name: AWS-specific roles
+- name: AWS-specific roles
+  hosts: all
   become: true
   become_method: ansible.builtin.sudo
   tasks:
