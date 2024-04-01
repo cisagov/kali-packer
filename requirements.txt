@@ -21,7 +21,7 @@ ansible>=8,<10
 # tasks, etc. for any Ansible role installed via ansible-galaxy.
 #
 # See also cisagov/skeleton-ansible-role#178.
-ansible-core<2.16.3
+ansible-core<2.16.6
 boto3
 docopt
 semver
