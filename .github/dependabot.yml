@@ -28,8 +28,8 @@ updates:
   - directory: /
     # ignore:
     #   # Managed by cisagov/skeleton-packer
-    #     - dependency-name: ansible
-    #     - dependency-name: ansible-core
+    #   - dependency-name: ansible
+    #   - dependency-name: ansible-core
     package-ecosystem: pip
     schedule:
       interval: weekly
