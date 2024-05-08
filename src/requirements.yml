@@ -29,6 +29,5 @@
   src: https://github.com/cisagov/ansible-role-remove-python2
 - name: systemd_resolved
   src: https://github.com/cisagov/ansible-role-systemd-resolved
-  version: first-commits
 - name: upgrade
   src: https://github.com/cisagov/ansible-role-upgrade
