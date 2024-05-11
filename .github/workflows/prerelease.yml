@@ -107,10 +107,6 @@ jobs:
       - name: Install Packer plugins
         run: packer init src
       - name: Create machine image
-        env:
-          GITHUB_IS_PRERELEASE: ${{ github.event.release.prerelease }}
-          GITHUB_RELEASE_TAG: ${{ github.event.release.tag_name }}
-          GITHUB_RELEASE_URL: ${{ github.event.release.html_url }}
         run: |
           packer build -timestamp-ui \
             -var is_prerelease=${{ github.event.release.prerelease }} \
