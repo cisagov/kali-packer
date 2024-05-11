@@ -19,3 +19,6 @@
     - name: Configure JournalD to preserve logs across reboots
       ansible.builtin.include_role:
         name: persist_journald
+    - name: Install and configure systemd-resolved
+      ansible.builtin.include_role:
+        name: systemd_resolved
