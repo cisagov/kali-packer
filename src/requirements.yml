@@ -44,6 +44,8 @@ roles:
     src: https://github.com/cisagov/ansible-role-remove-python2
   - name: server_setup
     src: https://github.com/cisagov/ansible-role-server-setup
+  - name: systemd_resolved
+    src: https://github.com/cisagov/ansible-role-systemd-resolved
   - name: ufw
     src: https://github.com/cisagov/ansible-role-ufw
   - name: upgrade
