@@ -24,6 +24,9 @@
     - name: Configure JournalD to preserve logs across reboots
       ansible.builtin.include_role:
         name: persist_journald
-    - name: Install and configure systemd-resolved
-      ansible.builtin.include_role:
-        name: systemd_resolved
+    # Kali by default uses NetworkManager instead of systemd-networkd,
+    # so it doesn't make sense to install systemd-resolved on this
+    # platform.
+    # - name: Install and configure systemd-resolved
+    #   ansible.builtin.include_role:
+    #     name: systemd_resolved
