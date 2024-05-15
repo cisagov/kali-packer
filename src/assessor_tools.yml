@@ -692,11 +692,6 @@
     - name: Install CrackMapExec
       ansible.builtin.import_tasks: crackmapexec.yml
 
-    # dns-profile-randomizer lives in a private GitLab repository and
-    # hence must be downloaded using a GitLab access token.
-    - name: Install dns-profile-randomizer
-      ansible.builtin.import_tasks: dns_profile_randomizer.yml
-
     - name: Install Donut
       ansible.builtin.import_tasks: donut.yml
 
