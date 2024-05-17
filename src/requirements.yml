@@ -44,6 +44,11 @@ roles:
     src: https://github.com/cisagov/ansible-role-remove-python2
   - name: server_setup
     src: https://github.com/cisagov/ansible-role-server-setup
+  # Kali by default uses NetworkManager instead of systemd-networkd,
+  # so it doesn't make sense to install systemd-resolved on this
+  # platform.
+  # - name: systemd_resolved
+  #   src: https://github.com/cisagov/ansible-role-systemd-resolved
   - name: ufw
     src: https://github.com/cisagov/ansible-role-ufw
   - name: upgrade
