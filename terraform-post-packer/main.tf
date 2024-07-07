@@ -26,6 +26,8 @@ locals {
 
 # The IDs of all cisagov/skeleton-packer AMIs
 data "aws_ami_ids" "historical_amis" {
+  owners = [data.aws_caller_identity.images.account_id]
+
   filter {
     name = "name"
     values = [
@@ -34,16 +36,14 @@ data "aws_ami_ids" "historical_amis" {
   }
 
   filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  filter {
     name   = "root-device-type"
     values = ["ebs"]
   }
 
-  owners = [data.aws_caller_identity.images.account_id]
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 # Assign launch permissions to the AMI
