@@ -29,6 +29,13 @@ data "aws_ami_ids" "historical_amis" {
   owners = [data.aws_caller_identity.images.account_id]
 
   filter {
+    name = "architecture"
+    values = [
+      "x86_64",
+    ]
+  }
+
+  filter {
     name = "name"
     values = [
       "example-hvm-*-x86_64-ebs",
