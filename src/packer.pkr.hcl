@@ -65,6 +65,7 @@ variable "skip_create_ami" {
 
 data "amazon-ami" "debian_bookworm" {
   filters = {
+    architecture        = "x86_64"
     name                = "debian-12-amd64-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
