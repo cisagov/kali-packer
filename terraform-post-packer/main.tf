@@ -31,6 +31,7 @@ data "aws_ami_ids" "historical_amis" {
   filter {
     name = "architecture"
     values = [
+      "arm64",
       "x86_64",
     ]
   }
@@ -38,7 +39,7 @@ data "aws_ami_ids" "historical_amis" {
   filter {
     name = "name"
     values = [
-      "example-hvm-*-x86_64-ebs",
+      "example-hvm-*-*-ebs",
     ]
   }
 
