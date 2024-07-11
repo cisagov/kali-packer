@@ -93,6 +93,11 @@ data "aws_ami_ids" "historical_amis_x86_64" {
   }
 }
 
+moved {
+  from = aws_ami_ids.historical_amis
+  to   = aws_ami_ids.historical_amis_x86_64
+}
+
 # Assign launch permissions to the x86-64 AMIs
 module "ami_launch_permission_x86_64" {
   # Really we only want the var.recent_ami_count most recent AMIs, but
@@ -110,4 +115,9 @@ module "ami_launch_permission_x86_64" {
   account_name_regex   = local.account_name_regex
   ami_id               = each.value
   extraorg_account_ids = var.extraorg_account_ids
+}
+
+moved {
+  from = module.ami_launch_permission
+  to   = module.ami_launch_permission_x86_64
 }
