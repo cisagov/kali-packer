@@ -93,6 +93,12 @@ data "aws_ami_ids" "historical_amis_x86_64" {
   }
 }
 
+# This moved block allows us to rename the resources at
+# aws_ami_ids.historical_amis to aws_ami_ids.historical_amis_x86_64
+# instead of destroying and recreating them with a new name.
+#
+# TODO: Consider removing this moved block when it is no longer
+# needed.  Seecisagov/skeleton-packer#369 for more details.
 moved {
   from = aws_ami_ids.historical_amis
   to   = aws_ami_ids.historical_amis_x86_64
@@ -117,6 +123,12 @@ module "ami_launch_permission_x86_64" {
   extraorg_account_ids = var.extraorg_account_ids
 }
 
+# This moved block allows us to rename the resources at
+# module.ami_launch_permission to module.ami_launch_permission_x86_64
+# instead of destroying and recreating them with a new name.
+#
+# TODO: Consider removing this moved block when it is no longer
+# needed.  Seecisagov/skeleton-packer#369 for more details.
 moved {
   from = module.ami_launch_permission
   to   = module.ami_launch_permission_x86_64
