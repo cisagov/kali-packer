@@ -44,7 +44,9 @@ jobs:
       fail-fast: false
       matrix:
         architecture:
-          - arm64
+          # There is no ARM-based official Kali AMI in the AWS AMI
+          # Catalog.
+          # - arm64
           - x86_64
     steps:
       - id: harden-runner
