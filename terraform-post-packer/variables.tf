@@ -12,6 +12,6 @@ variable "extraorg_account_ids" {
 
 variable "recent_ami_count" {
   default     = 12
-  description = "The number of most-recent AMIs for which to grant launch permission (e.g. \"3\").  If this variable is set to three, for example, then accounts will be granted permission to launch the three most recent AMIs (or all most recent AMIs, if there are only one or two of them in existence)."
+  description = "The number of most-recent AMIs (per architecture) for which to grant launch permission (e.g. \"3\").  If this variable is set to three, for example, then accounts will be granted permission to launch the three most recent AMIs (or all most recent AMIs, if there are only one or two of them in existence)."
   type        = number
 }
