@@ -77,7 +77,7 @@ variable "skip_create_ami" {
 # data "amazon-ami" "kali_arm64" {
 #   filters = {
 #     architecture        = "arm64"
-#     name                = "kali-last-snapshot-arm64-2023.4.0-*"
+#     name                = "kali-last-snapshot-arm64-2023.3.0-*"
 #     root-device-type    = "ebs"
 #     virtualization-type = "hvm"
 #   }
@@ -89,7 +89,7 @@ variable "skip_create_ami" {
 data "amazon-ami" "kali_x86_64" {
   filters = {
     architecture        = "x86_64"
-    name                = "kali-last-snapshot-amd64-2023.4.0-*"
+    name                = "kali-last-snapshot-amd64-2023.3.0-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
