@@ -59,3 +59,4 @@ roles:
     src: https://github.com/cisagov/ansible-role-vnc-server
   - name: xfce_cool
     src: https://github.com/cisagov/ansible-role-xfce-cool
+    version: bugfix/correctly-enable-user-service
