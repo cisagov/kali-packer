@@ -3,8 +3,7 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    assessment_tool_archive_src: "https://github.com/FortyNorthSecurity/\
-    EXCELntDonut/tarball/master"
+    assessment_tool_archive_src: https://github.com/RedSiege/EXCELntDonut/tarball/master
     assessment_tool_csharp: true
     assessment_tool_install_dir: /tools/EXCELntDonut
     assessment_tool_pip_packages:
