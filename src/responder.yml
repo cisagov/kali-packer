@@ -1,11 +1,4 @@
 ---
-# Responder requires the libncurses6 package in order to build the
-# wheel for readline.
-- name: Install Responder dependencies
-  ansible.builtin.package:
-    name:
-      - libncurses6
-
 - name: Install Responder
   ansible.builtin.include_role:
     name: assessment_tool
@@ -16,10 +9,10 @@
       - dnspython
       - impacket
       - ldap3
+      - netifaces
       - pyasn1
       - pycryptodome
       - pycryptodomex
-      - readline
       - six
     assessment_tool_unarchive_extra_opts:
       - --strip-components=1
