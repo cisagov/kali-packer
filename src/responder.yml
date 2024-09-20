@@ -9,6 +9,7 @@
       - dnspython
       - impacket
       - ldap3
+      - netifaces
       - pyasn1
       - pycryptodome
       - pycryptodomex
