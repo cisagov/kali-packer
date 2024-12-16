@@ -14,15 +14,22 @@ env:
   # COPY_REGIONS_KMS_MAP: "us-east-2:alias/cool-amis,
   #                        us-west-1:alias/cool-amis,
   #                        us-west-2:alias/cool-amis"
-  CURL_CACHE_DIR: ~/.cache/curl
   PIP_CACHE_DIR: ~/.cache/pip
   RUN_TMATE: ${{ secrets.RUN_TMATE }}
 
 jobs:
   diagnostics:
     name: Run diagnostics
+    # This job does not need any permissions
+    permissions: {}
     runs-on: ubuntu-latest
     steps:
+      # Note that a duplicate of this step must be added at the top of
+      # each job.
+      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+        with:
+          # Uses the organization variable unless overridden
+          config: ${{ vars.ACTIONS_PERMISSIONS_CONFIG }}
       # Note that a duplicate of this step must be added at the top of
       # each job.
       - id: harden-runner
@@ -39,6 +46,9 @@ jobs:
   release:
     needs:
       - diagnostics
+    permissions:
+      # actions/checkout needs this to fetch code
+      contents: read
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -49,6 +59,12 @@ jobs:
           # - arm64
           - x86_64
     steps:
+      # If we use this proxy then the calls to the AWS API on
+      # localhost fail.
+      # - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+      #   with:
+      #     # Uses the organization variable unless overridden
+      #     config: ${{ vars.ACTIONS_PERMISSIONS_CONFIG }}
       - id: harden-runner
         name: Harden the runner
         uses: step-security/harden-runner@v2
@@ -61,7 +77,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ steps.setup-env.outputs.python-version }}
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         env:
           BASE_CACHE_KEY: "${{ github.job }}-${{ runner.os }}-\
             py${{ steps.setup-python.outputs.python-version }}-\
@@ -70,26 +86,13 @@ jobs:
         with:
           path: |
             ${{ env.PIP_CACHE_DIR }}
-            ${{ env.CURL_CACHE_DIR }}
           key: "${{ env.BASE_CACHE_KEY }}\
             ${{ hashFiles('**/requirements.txt') }}"
           restore-keys: |
             ${{ env.BASE_CACHE_KEY }}
-      - name: Setup curl cache
-        run: mkdir -p ${{ env.CURL_CACHE_DIR }}
-      - name: Install Packer
-        env:
-          PACKER_VERSION: ${{ steps.setup-env.outputs.packer-version }}
-        run: |
-          PACKER_ZIP="packer_${PACKER_VERSION}_linux_amd64.zip"
-          curl --output ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
-            --time-cond ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}" \
-            --location \
-            "https://releases.hashicorp.com/packer/${PACKER_VERSION}/${PACKER_ZIP}"
-          sudo unzip -d /opt/packer \
-            ${{ env.CURL_CACHE_DIR }}/"${PACKER_ZIP}"
-          sudo mv /usr/local/bin/packer /usr/local/bin/packer-default
-          sudo ln -s /opt/packer/packer /usr/local/bin/packer
+      - uses: hashicorp/setup-packer@v3
+        with:
+          version: ${{ steps.setup-env.outputs.packer-version }}
       - uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: ${{ steps.setup-env.outputs.terraform-version }}
@@ -99,7 +102,7 @@ jobs:
           pip install --upgrade \
                       --requirement requirements.txt
       - name: Install ansible roles
-        run: ansible-galaxy install --force --role-file src/requirements.yml
+        run: ansible-galaxy install --force --role-file ansible/requirements.yml
       # Do not copy the AMI to other regions until we have figured out a
       # workable mechanism for creating and managing AMI KMS keys in other
       # regions.
@@ -107,7 +110,7 @@ jobs:
       # - name: Add copy regions to packer configuration
       #   run: |
       #     echo $COPY_REGIONS_KMS_MAP | \
-      #       ./patch_packer_config.py src/packer.pkr.hcl
+      #       ./patch_packer_config.py variables.pkr.hcl
       - name: Assume AWS build role
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -128,7 +131,7 @@ jobs:
           sudo ln -s ${{ env.pythonLocation }}/bin/python3 \
           /usr/bin/python3
       - name: Install Packer plugins
-        run: packer init src
+        run: packer init .
       - name: Create machine image
         env:
           # Since we are using the default value of 15 seconds for
@@ -144,7 +147,7 @@ jobs:
             -var is_prerelease=${{ github.event.release.prerelease }} \
             -var release_tag=${{ github.event.release.tag_name }} \
             -var release_url=${{ github.event.release.html_url }} \
-            src/packer.pkr.hcl
+            .
       - name: Remove /usr/bin/python3 symlink to the installed python
         run: |
           sudo mv /usr/bin/python3-default /usr/bin/python3
