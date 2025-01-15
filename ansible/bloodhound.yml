@@ -11,7 +11,7 @@
         name: openjdk
 
     # The version of Neo4j available by default in Kali does not
-    # include the SystemD service file, so we need to install the
+    # include the systemd service file, so we need to install the
     # package from a different repo.
     #
     # TODO: Upgrade to Neo4j 5 when possible, as described in #136.
