@@ -5,9 +5,6 @@
 - name: Import base image playbook
   ansible.builtin.import_playbook: base.yml
 
-- name: Import cloud-init playbook
-  ansible.builtin.import_playbook: cloud_init.yml
-
 - name: Import UFW playbook
   ansible.builtin.import_playbook: ufw.yml
 
