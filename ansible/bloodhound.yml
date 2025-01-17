@@ -11,18 +11,29 @@
         name: openjdk
 
     # The version of Neo4j available by default in Kali does not
-    # include the SystemD service file, so we need to install the
+    # include the systemd service file, so we need to install the
     # package from a different repo.
     #
     # TODO: Upgrade to Neo4j 5 when possible, as described in #136.
     - name: Configure apt to use official Neo4j apt repo
       block:
-        - name: Add key for official Neo4j apt repo
-          ansible.builtin.apt_key:
-            url: https://debian.neo4j.com/neotechnology.gpg.key
-        - name: Add official apt repo for Neo4j
-          ansible.builtin.apt_repository:
-            repo: deb https://debian.neo4j.com stable 4.4
+        - name: Install prerequisites so apt can use DEB822 repos (Kali)
+          ansible.builtin.package:
+            name:
+              - python3-debian
+        - name: Add the official Neo4j repo
+          ansible.builtin.deb822_repository:
+            components:
+              - 4.4
+            name: neo4j
+            signed_by: https://debian.neo4j.com/neotechnology.gpg.key
+            suites:
+              - stable
+            uris:
+              - https://debian.neo4j.com
+        - name: Update the package cache
+          ansible.builtin.apt:
+            update_cache: true
 
     - name: Install Neo4j
       ansible.builtin.package:
