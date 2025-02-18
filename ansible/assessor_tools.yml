@@ -679,9 +679,6 @@
     - name: Install Cobalt Strike
       ansible.builtin.import_tasks: cobalt_strike.yml
 
-    - name: Install CrackMapExec
-      ansible.builtin.import_tasks: crackmapexec.yml
-
     - name: Install Donut
       ansible.builtin.import_tasks: donut.yml
 
