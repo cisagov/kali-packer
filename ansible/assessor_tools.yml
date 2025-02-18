@@ -590,6 +590,7 @@
           - golang
           - jq
           - libreoffice
+          - netexec
           - nfs-common
           - nikto
           - nmap
