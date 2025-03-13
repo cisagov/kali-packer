@@ -41,6 +41,7 @@ ansible>=10,<11
 ansible-core>=2.17
 boto3
 docopt
+# The bump-version script requires at least version 3 of semver.
 semver>=3
 setuptools
 wheel

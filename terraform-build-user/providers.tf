@@ -43,11 +43,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# ProvisionEC2AMICreateRoles AWS provider for the Images Production account
+# ProvisionEC2AMICreateRoles AWS provider for the Images account
 provider "aws" {
-  alias = "images-production-ami"
+  alias = "images-ami"
   assume_role {
-    role_arn     = data.terraform_remote_state.images_production.outputs.provisionec2amicreateroles_role.arn
+    role_arn     = data.terraform_remote_state.images.outputs.provisionec2amicreateroles_role.arn
     session_name = local.caller_user_name
   }
   default_tags {
@@ -56,37 +56,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
-# ProvisionParameterStoreReadRoles AWS provider for the Images Production account
+# ProvisionParameterStoreReadRoles AWS provider for the Images account
 provider "aws" {
-  alias = "images-production-ssm"
+  alias = "images-ssm"
   assume_role {
-    role_arn     = data.terraform_remote_state.images_parameterstore_production.outputs.provisionparameterstorereadroles_role.arn
-    session_name = local.caller_user_name
-  }
-  default_tags {
-    tags = local.tags
-  }
-  region = "us-east-1"
-}
-
-# ProvisionEC2AMICreateRoles AWS provider for the Images Staging account
-provider "aws" {
-  alias = "images-staging-ami"
-  assume_role {
-    role_arn     = data.terraform_remote_state.images_staging.outputs.provisionec2amicreateroles_role.arn
-    session_name = local.caller_user_name
-  }
-  default_tags {
-    tags = local.tags
-  }
-  region = "us-east-1"
-}
-
-# ProvisionParameterStoreReadRoles AWS provider for the Images Staging account
-provider "aws" {
-  alias = "images-staging-ssm"
-  assume_role {
-    role_arn     = data.terraform_remote_state.images_parameterstore_staging.outputs.provisionparameterstorereadroles_role.arn
+    role_arn     = data.terraform_remote_state.images_parameterstore.outputs.provisionparameterstorereadroles_role.arn
     session_name = local.caller_user_name
   }
   default_tags {

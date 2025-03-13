@@ -44,6 +44,7 @@ jobs:
         name: Dump context
         uses: crazy-max/ghaction-dump-context@v2
   release:
+    environment: production
     needs:
       - diagnostics
     permissions:
@@ -99,7 +100,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade \
                       --requirement requirements.txt
-      - name: Install ansible roles
+      - name: Install Ansible roles
         run: ansible-galaxy install --force --role-file ansible/requirements.yml
       # Do not copy the AMI to other regions until we have figured out a
       # workable mechanism for creating and managing AMI KMS keys in other
@@ -115,7 +116,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
-          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_PRODUCTION }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
           role-duration-seconds: 7200  # 2 hours
       # When called by Packer, Ansible will find /usr/bin/python3 and
       # use it; therefore, we must ensure that /usr/bin/python3 points
@@ -141,7 +142,9 @@ jobs:
         run: |
           packer build -only amazon-ebs.${{ matrix.architecture }} \
             -timestamp-ui \
-            -var build_bucket=${{ secrets.THIRD_PARTY_BUCKET_PRODUCTION }} \
+            -var build_bucket=${{ secrets.THIRD_PARTY_BUCKET }} \
+            -var github_ref_name=${{ github.ref_name }} \
+            -var github_sha=${{ github.sha }} \
             -var is_prerelease=${{ github.event.release.prerelease }} \
             -var release_tag=${{ github.event.release.tag_name }} \
             -var release_url=${{ github.event.release.html_url }} \
