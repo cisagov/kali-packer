@@ -22,39 +22,19 @@ module "iam_user" {
 }
 
 # Attach 3rd party S3 bucket read-only policy from
-# cisagov/ansible-role-cobalt-strike to the production EC2AMICreate
-# role
-resource "aws_iam_role_policy_attachment" "thirdpartybucketread_cobaltstrike_production" {
-  provider = aws.images-production-ami
+# cisagov/ansible-role-cobalt-strike to the EC2AMICreate role
+resource "aws_iam_role_policy_attachment" "thirdpartybucketread_cobaltstrike" {
+  provider = aws.images-ami
 
-  policy_arn = data.terraform_remote_state.ansible_role_cobalt_strike.outputs.production_policy.arn
-  role       = module.iam_user.ec2amicreate_role_production.name
+  policy_arn = data.terraform_remote_state.ansible_role_cobalt_strike.outputs.bucket_access_policy.arn
+  role       = module.iam_user.ec2amicreate_role.name
 }
 
 # Attach 3rd party S3 bucket read-only policy from
-# cisagov/ansible-role-cobalt-strike to the staging EC2AMICreate role
-resource "aws_iam_role_policy_attachment" "thirdpartybucketread_cobaltstrike_staging" {
-  provider = aws.images-staging-ami
+# cisagov/ansible-role-burp-suite-pro to the EC2AMICreate role
+resource "aws_iam_role_policy_attachment" "thirdpartybucketread_bsp" {
+  provider = aws.images-ami
 
-  policy_arn = data.terraform_remote_state.ansible_role_cobalt_strike.outputs.staging_policy.arn
-  role       = module.iam_user.ec2amicreate_role_staging.name
-}
-
-# Attach 3rd party S3 bucket read-only policy from
-# cisagov/ansible-role-burp-suite-pro to the production EC2AMICreate
-# role
-resource "aws_iam_role_policy_attachment" "thirdpartybucketread_bsp_production" {
-  provider = aws.images-production-ami
-
-  policy_arn = data.terraform_remote_state.ansible_role_burp_suite_pro.outputs.production_bucket_policy.arn
-  role       = module.iam_user.ec2amicreate_role_production.name
-}
-
-# Attach 3rd party S3 bucket read-only policy from
-# cisagov/ansible-role-burp-suite-pro to the staging EC2AMICreate role
-resource "aws_iam_role_policy_attachment" "thirdpartybucketread_bsp_staging" {
-  provider = aws.images-staging-ami
-
-  policy_arn = data.terraform_remote_state.ansible_role_burp_suite_pro.outputs.staging_bucket_policy.arn
-  role       = module.iam_user.ec2amicreate_role_staging.name
+  policy_arn = data.terraform_remote_state.ansible_role_burp_suite_pro.outputs.bucket_access_policy.arn
+  role       = module.iam_user.ec2amicreate_role.name
 }
