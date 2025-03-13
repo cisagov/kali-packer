@@ -5,7 +5,7 @@
 # ------------------------------------------------------------------------------
 
 variable "ami_share_account_name_regex" {
-  default     = "^env[[:digit:]]+$"
+  default     = "^env[[:digit:]]+"
   description = "A regular expression that matches the names of AWS accounts with which to share the AMIs created by this repository.  This variable is used to share the AMIs with accounts that are members of the same AWS Organization as the account that owns the AMIs."
   type        = string
 }
