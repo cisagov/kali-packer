@@ -2,7 +2,7 @@
 # data "amazon-ami" "kali_arm64" {
 #   filters = {
 #     architecture        = "arm64"
-#     name                = "kali-last-snapshot-arm64-2024.3.0-*"
+#     name                = "kali-last-snapshot-arm64-2025.1.0-*"
 #     root-device-type    = "ebs"
 #     virtualization-type = "hvm"
 #   }
@@ -14,7 +14,7 @@
 data "amazon-ami" "kali_x86_64" {
   filters = {
     architecture        = "x86_64"
-    name                = "kali-last-snapshot-amd64-2024.3.0-*"
+    name                = "kali-last-snapshot-amd64-2025.1.0-*"
     root-device-type    = "ebs"
     virtualization-type = "hvm"
   }
