@@ -125,7 +125,7 @@ if [ -n "$label" ] && [ "$with_prerelease" = false ] && [[ ! " ${commands_with_l
   invalid_option "Setting the label is only allowed for the following commands: ${commands_with_label[*]}"
 fi
 
-if [ "$with_prerelease" = true ] && [[ ! " ${commands_with_prerelease[*]} " =~ [[:space:]]${bump_part}[[:space:]] ]]; then
+if [ "$with_prerelease" = true ] && [ -n "$bump_part" ] && [[ ! " ${commands_with_prerelease[*]} " =~ [[:space:]]${bump_part}[[:space:]] ]]; then
   invalid_option "Changing the prerelease is only allowed in conjunction with the following commands: ${commands_with_prerelease[*]}"
 fi
 

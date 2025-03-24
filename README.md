@@ -25,15 +25,63 @@ next steps. Note that you will need to know where your team stores their
 remote profile data in order to use
 [`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync).
 
-To create the build user, follow these instructions:
+### Creating a build user ###
 
-```console
-cd terraform-build-user
-terraform init --upgrade=true
-terraform apply
-```
+You will need to create a build user for each environment that you use.  The
+following steps show how to create a build user for an environment named "dev".
+You will need to repeat this process for any additional environments.
 
-Once the user is created you will need to update the
+1. Change into the `terraform-build-user` directory:
+
+   ```console
+   cd terraform-build-user
+   ```
+
+1. Create a backend configuration file named `dev.tfconfig` containing the
+name of the bucket where "dev" environment Terraform state is stored - this file
+is required to initialize the Terraform backend in each environment:
+
+    ```hcl
+    bucket = "my-dev-terraform-state-bucket"
+    ```
+
+1. Initialize the Terraform backend for the "dev" environment using your backend
+   configuration file:
+
+    ```console
+    terraform init -backend-config=dev.tfconfig
+    ```
+
+    > [!NOTE]
+    > When performing this step for additional environments (i.e. not your first
+    > environment), use the `-reconfigure` flag:
+    >
+    > ```console
+    > terraform init -backend-config=other-env.tfconfig -reconfigure
+    > ```
+
+1. Create a Terraform variables file named `dev.tfvars` containing all
+required variables (currently only `terraform_state_bucket`):
+
+    ```hcl
+    terraform_state_bucket = "my-dev-terraform-state-bucket"
+    ```
+
+1. Create a Terraform workspace for the "dev" environment:
+
+    ```console
+   terraform workspace new dev
+   ```
+
+1. Initialize and upgrade the Terraform workspace, then apply the configuration
+   to create the build user in the "dev" environment:
+
+    ```console
+    terraform init -upgrade=true
+    terraform apply -var-file=dev.tfvars
+    ```
+
+Once the build user is created you will need to update the
 [repository's secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets)
 with the new encrypted environment variables. This should be done using the
 [`terraform-to-secrets`](https://github.com/cisagov/development-guide/tree/develop/project_setup#terraform-iam-credentials-to-github-secrets-)
@@ -61,7 +109,7 @@ store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-mana
 - `/ssh/public_keys/<username>`: The public SSH key of each user in the
   `/cyhy/dev/users` list
 
-## Building the Image ##
+## Building the image ##
 
 ### Using GitHub Actions ###
 
@@ -73,21 +121,23 @@ store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-mana
 GitHub Actions can build this project in three different modes
 depending on how the build was triggered from GitHub.
 
-1. **Non-release test**: After a normal commit or pull request GitHub Actions
-   will build the project, and run tests and validation on the
-   Packer template. It will **not** build an image.
-1. **Pre-release deploy**: Publish a GitHub release
-   with the "This is a pre-release" checkbox checked. An image will be built
-   and deployed using the [`prerelease`](.github/workflows/prerelease.yml)
-   workflow. This should be configured to deploy the image to a single region
-   using a non-production account (e.g. "staging").
-1. **Production release deploy**: Publish a GitHub release with
-   the "This is a pre-release" checkbox unchecked. An image will be built
-   and deployed using the [`release`](.github/workflows/release.yml)
-   workflow. This should be configured to deploy the image to multiple regions
-   using a production account.
+1. **Development release**: After a normal commit and also on a pull request,
+   GitHub Actions will run tests and validation on the Packer template, and then
+   build the project.  An image will be built and deployed using the
+   [`build`](.github/workflows/build.yml) workflow.  This should be configured
+   to deploy the image to a single region using a development account.
+1. **Pre-release**: Publish a GitHub release with the "This is a pre-release"
+   checkbox checked.  An image will be built and deployed using the
+   [`prerelease`](.github/workflows/prerelease.yml) workflow.  This should be
+   configured to deploy the image to a single region using a non-production
+   account (e.g. "staging").
+1. **Production release**: Publish a GitHub release with the "This is a
+   pre-release" checkbox unchecked.  An image will be built and deployed using
+   the [`release`](.github/workflows/release.yml) workflow.  This should be
+   configured to deploy the image to multiple regions using a production
+   account.
 
-### Using Your Local Environment ###
+### Using your local environment ###
 
 Packer will use your
 [standard AWS environment](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
@@ -146,21 +196,65 @@ region_kms_keys = {
 AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui -var-file release.pkrvars.hcl .
 ```
 
-### Giving Other AWS Accounts Permission to Launch the Image ###
+### Giving other AWS accounts permission to launch the image ###
 
 After the AMI has been successfully created, you may want to allow other
-accounts in your AWS organization permission to launch it. For this project,
-we want to allow all accounts whose names begin with "env" to launch the
-most-recently-created AMI. To do that, follow these instructions, noting that
-"ENVIRONMENT_TYPE" below should be replaced with where the AMI was created
-(e.g "production", "staging", etc.):
+accounts in your AWS organization permission to launch it.  The following steps
+show how to do this for an environment named "dev". You will need to repeat this
+process for any additional environments.
 
-```console
-cd terraform-post-packer
-terraform workspace select ENVIRONMENT_TYPE
-terraform init --upgrade=true
-terraform apply
-```
+> [!NOTE]
+> Refer to the `ami_share_account_name_regex` variable if you want to customize
+> which accounts in your AWS organization to share your AMI with.
+
+1. Change into the `terraform-post-packer` directory:
+
+   ```console
+   cd terraform-post-packer
+   ```
+
+1. Create a backend configuration file named `dev.tfconfig` containing the
+name of the bucket where "dev" environment Terraform state is stored - this file
+is required to initialize the Terraform backend in each environment:
+
+    ```hcl
+    bucket = "my-dev-terraform-state-bucket"
+    ```
+
+1. Initialize the Terraform backend for the "dev" environment using your backend
+   configuration file:
+
+    ```console
+    terraform init -backend-config=dev.tfconfig
+    ```
+
+    > [!NOTE]
+    > When performing this step for additional environments (i.e. not your first
+    > environment), use the `-reconfigure` flag:
+    >
+    > ```console
+    > terraform init -backend-config=other-env.tfconfig -reconfigure
+    > ```
+
+1. If not already created, create a Terraform workspace for the "dev" environment:
+
+    ```console
+   terraform workspace new dev
+   ```
+
+   Otherwise, switch to the existing "dev" workspace:
+
+    ```console
+   terraform workspace select dev
+   ```
+
+1. Initialize and upgrade the Terraform workspace, then apply the configuration
+   to share the AMI with accounts in the "dev" environment:
+
+    ```console
+    terraform init -upgrade=true
+    terraform apply
+    ```
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements ##
@@ -191,6 +285,8 @@ No modules.
 | build\_bucket | The S3 bucket containing the Cobalt Strike and Burp Suite Pro installers. | `string` | `""` | no |
 | build\_region | The region in which to retrieve the base AMI from and build the new AMI. | `string` | `"us-east-1"` | no |
 | build\_region\_kms | The ID or ARN of the KMS key to use for AMI encryption. | `string` | `"alias/cool-amis"` | no |
+| github\_ref\_name | The GitHub short ref name to use for the tags applied to the created AMI. | `string` | `""` | no |
+| github\_sha | The GitHub commit SHA to use for the tags applied to the created AMI. | `string` | `""` | no |
 | is\_prerelease | The pre-release status to use for the tags applied to the created AMI. | `bool` | `false` | no |
 | region\_kms\_keys | A map of regions to copy the created AMI to and the KMS keys to use for encryption in that region. The keys for this map must match the values provided to the aws\_regions variable. Example: {"us-east-1": "alias/example-kms"} | `map(string)` | `{}` | no |
 | release\_tag | The GitHub release tag to use for the tags applied to the created AMI. | `string` | `""` | no |

@@ -227,6 +227,7 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         if: env.RUN_TMATE
   build:
+    environment: dev-a
     # The AMI build process is an expensive test (in terms of time) so
     # let's not run it unless the other jobs succeed.
     needs:
@@ -245,10 +246,12 @@ jobs:
           # - arm64
           - x86_64
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@v1
-        with:
-          # Uses the organization variable unless overridden
-          config: ${{ vars.ACTIONS_PERMISSIONS_CONFIG }}
+      # This job fails with the permissions monitoring in place,
+      # perhaps due to resource constraints on the free GH runners.
+      # - uses: GitHubSecurityLab/actions-permissions/monitor@v1
+      #   with:
+      #     # Uses the organization variable unless overridden
+      #     config: ${{ vars.ACTIONS_PERMISSIONS_CONFIG }}
       - id: harden-runner
         name: Harden the runner
         uses: step-security/harden-runner@v2
@@ -293,7 +296,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
-          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME_STAGING }}
+          role-to-assume: ${{ secrets.BUILD_ROLE_TO_ASSUME }}
           role-duration-seconds: 7200  # 2 hours
       # When called by Packer, Ansible will find /usr/bin/python3 and
       # use it; therefore, we must ensure that /usr/bin/python3 points
@@ -309,13 +312,19 @@ jobs:
       - name: Install Packer plugins
         run: packer init .
       - name: Create machine image
-        # This runs through the AMI creation process but does not
-        # actually create an AMI
+        env:
+          # Since we are using the default value of 15 seconds for
+          # AWS_POLL_DELAY_SECONDS, this corresponds to a timeout of
+          # two hours.  We need such a long timeout because it can
+          # take well over an hour to copy this AMI from one region to
+          # another.
+          AWS_MAX_ATTEMPTS: 480
         run: |
           packer build -only amazon-ebs.${{ matrix.architecture }} \
             -timestamp-ui \
-            -var build_bucket=${{ secrets.THIRD_PARTY_BUCKET_STAGING }} \
-            -var skip_create_ami=true \
+            -var build_bucket=${{ secrets.THIRD_PARTY_BUCKET }} \
+            -var github_ref_name=${{ github.ref_name }} \
+            -var github_sha=${{ github.sha }} \
             .
       - name: Remove /usr/bin/python3 symlink to the installed Python
         run: |

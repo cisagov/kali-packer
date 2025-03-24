@@ -1,4 +1,6 @@
-# There is no ARM-based official Kali AMI in the AWS AMI Catalog.
+# There is an ARM-based official Kali AMI in the AWS AMI Catalog, but
+# the AMI we build installs Cobalt Strike.  Cobalt Strike does not
+# support ARM64.
 # source "amazon-ebs" "arm64" {
 #   ami_name                    = "kali-hvm-${local.timestamp}-arm64-ebs"
 #   ami_regions                 = var.ami_regions
@@ -27,7 +29,9 @@
 #     Application        = "Kali"
 #     Architecture       = "arm64"
 #     Base_AMI_Name      = data.amazon-ami.kali_arm64.name
+#     GitHub_Ref_Name    = var.github_ref_name
 #     GitHub_Release_URL = var.release_url
+#     GitHub_SHA         = var.github_sha
 #     OS_Version         = "Kali Linux"
 #     Pre_Release        = var.is_prerelease
 #     Release            = var.release_tag
