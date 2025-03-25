@@ -311,6 +311,16 @@ jobs:
           /usr/bin/python3
       - name: Install Packer plugins
         run: packer init .
+      # If the AMI to be built via Packer requires anything from the
+      # third-party bucket then you will require this step.
+      # - id: get-third-party-bucket-name
+      #   name: Get the third-party bucket name from SSM Parameter Store
+      #   run: |
+      #     echo name=$(aws ssm get-parameter \
+      #       --name /third_party_bucket_name \
+      #       --output text \
+      #       --query Parameter.Value \
+      #       --with-decryption) >> $GITHUB_OUTPUT
       - name: Create machine image
         env:
           # Since we are using the default value of 15 seconds for
@@ -319,6 +329,10 @@ jobs:
           # take well over an hour to copy this AMI from one region to
           # another.
           AWS_MAX_ATTEMPTS: 480
+        # Note that if you uncomment the get-third-party-bucket-name
+        # step above then you will likely need to add a line like
+        # this after -timestamp-ui \:
+        # -var build_bucket=${{ steps.get-third-party-bucket-name.outputs.name }} \
         run: |
           packer build -only amazon-ebs.${{ matrix.architecture }} \
             -timestamp-ui \

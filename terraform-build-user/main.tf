@@ -13,6 +13,7 @@ module "iam_user" {
   ssm_parameters = [
     "/gitlab/personal_authorization_token",
     "/neo4j/password",
+    "/third_party_bucket_name",
     "/vnc/password",
     "/vnc/ssh/ed25519_private_key",
     "/vnc/ssh/ed25519_public_key",
