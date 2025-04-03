@@ -57,6 +57,5 @@ roles:
     src: gantsign.visual-studio-code
   - name: vnc_server
     src: https://github.com/cisagov/ansible-role-vnc-server
-    version: bugfix/disable-screen-locking
   - name: xfce_cool
     src: https://github.com/cisagov/ansible-role-xfce-cool
