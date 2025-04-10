@@ -6,8 +6,8 @@
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    assessment_tool_archive_src: "https://github.com/mdsecactivebreach/SharpShooter/\
-    tarball/master"
+    assessment_tool_archive_src: >
+      https://github.com/mdsecactivebreach/SharpShooter/tarball/master
     assessment_tool_csharp: true
     assessment_tool_install_dir: /tools/SharpShooter
     assessment_tool_pip_requirements_file: requirements.txt
