@@ -54,8 +54,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/mdsecactivebreach/\
-        CACTUSTORCH/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/mdsecactivebreach/CACTUSTORCH/tarball/master
         assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/CACTUSTORCH
         assessment_tool_unarchive_extra_opts:
@@ -65,8 +65,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/Techno-Hwizrdry/\
-        checkpwnedemails/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/Techno-Hwizrdry/checkpwnedemails/tarball/master
         assessment_tool_install_dir: /tools/checkpwnedemails
         assessment_tool_pip_packages:
           - requests
@@ -77,8 +77,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/trustedsec/\
-        CS-Remote-OPs-BOF/tarball/main"
+        assessment_tool_archive_src: >
+          https://github.com/trustedsec/CS-Remote-OPs-BOF/tarball/main
         assessment_tool_install_dir: /tools/CS-Remote-Ops-BOF
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -87,8 +87,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/trustedsec/\
-        CS-Situational-Awareness-BOF/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/trustedsec/CS-Situational-Awareness-BOF/tarball/master
         assessment_tool_install_dir: /tools/CS-Situational-Awareness-BOF
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
@@ -126,8 +126,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/sixdub/\
-        DomainTrustExplorer/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/sixdub/DomainTrustExplorer/tarball/master
         assessment_tool_install_dir: /tools/DomainTrustExplorer
         assessment_tool_pip_packages:
           - matplotlib
@@ -285,8 +285,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/eladshamir/\
-        Internal-Monologue/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/eladshamir/Internal-Monologue/tarball/master
         assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/Internal-Monologue
         assessment_tool_unarchive_extra_opts:
@@ -406,8 +406,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/PowerShellEmpire/\
-        PowerTools/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/PowerShellEmpire/PowerTools/tarball/master
         assessment_tool_install_dir: /tools/PowerTools
         assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
@@ -479,8 +479,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/SimplySecurity/\
-        SimplyEmail/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/SimplySecurity/SimplyEmail/tarball/master
         assessment_tool_install_dir: /tools/SimplyEmail
         # The misspelling here is intentional.  See
         # https://github.com/SimplySecurity/SimplyEmail/blob/master/setup/requirments.txt.
@@ -493,8 +493,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/SimplySecurity/\
-        SimplyTemplate/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/SimplySecurity/SimplyTemplate/tarball/master
         assessment_tool_install_dir: /tools/SimplyTemplate
         assessment_tool_pip_packages:
           - glob2
@@ -509,8 +509,8 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: "https://github.com/sqlmapproject/\
-        sqlmap/tarball/master"
+        assessment_tool_archive_src: >
+          https://github.com/sqlmapproject/sqlmap/tarball/master
         assessment_tool_install_dir: /tools/sqlmap
         assessment_tool_python: true
         assessment_tool_unarchive_extra_opts:
@@ -650,7 +650,7 @@
           unset dummy
           export PATH
         group: vnc
-        mode: 0644
+        mode: u=rw,g=r,o=r
         owner: vnc
         path: /home/{{ vnc_username }}/.bashrc
 
