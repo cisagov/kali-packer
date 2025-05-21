@@ -4,6 +4,7 @@ collections:
 roles:
   - name: amazon_efs_utils
     src: https://github.com/cisagov/ansible-role-amazon-efs-utils
+    version: improvement/upgrade-where-possible
   - name: amazon_ssm_agent
     src: https://github.com/cisagov/ansible-role-amazon-ssm-agent
   - name: assessment_tool
