@@ -15,9 +15,9 @@
     - name: Install Amazon SSM Agent
       ansible.builtin.include_role:
         name: amazon_ssm_agent
-    - name: Install chrony and configure it for use within AWS
+    - name: Install systemd-timesyncd and configure it for use within AWS
       ansible.builtin.include_role:
-        name: chrony_aws
+        name: systemd_timesyncd_aws
     - name: Install and configure Amazon CloudWatch Agent
       ansible.builtin.include_role:
         name: cloudwatch_agent

@@ -16,8 +16,6 @@ roles:
     src: https://github.com/cisagov/ansible-role-banner
   - name: burp_suite_pro
     src: https://github.com/cisagov/ansible-role-burp-suite-pro
-  - name: chrony_aws
-    src: https://github.com/cisagov/ansible-role-chrony-aws
   - name: clamav
     src: https://github.com/cisagov/ansible-role-clamav
   - name: cloudwatch_agent
@@ -49,6 +47,8 @@ roles:
   # platform.
   # - name: systemd_resolved
   #   src: https://github.com/cisagov/ansible-role-systemd-resolved
+  - name: systemd_timesyncd_aws
+    src: https://github.com/cisagov/ansible-role-systemd-timesyncd-aws
   - name: ufw
     src: https://github.com/cisagov/ansible-role-ufw
   - name: upgrade
