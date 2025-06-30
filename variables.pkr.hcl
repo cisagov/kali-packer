@@ -38,6 +38,18 @@ variable "build_region_kms" {
   type        = string
 }
 
+variable "force_install_ansible_requirements" {
+  default     = false
+  description = "Indicate if the Ansible requirements should be force installed."
+  type        = bool
+}
+
+variable "force_install_ansible_requirements_with_dependencies" {
+  default     = false
+  description = "Indicate if the Ansible requirements *and* their dependencies should be force installed."
+  type        = bool
+}
+
 variable "github_ref_name" {
   default     = ""
   description = "The GitHub short ref name to use for the tags applied to the created AMI."
