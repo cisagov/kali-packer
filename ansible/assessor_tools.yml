@@ -326,17 +326,6 @@
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
-    - name: Install fox-it/mitm6
-      ansible.builtin.include_role:
-        name: assessment_tool
-      vars:
-        assessment_tool_archive_src: https://github.com/fox-it/mitm6/tarball/master
-        assessment_tool_install_dir: /tools/mitm6
-        assessment_tool_pip_packages:
-          - .
-        assessment_tool_unarchive_extra_opts:
-          - --strip-components=1
-
     - name: Install vysecurity/morphHTA
       ansible.builtin.include_role:
         name: assessment_tool
@@ -562,6 +551,7 @@
           - jq
           - libreoffice
           - mimikatz
+          - mitm6
           - netexec
           - nfs-common
           - nikto
