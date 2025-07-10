@@ -503,6 +503,7 @@
       ansible.builtin.package:
         name:
           - assetfinder
+          - bloodhound.py
           - cargo
           - cifs-utils
           - dirsearch
