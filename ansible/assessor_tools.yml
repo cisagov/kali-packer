@@ -534,6 +534,7 @@
           - python3-pypykatz
           - python3-shodan
           - python3-venv
+          - responder
           - screen
           - seclists
           - sqlmap
@@ -622,9 +623,6 @@
 
     - name: Install PCredz
       ansible.builtin.import_tasks: pcredz.yml
-
-    - name: Install Responder
-      ansible.builtin.import_tasks: responder.yml
 
     - name: Install ScareCrow
       ansible.builtin.import_tasks: scarecrow.yml
