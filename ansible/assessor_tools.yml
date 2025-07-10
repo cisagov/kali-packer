@@ -507,6 +507,7 @@
           - cifs-utils
           - dirsearch
           - dnsutils
+          - donut
           - dos2unix
           - exploitdb
           - eyewitness
@@ -528,6 +529,7 @@
           - php
           - powersploit
           - proxychains
+          - python3-donut
           - python3-lsassy
           - python3-pypykatz
           - python3-shodan
@@ -614,9 +616,6 @@
 
     - name: Install Cobalt Strike
       ansible.builtin.import_tasks: cobalt_strike.yml
-
-    - name: Install Donut
-      ansible.builtin.import_tasks: donut.yml
 
     - name: Install EXCELntDonut
       ansible.builtin.import_tasks: excelntdonut.yml
