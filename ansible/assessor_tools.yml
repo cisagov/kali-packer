@@ -537,6 +537,7 @@
           - responder
           - screen
           - seclists
+          - sharpshooter
           - sqlmap
           - subfinder
           - sublist3r
@@ -626,9 +627,6 @@
 
     - name: Install ScareCrow
       ansible.builtin.import_tasks: scarecrow.yml
-
-    - name: Install SharpShooter
-      ansible.builtin.import_tasks: sharpshooter.yml
 
     # ysoserial requires a Java implementation
     - name: Install ysoserial
