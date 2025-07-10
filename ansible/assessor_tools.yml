@@ -518,6 +518,7 @@
           - getallurls
           - gobuster
           - golang
+          - gowitness
           - jq
           - libreoffice
           - mimikatz
