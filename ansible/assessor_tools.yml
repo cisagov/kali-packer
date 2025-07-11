@@ -451,7 +451,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/master
+        assessment_tool_archive_src: https://github.com/rasta-mouse/TikiTorch/tarball/93a4512e25d6f9a5b3e3832cf79be22d058d9851
         assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/TikiTorch
         assessment_tool_unarchive_extra_opts:
