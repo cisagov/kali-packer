@@ -120,16 +120,6 @@
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
-    - name: Install MacR6/ftpenum
-      ansible.builtin.include_role:
-        name: assessment_tool
-      vars:
-        assessment_tool_archive_src: https://github.com/MacR6/ftpenum/tarball/7f5ad23418e82aa07807d66fb5ad9d1a7e3a69e9
-        assessment_tool_install_dir: /tools/ftpenum
-        assessment_tool_python2: true
-        assessment_tool_unarchive_extra_opts:
-          - --strip-components=1
-
     - name: Install GhostPack/Lockless
       ansible.builtin.include_role:
         name: assessment_tool
