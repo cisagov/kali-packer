@@ -389,7 +389,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/master
+        assessment_tool_archive_src: https://github.com/Arvanaghi/SessionGopher/tarball/9b5f086b85ab79cedac288341fc9c0d496d169c5
         assessment_tool_install_dir: /tools/SessionGopher
         assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
