@@ -93,7 +93,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/bovine/datapipe/tarball/master
+        assessment_tool_archive_src: https://github.com/bovine/datapipe/tarball/31ab7b9702f377ad5c2b87326b647670e83d1c5f
         assessment_tool_install_dir: /tools/datapipe
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
