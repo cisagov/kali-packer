@@ -369,7 +369,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/master
+        assessment_tool_archive_src: https://github.com/NetSPI/PowerUpSQL/tarball/7d73373b0751b8648a800fbeef4c00ced66eba58
         assessment_tool_install_dir: /tools/PowerUpSQL
         assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
