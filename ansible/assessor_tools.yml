@@ -254,7 +254,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/HarmJ0y/ImpDump/tarball/master
+        assessment_tool_archive_src: https://github.com/HarmJ0y/ImpDump/tarball/f342275901196d5c722678c053bbd6ac22ca7652
         assessment_tool_install_dir: /tools/ImpDump
         assessment_tool_pip_packages:
           # impacket>=0.11.0 has a dependency that only supports
