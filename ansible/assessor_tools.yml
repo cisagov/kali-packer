@@ -291,7 +291,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/xan7r/kerberoast/tarball/master
+        assessment_tool_archive_src: https://github.com/xan7r/kerberoast/tarball/40887ff3c81e8420f99d0b331a788575360588d1
         assessment_tool_install_dir: /tools/kerberoast
         assessment_tool_pip_packages:
           - pyasn1
