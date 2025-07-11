@@ -439,7 +439,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/MacR6/sshenum/tarball/master
+        assessment_tool_archive_src: https://github.com/MacR6/sshenum/tarball/ef8a82c6750084046747f9c2c08567bd51efe331
         assessment_tool_install_dir: /tools/sshenum
         assessment_tool_pip_packages:
           - paramiko
