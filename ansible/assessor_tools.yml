@@ -75,8 +75,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/trustedsec/CS-Remote-OPs-BOF/tarball/main
+        assessment_tool_archive_src: https://github.com/trustedsec/CS-Remote-OPs-BOF/tarball/12850f1d9306ccdec21f2b4e9dd16f78b0b949a9
         assessment_tool_install_dir: /tools/CS-Remote-Ops-BOF
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
