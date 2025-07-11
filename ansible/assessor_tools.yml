@@ -379,7 +379,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/xorrior/RandomPS-Scripts/tarball/master
+        assessment_tool_archive_src: https://github.com/xorrior/RandomPS-Scripts/tarball/848c919bfce4e2d67b626cbcf4404341cfe3d3b6
         assessment_tool_install_dir: /tools/RandomPS-Scripts
         assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
