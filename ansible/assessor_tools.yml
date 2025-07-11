@@ -64,8 +64,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/Techno-Hwizrdry/checkpwnedemails/tarball/master
+        assessment_tool_archive_src: https://github.com/Techno-Hwizrdry/checkpwnedemails/tarball/811b6e6837da2cda64a5793125105f5ca07cd196
         assessment_tool_install_dir: /tools/checkpwnedemails
         assessment_tool_pip_packages:
           - requests
