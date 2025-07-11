@@ -359,8 +359,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/PowerShellEmpire/PowerTools/tarball/master
+        assessment_tool_archive_src: https://github.com/PowerShellEmpire/PowerTools/tarball/b980b13844166bf206f51e80ba2d70368515ab15
         assessment_tool_install_dir: /tools/PowerTools
         assessment_tool_powershell: true
         assessment_tool_unarchive_extra_opts:
