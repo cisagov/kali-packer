@@ -26,7 +26,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/3ndG4me/AutoBlue-MS17-010/tarball/master
+        assessment_tool_archive_src: https://github.com/3ndG4me/AutoBlue-MS17-010/tarball/27363a94044b55a5fcc0a2731ed534169a249901
         assessment_tool_install_dir: /tools/AutoBlue-MS17-010
         assessment_tool_pip_requirements_file: requirements.txt
         assessment_tool_unarchive_extra_opts:
