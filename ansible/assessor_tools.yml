@@ -174,7 +174,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/GhostPack/SafetyKatz/tarball/master
+        assessment_tool_archive_src: https://github.com/GhostPack/SafetyKatz/tarball/715b311f76eb3a4c8d00a1bd29c6cd1899e450b7
         assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SafetyKatz
         assessment_tool_unarchive_extra_opts:
