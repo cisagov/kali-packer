@@ -84,8 +84,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/trustedsec/CS-Situational-Awareness-BOF/tarball/master
+        assessment_tool_archive_src: https://github.com/trustedsec/CS-Situational-Awareness-BOF/tarball/eb73a573f6691852c1050aea75576fdedf7ead84
         assessment_tool_install_dir: /tools/CS-Situational-Awareness-BOF
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
