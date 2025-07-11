@@ -23,4 +23,4 @@
       - --strip-components=2
     group: "{{ group }}"
     remote_src: true
-    src: https://github.com/Accenture/CLRvoyance/tarball/master
+    src: https://github.com/Accenture/CLRvoyance/tarball/03ca4e02cbc27961358dec7e5ce6b8764e9ec9ca
