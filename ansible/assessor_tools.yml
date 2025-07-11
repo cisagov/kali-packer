@@ -411,8 +411,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/SimplySecurity/SimplyEmail/tarball/master
+        assessment_tool_archive_src: https://github.com/SimplySecurity/SimplyEmail/tarball/6a42d373a13b258e90d61efc82c527c5b754a9b8
         assessment_tool_install_dir: /tools/SimplyEmail
         # The misspelling here is intentional.  See
         # https://github.com/SimplySecurity/SimplyEmail/blob/master/setup/requirments.txt.
