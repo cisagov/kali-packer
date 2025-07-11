@@ -224,7 +224,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/GhostPack/SharpWMI/tarball/master
+        assessment_tool_archive_src: https://github.com/GhostPack/SharpWMI/tarball/0600f57aeb4733ba6fec585388af2f1ac4483b58
         assessment_tool_csharp: true
         assessment_tool_install_dir: /tools/GhostPack/SharpWMI
         assessment_tool_unarchive_extra_opts:
