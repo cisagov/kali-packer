@@ -18,8 +18,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/rsmudge/Malleable-C2-Profiles/tarball/master
+        assessment_tool_archive_src: https://github.com/rsmudge/Malleable-C2-Profiles/tarball/26323784672913923d20c5a638c6ca79459e8529
         assessment_tool_install_dir: /tools/Malleable-C2-Profiles
     - name: Install Malleable-C2-Randomizer
       ansible.builtin.include_role:
