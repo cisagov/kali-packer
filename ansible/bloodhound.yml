@@ -1,151 +1,43 @@
 ---
-- name: Install and configure Neo4j
+- name: Install BloodHound and BloodHound.py
+  ansible.builtin.package:
+    name:
+      - bloodhound
+      - bloodhound.py
+
+# BloodHound will not work unless you change the Neo4j password from
+# the default value.
+- name: Set the initial password for Neo4j
   block:
-    # By default OpenJDK 17 is being used on Kali Linux.  Neo4j <5
-    # requires OpenJDK 11.
+    # By default a very recent version of OpenJDK 17 is being used on
+    # Kali Linux.  Neo4j <5 requires OpenJDK 11.
     #
-    # TODO: This block can be removed once we upgrade to Neo4j version
+    # TODO: This task can be removed once we upgrade to Neo4j version
     # 5, as discussed in #136.
     - name: Install OpenJDK 11
       ansible.builtin.include_role:
         name: openjdk
 
-    # The version of Neo4j available by default in Kali does not
-    # include the systemd service file, so we need to install the
-    # package from a different repo.
-    #
-    # TODO: Upgrade to Neo4j 5 when possible, as described in #136.
-    - name: Configure apt to use official Neo4j apt repo
-      block:
-        - name: Install prerequisites so apt can use DEB822 repos (Kali)
-          ansible.builtin.package:
-            name:
-              - python3-debian
-        - name: Add the official Neo4j repo
-          ansible.builtin.deb822_repository:
-            components:
-              - 4.4
-            name: neo4j
-            signed_by: https://debian.neo4j.com/neotechnology.gpg.key
-            suites:
-              - stable
-            uris:
-              - https://debian.neo4j.com
-        - name: Update the package cache
-          ansible.builtin.apt:
-            update_cache: true
+    - name: Start Neo4j
+      ansible.builtin.command:
+        cmd: /usr/bin/neo4j start
+      changed_when: start_neo4j.rc == 0
+      failed_when: start_neo4j.rc != 0
+      register: start_neo4j
 
-    - name: Install Neo4j
-      ansible.builtin.package:
-        name:
-          - neo4j
-
-    # BloodHound will not work unless you change the Neo4j password
-    # from the default value.
-    #
-    # Note that the version of the official Neo4j package includes an
-    # epoch prefix in the version, followed by a colon character.
-    # This can be seen here:
-    # https://debian.neo4j.com/
-    #
-    # If we replace the colon by an exclamation point, then the
-    # resulting version is consistent with the pep440 version_type
-    # parameter, as described in these links:
-    # https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_tests.html#comparing-versions
-    # https://peps.python.org/pep-0440/
     - name: Set Neo4j password
-      block:
-        - name: Gather the package facts
-          ansible.builtin.package_facts:
-
-        - name: Get version of the installed Neo4j package
-          ansible.builtin.set_fact:
-            installed_neo4j_version: >-
-              {{ ansible_facts.packages['neo4j'] |
-              map(attribute='version') | first |
-              replace(':', '!') | replace('"', '') }}
-
-        - name: Set Neo4j password on version < 5
-          ansible.builtin.command:
-            cmd: >
-              /usr/bin/neo4j-admin
-              set-initial-password {{ password }}
-          changed_when: set_initial_password.rc == 0
-          failed_when: set_initial_password.rc != 0
-          no_log: true
-          register: set_initial_password
-          when:
-            - installed_neo4j_version is version("1!5.0", "<", version_type="pep440")
-
-        - name: Set Neo4j password on version >= 5
-          ansible.builtin.command:
-            cmd: >
-              /usr/bin/neo4j-admin dbms
-              set-initial-password {{ password }}
-          changed_when: set_initial_password.rc == 0
-          failed_when: set_initial_password.rc != 0
-          no_log: true
-          register: set_initial_password
-          when:
-            - installed_neo4j_version is version("1!5.0", ">=", version_type="pep440")
-
-    - name: Systemd daemon-reload
-      ansible.builtin.systemd:
-        daemon_reload: true
-
-    - name: Start Neo4j service at boot
-      ansible.builtin.service:
-        enabled: true
-        name: neo4j
-
-- name: Install BloodHound
-  block:
-    - name: Install npm
-      ansible.builtin.package:
-        name:
-          - npm
-    - name: Install Electron Packager
-      community.general.npm:
-        global: true
-        name: electron-packager
-    - name: Download BloodHound tool from GitHub
-      ansible.builtin.include_role:
-        name: assessment_tool
-      vars:
-        assessment_tool_archive_src: https://github.com/BloodHoundAD/BloodHound/tarball/master
-        assessment_tool_install_dir: /tools/BloodHound
-        assessment_tool_unarchive_extra_opts:
-          - --strip-components=1
-    # Kali uses a very new version of npm, which now generates errors
-    # as described here:
-    # https://stackoverflow.com/questions/66239691/what-does-npm-install-legacy-peer-deps-do-exactly-when-is-it-recommended-wh
-    # The solution is to run npm with the --legacy-peer-deps flag,
-    # which forces npm to handle peer dependencies like it used to do.
-    # Unfortunately I can't do that with the community.general.npm
-    # module, so I have to use ansible.builtin.command.
-
-    # - name: Install BloodHound dependencies
-    #   community.general.npm:
-    #     ci: true
-    #     path: /tools/BloodHound
-    #     production: true
-    - name: Install BloodHound dependencies
       ansible.builtin.command:
-        chdir: /tools/BloodHound
-        cmd: npm ci --legacy-peer-deps
-      changed_when: npm_ci.rc == 0
-      failed_when: npm_ci.rc != 0
-      register: npm_ci
-    - name: Build BloodHound
+        cmd: >
+          /usr/share/neo4j/bin/neo4j-admin
+          set-initial-password {{ password }}
+      changed_when: set_initial_password.rc == 0
+      failed_when: set_initial_password.rc != 0
+      no_log: true
+      register: set_initial_password
+
+    - name: Stop Neo4j
       ansible.builtin.command:
-        chdir: /tools/BloodHound
-        cmd: npm run build:linux
-      changed_when: npm_run.rc == 0
-      environment:
-        # This is necessary to avoid errors caused by the fact that
-        # the BloodHound build process uses some now-disallowed (as of
-        # OpenSSL 3.0) encryption functions.  This is again because
-        # Kali is running a very new version of Node.
-        NODE_OPTIONS: --openssl-legacy-provider
-      failed_when: npm_run.rc != 0
-      register: npm_run
+        cmd: /usr/bin/neo4j stop
+      changed_when: stop_neo4j.rc == 0
+      failed_when: stop_neo4j.rc != 0
+      register: stop_neo4j
