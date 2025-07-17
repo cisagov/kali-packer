@@ -42,3 +42,29 @@
       changed_when: stop_neo4j.rc == 0
       failed_when: stop_neo4j.rc != 0
       register: stop_neo4j
+
+    - name: Set Neo4j password for BloodHound API
+      block:
+        - name: Slurp BloodHound API config file
+          ansible.builtin.slurp:
+            src: /etc/bhapi/bhapi.json
+          register: json_content
+
+        - name: Parse JSON into Ansible
+          ansible.builtin.set_fact:
+            parsed_json: "{{ json_content.content | b64decode | from_json }}"
+
+        - name: Modify the Neo4j password
+          ansible.utils.update_fact:
+            updates:
+              - path: parsed_json.neo4j.secret
+                value: "{{ password }}"
+          register: update
+
+        - name: Write out the new BloodHound API config file
+          ansible.builtin.copy:
+            content: "{{ update.parsed_json | to_nice_json }}"
+            dest: /etc/bhapi/bhapi.json
+            group: root
+            mode: u=rw,g=r,o=r
+            owner: root
