@@ -1,9 +1,10 @@
 ---
-- name: Install BloodHound and BloodHound.py
+- name: Install BloodHound and BloodHound Python collectors
   ansible.builtin.package:
     name:
       - bloodhound
       - bloodhound.py
+      - bloodhound-ce-python
 
 # BloodHound will not work unless you change the Neo4j password from
 # the default value.
