@@ -11,21 +11,18 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/killswitch-GUI/CobaltStrike-Toolkit/tarball/master
+        assessment_tool_archive_src: https://github.com/killswitch-GUI/CobaltStrike-Toolkit/tarball/12e520f1f28e03cd73e23978a00b7715b5e2d348
         assessment_tool_install_dir: /tools/CobaltStrike-Toolkit
         assessment_tool_powershell: true
     - name: Install Malleable-C2-Profiles
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/rsmudge/Malleable-C2-Profiles/tarball/master
+        assessment_tool_archive_src: https://github.com/rsmudge/Malleable-C2-Profiles/tarball/26323784672913923d20c5a638c6ca79459e8529
         assessment_tool_install_dir: /tools/Malleable-C2-Profiles
     - name: Install Malleable-C2-Randomizer
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: >
-          https://github.com/bluscreenofjeff/Malleable-C2-Randomizer/tarball/master
+        assessment_tool_archive_src: https://github.com/bluscreenofjeff/Malleable-C2-Randomizer/tarball/eec7300949ae70b3dcf4d95a29bddb6a88be1651
         assessment_tool_install_dir: /tools/Malleable-C2-Randomizer

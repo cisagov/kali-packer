@@ -16,11 +16,11 @@
       - Cython
     assessment_tool_unarchive_extra_opts:
       - --strip-components=1
-- name: Install PCredz
+- name: Install lgandx/PCredz
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    assessment_tool_archive_src: https://github.com/lgandx/PCredz/tarball/master
+    assessment_tool_archive_src: https://github.com/lgandx/PCredz/tarball/5be7df84e6241a59c44e591283764bc4256a7bdf
     assessment_tool_install_dir: /tools/PCredz
     assessment_tool_pip_packages:
       - python-libpcap

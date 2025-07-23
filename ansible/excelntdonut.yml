@@ -1,10 +1,9 @@
 ---
-- name: Install EXCELntDonut
+- name: Install RedSiege/EXCELntDonut
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    assessment_tool_archive_src:
-      https://github.com/RedSiege/EXCELntDonut/tarball/master
+    assessment_tool_archive_src: https://github.com/RedSiege/EXCELntDonut/tarball/e2b3a8df61d2be2e243a5627c46668aec567d99b
     assessment_tool_csharp: true
     assessment_tool_install_dir: /tools/EXCELntDonut
     assessment_tool_pip_packages:
@@ -24,4 +23,4 @@
       - --strip-components=2
     group: "{{ group }}"
     remote_src: true
-    src: https://github.com/Accenture/CLRvoyance/tarball/master
+    src: https://github.com/Accenture/CLRvoyance/tarball/03ca4e02cbc27961358dec7e5ce6b8764e9ec9ca

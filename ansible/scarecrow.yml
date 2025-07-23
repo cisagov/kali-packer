@@ -5,11 +5,11 @@
     name:
       - osslsigncode
 
-- name: Install ScareCrow
+- name: Install Tylous/ScareCrow
   ansible.builtin.include_role:
     name: assessment_tool
   vars:
-    assessment_tool_archive_src: https://github.com/optiv/ScareCrow/tarball/main
+    assessment_tool_archive_src: https://github.com/Tylous/ScareCrow/tarball/6b9ecd5a7191d9bdbc7f83fe889a289e2524b969
     assessment_tool_go: true
     assessment_tool_install_dir: /tools/ScareCrow
     assessment_tool_unarchive_extra_opts:
