@@ -13,15 +13,15 @@ description of how this code is intended to be used.
 
 | Name | Version |
 |------|---------|
-| terraform | ~> 1.0 |
-| aws | ~> 4.9 |
+| terraform | ~> 1.1 |
+| aws | ~> 6.7 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws.cool-terraform-backend | ~> 4.9 |
-| aws.images-ami | ~> 4.9 |
+| aws.cool-terraform-backend | ~> 6.7 |
+| aws.images-ami | ~> 6.7 |
 | terraform | n/a |
 
 ## Modules ##
