@@ -106,10 +106,10 @@ jobs:
           # this workflow.
           permissions_monitoring_config: ${{ vars.ACTIONS_PERMISSIONS_CONFIG }}
       - id: setup-env
-        uses: cisagov/setup-env-github-action@develop
-      - uses: actions/checkout@v4
+        uses: cisagov/setup-env-github-action@v1
+      - uses: actions/checkout@v5
       - id: setup-python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ steps.setup-env.outputs.python-version }}
       - uses: actions/cache@v4
@@ -145,7 +145,7 @@ jobs:
       #     echo $COPY_REGIONS_KMS_MAP | \
       #       ./patch_packer_config.py variables.pkr.hcl
       - name: Assume AWS build role
-        uses: aws-actions/configure-aws-credentials@v4.2.1
+        uses: aws-actions/configure-aws-credentials@v5
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
