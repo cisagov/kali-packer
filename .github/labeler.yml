@@ -23,6 +23,13 @@ dependencies:
           - ansible/requirements.yml
           - requirements*.txt
           - versions.pkr.hcl
+# Enable if Docker is used in the repository.
+# docker:
+#   - changed-files:
+#       - any-glob-to-any-file:
+#           - "**/compose*.yml"
+#           - "**/docker-compose*.yml"
+#           - "**/Dockerfile*"
 documentation:
   - changed-files:
       - any-glob-to-any-file:
