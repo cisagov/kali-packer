@@ -1,6 +1,8 @@
 # kali-packer 💀📦🆒 #
 
 [![GitHub Build Status](https://github.com/cisagov/kali-packer/workflows/build/badge.svg)](https://github.com/cisagov/kali-packer/actions)
+[![License](https://img.shields.io/github/license/cisagov/kali-packer)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/kali-packer/workflows/CodeQL/badge.svg)](https://github.com/cisagov/kali-packer/actions/workflows/codeql-analysis.yml)
 
 This project can be used to create machine images based on [Kali
 Linux](https://www.kali.org), a Linux penetration testing

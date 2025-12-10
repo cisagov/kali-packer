@@ -10,15 +10,6 @@
 # the default value.
 - name: Set the initial password for Neo4j
   block:
-    # By default a very recent version of OpenJDK 17 is being used on
-    # Kali Linux.  Neo4j <5 requires OpenJDK 11.
-    #
-    # TODO: This task can be removed once we upgrade to Neo4j version
-    # 5, as discussed in #136.
-    - name: Install OpenJDK 11
-      ansible.builtin.include_role:
-        name: openjdk
-
     - name: Start Neo4j
       ansible.builtin.command:
         cmd: /usr/bin/neo4j start
@@ -32,6 +23,11 @@
           /usr/share/neo4j/bin/neo4j-admin
           set-initial-password {{ password }}
       changed_when: set_initial_password.rc == 0
+      environment:
+        # We *must* use Java 11 when working with Neo4j; Java 11 is
+        # installed as a dependency when the bloodhound package is
+        # installed.
+        JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
       failed_when: set_initial_password.rc != 0
       no_log: true
       register: set_initial_password
