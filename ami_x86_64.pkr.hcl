@@ -3,7 +3,7 @@ source "amazon-ebs" "x86_64" {
   ami_regions                 = var.ami_regions
   associate_public_ip_address = true
   encrypt_boot                = true
-  instance_type               = "t3.large"
+  instance_type               = "t3.xlarge"
   kms_key_id                  = var.build_region_kms
   launch_block_device_mappings {
     delete_on_termination = true
