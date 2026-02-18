@@ -13,8 +13,13 @@ ansible>=10,<11
 # requirements-test.txt in cisagov/skeleton-ansible-role and
 # .pre-commit-config.yaml in cisagov/skeleton-generic.
 ansible-core>=2.17.7
+# Required because we are using the amazon.aws.aws_ssm Ansible lookup
+# plugin to pull parameter values from AWS Parameter Store.
 boto3
-docopt
+# Required because we are using the community.general.json_query filter in our Ansible
+# code in the cisagov/ansible-role-amazon-efs-utils role:
+# https://docs.ansible.com/projects/ansible/latest/collections/community/general/json_query_filter.html
+jmespath
 # The bump-version script requires at least version 3 of semver.
 semver>=3
 setuptools

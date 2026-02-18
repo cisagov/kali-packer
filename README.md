@@ -27,6 +27,20 @@ next steps. Note that you will need to know where your team stores their
 remote profile data in order to use
 [`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync).
 
+> [!IMPORTANT]
+> `boto3` is not a Python dependency that is used in this repository,
+> but it is often required in a repository of this type, e.g., when
+> using the `amazon.aws.aws_ssm` Ansible lookup plugin to pull a
+> parameter value from AWS Parameter Store.  In such a case you will
+> want to add `boto3` to the list of Python dependencies in
+> [`requirements.txt`](requirements.txt).
+>
+> For the same reason, unless you are using the
+> `community.general.json_query` Ansible filter, there is a good
+> chance that you do not need the `jmespath` Python dependency that is
+> included in [`requirements.txt`](requirements.txt).  In such a case
+> this dependency can be removed from that file.
+
 ### Creating a build user ###
 
 You will need to create a build user for each environment that you use.  The
