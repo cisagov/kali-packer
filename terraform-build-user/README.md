@@ -12,14 +12,14 @@ description of how this code is intended to be used.
 ## Requirements ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | terraform | ~> 1.1 |
 | aws | ~> 6.7 |
 
 ## Providers ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | aws.cool-terraform-backend | ~> 6.7 |
 | aws.images-ami | ~> 6.7 |
 | terraform | n/a |
@@ -27,13 +27,13 @@ description of how this code is intended to be used.
 ## Modules ##
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | iam\_user | github.com/cisagov/ami-build-iam-user-tf-module | n/a |
 
 ## Resources ##
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_iam_role_policy_attachment.thirdpartybucketread_bsp](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.thirdpartybucketread_cobaltstrike](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_caller_identity.terraform_backend](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
@@ -46,7 +46,7 @@ description of how this code is intended to be used.
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | terraform\_state\_bucket | The name of the S3 bucket where Terraform state is stored. | `string` | n/a | yes |
 
 ## Outputs ##

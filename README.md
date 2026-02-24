@@ -280,7 +280,7 @@ No requirements.
 ## Providers ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | amazon-ami | n/a |
 
 ## Modules ##
@@ -290,13 +290,13 @@ No modules.
 ## Resources ##
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [amazon-ami_amazon-ami.kali_x86_64](https://registry.terraform.io/providers/hashicorp/amazon-ami/latest/docs/data-sources/amazon-ami) | data source |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | ami\_regions | The list of AWS regions to copy the AMI to once it has been created. Example: ["us-east-1"] | `list(string)` | `[]` | no |
 | build\_bucket | The S3 bucket containing the Cobalt Strike and Burp Suite Pro installers. | `string` | `""` | no |
 | build\_region | The region in which to retrieve the base AMI from and build the new AMI. | `string` | `"us-east-1"` | no |
