@@ -1,7 +1,10 @@
 ---
 collections:
-  # Required because we are using the amazon.aws.ssm_parameter Ansible
-  # lookup plugin to pull parameter values from AWS Parameter Store.
+  # Required by the following Ansible roles:
+  # - ansible-role-cobalt-strike (uses amazon.aws.s3_object)
+  #
+  # Also required by the following playbooks:
+  # - ansible/wazuh.yml (uses amazon.aws.ssm_parameter)
   - amazon.aws
   # Required by the following Ansible roles:
   # - ansible-role-amazon-efs-utils (uses community.general.json_query
