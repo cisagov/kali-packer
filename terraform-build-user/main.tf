@@ -18,6 +18,8 @@ module "iam_user" {
     "/vnc/ssh/ed25519_private_key",
     "/vnc/ssh/ed25519_public_key",
     "/vnc/username",
+    # Necessary when building any instances that run the Wazuh agent
+    "/wazuh_agent/manager",
   ]
   user_name = "build-kali-packer"
 }

@@ -1,5 +1,16 @@
 ---
 collections:
+  # Required because we are using the amazon.aws.ssm_parameter Ansible
+  # lookup plugin to pull parameter values from AWS Parameter Store.
+  - amazon.aws
+  # Required by the following Ansible roles:
+  # - ansible-role-amazon-efs-utils (uses community.general.json_query
+  #   and community.general.make)
+  # - ansible-role-amazon-ssm-agent (uses community.general.snap)
+  # - ansible-role-automated-security-updates (uses community.general.ini_file)
+  # - ansible-role-cloudwatch-agent (uses community.general.ini_file)
+  # - ansible-role-persist-journald (uses community.general.ini_file)
+  # - ansible-role-systemd-resolved (uses community.general.ini_file)
   - community.general
 roles:
   - name: amazon_efs_utils
@@ -57,5 +68,7 @@ roles:
     src: gantsign.visual-studio-code
   - name: vnc_server
     src: https://github.com/cisagov/ansible-role-vnc-server
+  - name: wazuh_agent
+    src: https://github.com/cisagov/ansible-role-wazuh-agent
   - name: xfce_cool
     src: https://github.com/cisagov/ansible-role-xfce-cool
