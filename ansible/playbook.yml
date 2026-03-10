@@ -18,6 +18,9 @@
 - name: Import Xfce playbook
   ansible.builtin.import_playbook: xfce.yml
 
+- name: Import Wazuh agent playbook
+  ansible.builtin.import_playbook: wazuh_agent.yml
+
 # This playbook must be run after the VNC playbook, since it makes
 # changes to the vnc user.
 - name: Import assessor tools playbook
