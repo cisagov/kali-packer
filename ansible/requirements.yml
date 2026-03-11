@@ -1,4 +1,8 @@
 ---
+# Both the collections and roles lists must exist in this file because
+# we use both ansible-galaxy collection install and ansible-galaxy
+# role install to install collections and roles from it.  Note that
+# either (or both) can be an empty list, e.g., collections: [].
 collections:
   # Required by the following Ansible roles:
   # - ansible-role-cobalt-strike (uses amazon.aws.s3_object)

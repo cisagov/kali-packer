@@ -46,6 +46,10 @@ updates:
   - directories:
       - /terraform-build-user
       - /terraform-post-packer
+    groups:
+      aws-provider:
+        patterns:
+          - hashicorp/aws
     ignore:
       # Managed by cisagov/skeleton-packer
       - dependency-name: hashicorp/aws
