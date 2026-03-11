@@ -28,18 +28,11 @@ remote profile data in order to use
 [`aws-profile-sync`](https://github.com/cisagov/aws-profile-sync).
 
 > [!IMPORTANT]
-> `boto3` is not a Python dependency that is used in this repository,
-> but it is often required in a repository of this type, e.g., when
-> using the `amazon.aws.aws_ssm` Ansible lookup plugin to pull a
-> parameter value from AWS Parameter Store.  In such a case you will
-> want to add `boto3` to the list of Python dependencies in
-> [`requirements.txt`](requirements.txt).
->
-> For the same reason, unless you are using the
-> `community.general.json_query` Ansible filter, there is a good
-> chance that you do not need the `jmespath` Python dependency that is
-> included in [`requirements.txt`](requirements.txt).  In such a case
-> this dependency can be removed from that file.
+> Unless you are using the `community.general.json_query` Ansible
+> filter, there is a good chance that you do not need the `jmespath`
+> Python dependency that is included in
+> [`requirements.txt`](requirements.txt).  In such a case this
+> dependency can be removed from that file.
 
 ### Creating a build user ###
 
@@ -190,7 +183,8 @@ Here is an example of how to kick off a pre-release build:
 
 ```console
 pip install --requirement requirements-dev.txt
-ansible-galaxy install --force --force-with-deps --role-file ansible/requirements.yml
+ansible-galaxy role install --force --force-with-deps --role-file ansible/requirements.yml
+ansible-galaxy collection install --force --force-with-deps --requirements-file ansible/requirements.yml
 AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui -var release_tag=$(./bump-version show) -var build_bucket="installers-bucket" -var is_prerelease=true .
 ```
 
