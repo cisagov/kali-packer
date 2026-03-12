@@ -8,7 +8,10 @@ collections:
   # - ansible-role-cobalt-strike (uses amazon.aws.s3_object)
   #
   # Also required by the following playbooks:
+  # - ansible/assessor_tools.yml (uses amazon.aws.ssm_parameter)
+  # - ansible/vnc.yml (uses amazon.aws.ssm_parameter)
   # - ansible/wazuh_agent.yml (uses amazon.aws.ssm_parameter)
+  # - ansible/xfce.yml (uses amazon.aws.ssm_parameter)
   - amazon.aws
   # Required by the following Ansible roles:
   # - ansible-role-amazon-efs-utils (uses community.general.json_query
