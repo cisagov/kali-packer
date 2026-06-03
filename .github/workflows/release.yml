@@ -130,7 +130,7 @@ jobs:
       - uses: hashicorp/setup-packer@v3
         with:
           version: ${{ steps.setup-env.outputs.packer-version }}
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ steps.setup-env.outputs.terraform-version }}
       - name: Install dependencies
