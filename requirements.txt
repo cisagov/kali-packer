@@ -14,7 +14,7 @@ ansible>=10,<11
 # .pre-commit-config.yaml in cisagov/skeleton-generic.
 ansible-core>=2.17.7
 # Required because we are using the amazon.aws.ssm_parameter Ansible
-# lookup plugin to pull parameters value from AWS Parameter Store:
+# lookup plugin to pull parameter values from AWS Parameter Store:
 # https://docs.ansible.com/projects/ansible/latest/collections/amazon/aws/ssm_parameter_lookup.html#ansible-collections-amazon-aws-ssm-parameter-lookup
 boto3
 # Required because we are using the community.general.json_query

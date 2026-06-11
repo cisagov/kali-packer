@@ -29,7 +29,9 @@ remote profile data in order to use
 
 > [!IMPORTANT]
 > Unless you are using the `community.general.json_query` Ansible
-> filter, there is a good chance that you do not need the `jmespath`
+> filter (for example, via the
+> [cisagov/ansible-role-amazon-efs-utils](https://github.com/cisagov/ansible-role-amazon-efs-utils)
+> role), there is a good chance that you do not need the `jmespath`
 > Python dependency that is included in
 > [`requirements.txt`](requirements.txt).  In such a case this
 > dependency can be removed from that file.
@@ -187,6 +189,13 @@ ansible-galaxy role install --force --force-with-deps --role-file ansible/requir
 ansible-galaxy collection install --force --force-with-deps --requirements-file ansible/requirements.yml
 AWS_PROFILE=cool-images-ec2amicreate-kali-packer packer build --timestamp-ui -var release_tag=$(./bump-version show) -var build_bucket="installers-bucket" -var is_prerelease=true .
 ```
+
+> [!NOTE]
+> Note that we use `--force-with-deps` here since the user's Ansible
+> setup, unlike when we run in GitHub Actions, may not start from a
+> pristine state. We want to make sure that the latest versions of
+> all Ansible roles and collections, along with their dependencies, are
+> installed by forcing their reinstallation even if they are already present.
 
 If you are satisfied with your pre-release image, you can easily create a release
 that deploys to all regions by adding additional regions to the Packer template.
