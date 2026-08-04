@@ -294,7 +294,7 @@
       ansible.builtin.include_role:
         name: assessment_tool
       vars:
-        assessment_tool_archive_src: https://github.com/noahpowers/nlzr/tarball/05057f51b8aba88b2bd3d133b2aeb21470bb2531
+        assessment_tool_archive_src: https://github.com/noahpowers/nlzr/tarball/bf4470e2051654c15f6713b870d918159240f522
         assessment_tool_install_dir: /tools/nlzr
         assessment_tool_pip_packages:
           - requests
