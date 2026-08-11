@@ -39,6 +39,26 @@
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
+    - name: Install asmtlab/BoundaryIssues
+      ansible.builtin.include_role:
+        name: assessment_tool
+      vars:
+        assessment_tool_archive_src: >-
+          https://api.github.com/repos/asmtlab/BoundaryIssues/tarball/main
+        # Note that the use of a GitHub token is necessary here since
+        # we are checking out a private repository.
+        assessment_tool_custom_headers:
+          Accept: application/vnd.github+json
+          Authorization: >-
+            Bearer
+            {{ lookup('amazon.aws.ssm_parameter',
+            '/github/asmtlab/BoundaryIssues') }}
+          X-GitHub-Api-Version: "2026-03-10"
+        assessment_tool_install_dir: /tools/BoundaryIssues
+        assessment_tool_python: true
+        assessment_tool_unarchive_extra_opts:
+          - --strip-components=1
+
     - name: Install mdsecactivebreach/CACTUSTORCH
       ansible.builtin.include_role:
         name: assessment_tool
