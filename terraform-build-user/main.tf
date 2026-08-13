@@ -11,6 +11,9 @@ module "iam_user" {
   # duration to 2 hours.
   ec2amicreate_role_max_session_duration = 2 * 60 * 60
   ssm_parameters = [
+    # Necessary to install the private repository
+    # asmtlab/BoundaryIssues.
+    "/github/asmtlab/BoundaryIssues",
     "/gitlab/personal_authorization_token",
     "/neo4j/password",
     "/third_party_bucket_name",

@@ -11,17 +11,6 @@
     group: kali-trusted
     vnc_username: "{{ lookup('amazon.aws.ssm_parameter', '/vnc/username') }}"
   tasks:
-    - name: Install tarrell13/Auto-Egress-Assess
-      ansible.builtin.include_role:
-        name: assessment_tool
-      vars:
-        assessment_tool_archive_src: https://github.com/tarrell13/Auto-Egress-Assess/tarball/d5649b0bf5d398e859bba490f4267a5ab16d3b0b
-        assessment_tool_install_dir: /tools/Auto-Egress-Assess
-        assessment_tool_pipenv: true
-        assessment_tool_powershell: true
-        assessment_tool_unarchive_extra_opts:
-          - --strip-components=1
-
     - name: Install 3ndG4me/AutoBlue-MS17-010
       ansible.builtin.include_role:
         name: assessment_tool
@@ -47,6 +36,26 @@
       vars:
         assessment_tool_archive_src: https://github.com/ajpc500/BOFs/tarball/29b9f818e3f3409c2558cf1782fc6d59ab6b4018
         assessment_tool_install_dir: /tools/BOFs
+        assessment_tool_unarchive_extra_opts:
+          - --strip-components=1
+
+    - name: Install asmtlab/BoundaryIssues
+      ansible.builtin.include_role:
+        name: assessment_tool
+      vars:
+        assessment_tool_archive_src: >-
+          https://api.github.com/repos/asmtlab/BoundaryIssues/tarball/main
+        # Note that the use of a GitHub token is necessary here since
+        # we are checking out a private repository.
+        assessment_tool_custom_headers:
+          Accept: application/vnd.github+json
+          Authorization: >-
+            Bearer
+            {{ lookup('amazon.aws.ssm_parameter',
+            '/github/asmtlab/BoundaryIssues') }}
+          X-GitHub-Api-Version: "2026-03-10"
+        assessment_tool_install_dir: /tools/BoundaryIssues
+        assessment_tool_python: true
         assessment_tool_unarchive_extra_opts:
           - --strip-components=1
 
