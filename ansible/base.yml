@@ -30,3 +30,12 @@
     # - name: Install and configure systemd-resolved
     #   ansible.builtin.include_role:
     #     name: systemd_resolved
+    #
+    # It appears that systemd-resolved is pre-installed and running on
+    # the latest Kali cloud AMIs, so we want to remove it to ensure
+    # that it does not interfere with any DNS resolver that the
+    # assessors want listening on port 53.
+    - name: Remove systemd-resolved
+      ansible.builtin.package:
+        name: systemd-resolved
+        state: absent
