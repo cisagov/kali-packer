@@ -24,4 +24,4 @@ boto3
 jmespath
 # The bump-version script requires at least version 3 of semver.
 semver>=3
-setuptools>=70.1
+setuptools>=83.0.0
